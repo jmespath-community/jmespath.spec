@@ -34,11 +34,12 @@ JSON document original input JSON document.
 For example, suppose we had this data:
 
 ```
-{"first_choice": "WA",
- "states": [
-   {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
-   {"name": "CA", "cities": ["Los Angeles", "San Francisco"]},
-   {"name": "NY", "cities": ["New York City", "Albany"]},
+{
+  "first_choice": "WA",
+  "states": [
+     {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
+     {"name": "CA", "cities": ["Los Angeles", "San Francisco"]},
+     {"name": "NY", "cities": ["New York City", "Albany"]}
  ]
 }
 ```
@@ -59,7 +60,13 @@ this possible in JMESPath.
 ## Specification
 
 The grammar will support a new token `$` that refers to the root of the
-original input JSON document. The `$` token is inspired by the
+original input JSON document.
+
+The `$` token is inspired by the 
+[JSONPath](https://goessner.net/articles/JsonPath/) specification
+which has a token with the same name.
+
+The `$` token is also inspired by the 
 [XPath](https://www.w3.org/TR/1999/REC-xpath-19991116) specification,
 where the `/` token designates the root of the original XML document.
 
@@ -81,7 +88,7 @@ With these changes defined, the expression in the “Motivation” section can b
 be written as:
 
 ```
-states[?name==$.first_choice].cities
+states[?name==$.first_choice].cities[]
 ```
 
 Which evalutes to `["Seattle", "Bellevue", "Olympia"]`.
@@ -90,3 +97,17 @@ Which evalutes to `["Seattle", "Bellevue", "Olympia"]`.
 
 This JEP standardizes a common request when querying JSON document as seen in
 [existing library](https://github.com/nanoporetech/jmespath-ts) implementations.
+
+Some alternatives to this JEP are considered. Most notably, the
+[Lexical Scoping](./jep-011-let-function.md) proposal introduces a `let()` function
+that is a more general an flexible way to achieve the desired result.
+For instance, with the `let()` function, the expression in the “Motivation” section
+can be written as:
+
+```
+let({root: @}, &states[?name==root.first_choice].cities[])
+```
+
+Tradeoff must be considered while evaluating this JEP if
+[Lexical Scoping](./jep-011-let-function.mdj) were accepted.
+
