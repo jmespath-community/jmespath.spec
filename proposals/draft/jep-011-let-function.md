@@ -217,7 +217,7 @@ With these changes defined, the expression in the “Motivation” section can b
 be written as:
 
 ```
-let({first_choice: first_choice}, &states[?name==first_choice].cities)
+let({first_choice: first_choice}, &states[?name==first_choice].cities[])
 ```
 
 Which evalutes to `["Seattle", "Bellevue", "Olympia"]`.
