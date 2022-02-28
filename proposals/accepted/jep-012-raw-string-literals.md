@@ -45,7 +45,7 @@ in many areas, but most notably when invoking functions or building up
 multi-select lists and hashes.
 
 The following expression returns the number of characters found in the string
-`foo`. When parsing this expression, `\`"foo"\`` is parsed as a JSON value
+`"foo"`. When parsing this expression, `` `"foo"` `` is parsed as a JSON value
 which produces the string literal value of `foo`:
 
 ```
@@ -148,7 +148,7 @@ that is valid JSON to be matched on either `unescaped-literal` or
 
 When implementing parsers for JMESPath, one must provide special case parsing
 when parsing JSON literals due to the allowance of elided quotes around JSON
-string literals (e.g., `\`foo\``). This specific aspect of JMESPath cannot be
+string literals (e.g., `` `foo` ``). This specific aspect of JMESPath cannot be
 described unambiguously in a context free grammar and could become a common
 cause of errors when implementing JMESPath parsers.
 
@@ -156,11 +156,11 @@ Parsing JSON literals has other complications as well. Here are the steps
 needed to currently parse a JSON literal value in JMESPath:
 
 
-1. When a `\`` token is encountered, begin parsing a JSON literal.
+1. When a `` ` `` token is encountered, begin parsing a JSON literal.
 
 
-2. Collect each character between the opening `\`` and closing `\``
-token, including any escaped `\`` characters (i.e., `\\\``) and store the
+2. Collect each character between the opening `` ` `` and closing `` ` ``
+tokens, including any escaped `` ` `` characters (i.e., ``\` ``) and store the
 characters in a variable (let’s call it `$lexeme`).
 
 
@@ -176,8 +176,8 @@ value for the literal token.
 
 5. If `$temp` cannot be parsed as valid JSON, then wrap the contents of
 `$lexeme` in double quotes and parse the wrapped value as a JSON string,
-making the following expressions equivalent: `\`foo\`` == `\`"foo"\``, and
-`\`[1, ]\`` == `\`"[1, ]"\``.
+making the following expressions equivalent: `` `foo` `` == `` `"foo"` ``, and
+`` `[1, ]` `` == `` `"[1, ]"` ``.
 
 It is reasonable to assume that the most common use case for a JSON literal in
 a JMESPath expression is to provide a string value to a function argument or
