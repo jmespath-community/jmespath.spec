@@ -23,10 +23,10 @@ There is currently no restrictions as to what those function names may be
 except that is must match the `unquoted-string` production.
 
 This proposal specifically acknowledges that third-party functions may
-be used to extend JMESPath and mandates tha all third-party function
+be used to extend JMESPath and mandates that all third-party function
 names should start with a leading underscore character.
 
-Functions whose names starts with a letter – known or future – are
+Functions whose names – known or future – starts with a letter are
 effectively reserved exclusively for use by JMESPath.
 
 ## Specification
@@ -35,7 +35,7 @@ This JEP proposes adding the following text to the specification in the
 [Function Expressions](https://jmespath-unofficial.github.io/jmespath.site/specification.html#functions) section:
 
 > ### Function Expressions
-> Functions allow users to easily transform and filter data in JMEPath expressions.
+> Functions allow users to easily transform and filter data in JMESPath expressions.
 > Built-in functions are defined by JMESPath. However, a compliant implementation
 > MAY support registration of new functions to extend JMESPath.
 >
