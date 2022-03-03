@@ -152,27 +152,11 @@ function.
 
 #### Examples
 
-| Expression
-
- | Result
-
- |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |  |  |  |  |
-| `sort_by(people, &age)[].age`
-
-  | [10, 20, 30, 40, 50]
-
-                                                                                                                                                                                                                                                                    |
-| `sort_by(people, &age)[0]`
-
-     | {“age”: 10, “age_str”: “10”, “bool”: true, “name”: 3}
-
-                                                                                                                                                                                                                                   |
-| `sort_by(people, &to_number(age_str))[0]`
-
- | {“age”: 10, “age_str”: “10”, “bool”: true, “name”: 3}
-
-                                                                                                                                                                                                                                   |
+| Expression | Result
+|---|---|
+| `sort_by(people, &age)[].age` | [10, 20, 30, 40, 50]
+| `sort_by(people, &age)[0]` | {"age": 10, "age_str": "10", "bool": true, "name": 3}
+| `sort_by(people, &to_number(age_str))[0]` | {"age": 10, "age_str": "10", "bool": true, "name": 3}
 #### max_by
 
 ```
@@ -186,37 +170,13 @@ given input.
 
 #### Examples
 
-| Expression
-
-                              | Result
-
-                                                                                                                                                                                                                                                                                  |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `max_by(people, &age)`
-
-                    | {“age”: 50, “age_str”: “50”, “bool”: false, “name”: “d”},
-
-                                                                                                                                                                                                                               |
-| `max_by(people, &age).age`
-
-                | 50
-
-                                                                                                                                                                                                                                                                                      |
-| `max_by(people, &to_number(age_str))`
-
-     | {“age”: 50, “age_str”: “50”, “bool”: false, “name”: “d”},
-
-                                                                                                                                                                                                                               |
-| `max_by(people, &age_str)`
-
-                | <error: invalid-type>
-
-                                                                                                                                                                                                                                                                   |
-| `max_by(people, age)`
-
-                     | <error: invalid-type>
-
-                                                                                                                                                                                                                                                                   |
+| Expression | Result
+|---|---|
+| `max_by(people, &age)` | {"age": 50, "age_str": "50", "bool": false, "name": "d"}
+| `max_by(people, &age).age` | 50
+| `max_by(people, &to_number(age_str))` | {"age": 50, "age_str": "50", "bool": false, "name": "d"},
+| `max_by(people, &age_str)` | <error: invalid-type>
+| `max_by(people, age)` | <error: invalid-type>
 #### min_by
 
 ```
@@ -230,41 +190,17 @@ given input.
 
 #### Examples
 
-| Expression
+| Expression | Result |
+|---|---
+| `min_by(people, &age)` | {"age": 10, "age_str": "10", "bool": true, "name": 3}
+| `min_by(people, &age).age` | 10
+| `min_by(people, &to_number(age_str))` | {"age": 10, "age_str": "10", "bool": true, "name": 3}
+| `min_by(people, &age_str)` | <error: invalid-type>
+| `min_by(people, age)` | <error: invalid-type>
 
-                              | Result
-
-                                                                                                                                                                                                                                                                                  |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `min_by(people, &age)`
-
-                    | {“age”: 10, “age_str”: “10”, “bool”: true, “name”: 3}
-
-                                                                                                                                                                                                                                   |
-| `min_by(people, &age).age`
-
-                | 10
-
-                                                                                                                                                                                                                                                                                      |
-| `min_by(people, &to_number(age_str))`
-
-     | {“age”: 10, “age_str”: “10”, “bool”: true, “name”: 3}
-
-                                                                                                                                                                                                                                   |
-| `min_by(people, &age_str)`
-
-                | <error: invalid-type>
-
-                                                                                                                                                                                                                                                                   |
-| `min_by(people, age)`
-
-                     | <error: invalid-type>
-
-                                                                                                                                                                                                                                                                   |
 ### Alternatives
 
-There were a number of alternative proposals considered.  Below outlines
-several of these alternatives.
+There were a number of alternative proposals considered.  Below outlines several of these alternatives.
 
 #### Logic in Argument Resolver
 
