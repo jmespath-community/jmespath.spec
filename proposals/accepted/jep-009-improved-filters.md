@@ -300,42 +300,13 @@ expected truth table:
 
 ### Truth table for and expressions
 
-| LHS
+| LHS | RHS | Result
+|---|---|---
+| True | True | True
+| True | False | False
+| False | True | False
+| False | False | False
 
- | RHS
-
- | Result
-
- |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |  |  |  |  |  |  |  |
-| True
-
-                                    | True
-
-                                                                                                                                                                                                                                                                                    | True
-
-                  |
-| True
-
-                                    | False
-
-                                                                                                                                                                                                                                                                                   | False
-
-                 |
-| False
-
-                                   | True
-
-                                                                                                                                                                                                                                                                                    | False
-
-                 |
-| False
-
-                                   | False
-
-                                                                                                                                                                                                                                                                                   | False
-
-                 |
 This is the standard truth table for a
 [logical conjunction (AND)](https://en.wikipedia.org/wiki/Truth_table#Logical_conjunction_.28AND.29).
 
