@@ -272,27 +272,11 @@ abs(2) -> 2
 
 ### Examples
 
-| Expression
-
- | Result
-
- |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |  |  |
-| `abs(1)`
-
-            | 1
-
-                                                                                                                                                                                                                                                                                       |
-| `abs(-1)`
-
-           | 1
-
-                                                                                                                                                                                                                                                                                       |
-| `abs(\`abc\`)`
-
-        | `<error: invalid-type>`
-
-                                                                                                                                                                                                                                                                   |
+|Expression|Result
+|---|---
+| `abs(1)` |1
+| `abs(-1)`|1
+| ``abs(`abc`)``| |`<error: invalid-type>`
 ### avg
 
 ```
@@ -305,43 +289,31 @@ An empty array will produce a return value of null.
 
 ### Examples
 
-| Given
+|Given|Expression|Result
+|---|---|---
+|`[10, 15, 20]`| `avg(@)` | 15
+| `[10, false, 20]`| `avg(@)`|`<error: invalid-type>`
+| `[false]` | `avg(@)` | `<error: invalid-type>`
+| `false` | `avg(@)` | `<error: invalid-type>`
 
-             | Expression
+### ceil
 
-                                                                                                                                                                                                                                                                              | Result
+```
+number ceil(number $value)
+```
 
-           |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `[10, 15, 20]`
+Returns the next highest integer value by rounding up if necessary.
 
-      | `avg(@)`
+### Examples
 
-                                                                                                                                                                                                                                                                                  | 15
+|Expression|Result
+|---|---|
+| ``ceil(`1.001`)`` | 2
+| ``ceil(`1.9`)`` | 2
+| ``ceil(`1`)`` | 1
+| ``ceil(`abc`)`` | `null`
 
-               |
-| `[10, false, 20]`
-
-   | `avg(@)`
-
-                                                                                                                                                                                                                                                                                  | `<error: invalid-type>`
-
- |
-| `[false]`
-
-           | `avg(@)`
-
-                                                                                                                                                                                                                                                                                  | `<error: invalid-type>`
-
- |
-| `false`
-
-             | `avg(@)`
-
-                                                                                                                                                                                                                                                                                  | `<error: invalid-type>`
-
- |
-### contains
+| ### contains
 
 ```
 boolean contains(array|string $subject, array|object|string|number|boolean $search)
@@ -358,106 +330,17 @@ the string contains the provided `$search` argument.
 
 ### Examples
 
-| Given
+|Given|Expression|Result
+|---|---|---
+| n/a | ``contains(`foobar`, `foo`)`` | `true`
+| n/a | ``contains(`foobar`, `not`)`` | `false`
+| n/a | ``contains(`foobar`, `bar`)`` | `true`
+| n/a | ``contains(`false`, `bar`)`` | `<error: invalid-type>`
+| n/a | ``contains(`foobar`, 123)`` | `false`
+| `["a", "b"]` | ``contains(@, `a`)`` | `true`
+| `["a"]` | ``contains(@, `a\`)`` | `true`
+| `["a"]` | ``contains(@, `b\`)`` | `false`
 
-             | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| n/a
-
-               | `contains(\`foobar\`, \`foo\`)`
-
-                                                                                                                                                                                                                                                               | `true`
-
-                  |
-| n/a
-
-               | `contains(\`foobar\`, \`not\`)`
-
-                                                                                                                                                                                                                                                               | `false`
-
-                 |
-| n/a
-
-               | `contains(\`foobar\`, \`bar\`)`
-
-                                                                                                                                                                                                                                                               | `true`
-
-                  |
-| n/a
-
-               | `contains(\`false\`, \`bar\`)`
-
-                                                                                                                                                                                                                                                                | `<error: invalid-type>`
-
- |
-| n/a
-
-               | `contains(\`foobar\`, 123)`
-
-                                                                                                                                                                                                                                                                 | `false`
-
-                 |
-| `["a", "b"]`
-
-        | `contains(@, \`a\`)`
-
-                                                                                                                                                                                                                                                                        | `true`
-
-                  |
-| `["a"]`
-
-             | `contains(@, \`a\`)`
-
-                                                                                                                                                                                                                                                                        | `true`
-
-                  |
-| `["a"]`
-
-             | `contains(@, \`b\`)`
-
-                                                                                                                                                                                                                                                                        | `false`
-
-                 |
-### ceil
-
-```
-number ceil(number $value)
-```
-
-Returns the next highest integer value by rounding up if necessary.
-
-### Examples
-
-| Expression
-
-        | Result
-
-                                                                                                                                                                                                                                                                                  |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ceil(\`1.001\`)`
-
-     | 2
-
-                                                                                                                                                                                                                                                                                       |
-| `ceil(\`1.9\`)`
-
-       | 2
-
-                                                                                                                                                                                                                                                                                       |
-| `ceil(\`1\`)`
-
-         | 1
-
-                                                                                                                                                                                                                                                                                       |
-| `ceil(\`abc\`)`
-
-       | `null`
-
-                                                                                                                                                                                                                                                                                    |
 ### floor
 
 ```
@@ -468,27 +351,12 @@ Returns the next lowest integer value by rounding down if necessary.
 
 ### Examples
 
-| Expression
+| Expression | Result
+|---|---
+| ``floor(`1.001\`)`` | 1
+| ``floor(`1.9\`)`` | 1 
+| ``floor(`1\`)`` | 1
 
-        | Result
-
-                                                                                                                                                                                                                                                                                  |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `floor(\`1.001\`)`
-
-    | 1
-
-                                                                                                                                                                                                                                                                                       |
-| `floor(\`1.9\`)`
-
-      | 1
-
-                                                                                                                                                                                                                                                                                       |
-| `floor(\`1\`)`
-
-        | 1
-
-                                                                                                                                                                                                                                                                                       |
 ### join
 
 ```
@@ -500,42 +368,13 @@ together using the `$glue` argument as a separator between each.
 
 ### Examples
 
-| Given
+| Given | Expression | Result
+|---|---|---
+| `["a", "b"]` | ``join(`, `, @)`` | "a, b"
+| `["a", "b"]` | ```join(``, @) ``` | "ab"
+| `["a", false, "b"]` | ``join(`, `, @)`` | `<error: invalid-type>`
+| `[false]` | ``join(`, `, @)`` | `<error: invalid-type>`
 
-             | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `["a", "b"]`
-
-        | `join(\`, \`, @)`
-
-                                                                                                                                                                                                                                                                           | “a, b”
-
-                |
-| `["a", "b"]`
-
-        | `join(`, @)\`\`
-
-                                                                                                                                                                                                                                                                             | “ab”
-
-                  |
-| `["a", false, "b"]`
-
- | `join(\`, \`, @)`
-
-                                                                                                                                                                                                                                                                           | `<error: invalid-type>`
-
- |
-| `[false]`
-
-           | `join(\`, \`, @)`
-
-                                                                                                                                                                                                                                                                           | `<error: invalid-type>`
-
- |
 ### keys
 
 ```
@@ -546,42 +385,13 @@ Returns an array containing the keys of the provided object.
 
 ### Examples
 
-| Given
+| Given | Expression | Result
+|---|---|---
+| `{"foo": "baz", "bar": "bam"}` | `keys(@)` | `["foo", "bar"]`
+| `{}` | `keys(@)` | `[]`
+| `false` | `keys(@)` | `<error: invalid-type>`
+| `[b, a, c]` | `keys(@)` | `<error: invalid-type>`
 
-             | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `{"foo": "baz", "bar": "bam"}`
-
- | `keys(@)`
-
-                                                                                                                                                                                                                                                                                 | `["foo", "bar"]`
-
-        |
-| `{}`
-
-                           | `keys(@)`
-
-                                                                                                                                                                                                                                                                                 | `[]`
-
-                    |
-| `false`
-
-                        | `keys(@)`
-
-                                                                                                                                                                                                                                                                                 | `<error: invalid-type>`
-
- |
-| `[b, a, c]`
-
-                    | `keys(@)`
-
-                                                                                                                                                                                                                                                                                 | `<error: invalid-type>`
-
- |
 ### length
 
 ```
@@ -601,63 +411,16 @@ Returns the length of the given argument using the following types rules:
 
 ### Examples
 
-| Given
+| Given | Expression | Result
+|---|---|---
+| n/a | ``length(`abc`)`` | 3
+| "current" | `length(@)` | 7
+| "current" | `length(not_there)` | `<error: invalid-type>`
+| `["a", "b", "c"]` | `length(@)` | 3
+| `[]` | `length(@)` | 0
+| `{}` | `length(@)` | 0
+| `{"foo": "bar", "baz": "bam"}` | `length(@)` | 2
 
-                        | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| n/a
-
-                          | `length(\`abc\`)`
-
-                                                                                                                                                                                                                                                                           | 3
-
-                     |
-| “current”
-
-                    | `length(@)`
-
-                                                                                                                                                                                                                                                                               | 7
-
-                     |
-| “current”
-
-                    | `length(not_there)`
-
-                                                                                                                                                                                                                                                                       | `<error: invalid-type>`
-
- |
-| `["a", "b", "c"]`
-
-              | `length(@)`
-
-                                                                                                                                                                                                                                                                               | 3
-
-                     |
-| `[]`
-
-                           | `length(@)`
-
-                                                                                                                                                                                                                                                                               | 0
-
-                     |
-| `{}`
-
-                           | `length(@)`
-
-                                                                                                                                                                                                                                                                               | 0
-
-                     |
-| `{"foo": "bar", "baz": "bam"}`
-
- | `length(@)`
-
-                                                                                                                                                                                                                                                                               | 2
-
-                     |
 ### max
 
 ```
@@ -670,28 +433,11 @@ An empty array will produce a return value of null.
 
 ### Examples
 
-| Given
+| Given | Expression | Result
+|---|---|---
+| `[10, 15]` | `max(@)` | 15
+| `[10, false, 20]` | `max(@)` | `<error: invalid-type>`
 
-                        | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `[10, 15]`
-
-                     | `max(@)`
-
-                                                                                                                                                                                                                                                                                  | 15
-
-                    |
-| `[10, false, 20]`
-
-              | `max(@)`
-
-                                                                                                                                                                                                                                                                                  | `<error: invalid-type>`
-
- |
 ### min
 
 ```
@@ -702,28 +448,10 @@ Returns the lowest found number in the provided `$collection` argument.
 
 ### Examples
 
-| Given
-
-                        | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `[10, 15]`
-
-                     | `min(@)`
-
-                                                                                                                                                                                                                                                                                  | 10
-
-                    |
-| `[10, false, 20]`
-
-              | `min(@)`
-
-                                                                                                                                                                                                                                                                                  | `<error: invalid-type>`
-
- |
+| Given | Expression | Result
+|---|--|--
+| `[10, 15]` | `min(@)` | 10
+| `[10, false, 20]` | `min(@)` | `<error: invalid-type>`
 ### sort
 
 ```
@@ -738,55 +466,14 @@ code points.  Locale is not taken into account.
 
 ### Examples
 
-| Given
-
-                        | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `[b, a, c]`
-
-                    | `sort(@)`
-
-                                                                                                                                                                                                                                                                                 | `[a, b, c]`
-
-             |
-| `[1, a, c]`
-
-                    | `sort(@)`
-
-                                                                                                                                                                                                                                                                                 | `[1, a, c]`
-
-             |
-| `[false, [], null]`
-
-            | `sort(@)`
-
-                                                                                                                                                                                                                                                                                 | `[[], null, false]`
-
-     |
-| `[[], {}, false]`
-
-              | `sort(@)`
-
-                                                                                                                                                                                                                                                                                 | `[{}, [], false]`
-
-       |
-| `{"a": 1, "b": 2}`
-
-             | `sort(@)`
-
-                                                                                                                                                                                                                                                                                 | `null`
-
-                  |
-| `false`
-
-                        | `sort(@)`
-
-                                                                                                                                                                                                                                                                                 | `null`
-
+| Given | Expression | Result
+|---|---|---
+| `[b, a, c]` | `sort(@)` | `[a, b, c]`
+| `[1, a, c]` | `sort(@)` | `[1, a, c]`
+| `[false, [], null]` | `sort(@)` | `[[], null, false]`
+| `[[], {}, false]` | `sort(@)` | `[{}, [], false]`
+| `{"a": 1, "b": 2}` | `sort(@)` | `null`
+| `false` | `sort(@)` | `null`
                   |
 ### to_string
 
@@ -804,41 +491,22 @@ new lines.
 
 ### Examples
 
-| Given
+| Given | Expression | Result
+|---|---|---
+| `null` | ``to_string(`2`)`` | `"2"`
 
-                        | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `null`
-
-                         | `to_string(\`2\`)`
-
-                                                                                                                                                                                                                                                                          | `"2"`
-
-                   |
 ### to_number
 
 ```
 number to_number(string|number $arg)
 ```
 
-
 * string - Returns the parsed number.  Any string that conforms to the
 `json-number` production is supported.
 
-
 * number - Returns the passed in value.
-
-
 * array - null
-
-
 * object - null
-
-
 * boolean - null
 
 ### type
@@ -852,90 +520,26 @@ value.
 
 The return value MUST be one of the following:
 
-
 * number
-
-
 * string
-
-
 * boolean
-
-
 * array
-
-
 * object
-
-
 * null
 
 ### Examples
 
-| Given
+| Given | Expression | Result
+|---|---|---
+| "foo" | `type(@)` | "string"
+| `true` | `type(@)` | "boolean"
+| `false` | `type(@)` | "boolean"
+| `null` | `type(@)` | "null"
+| 123 | `type(@)` | number
+| 123.05 | `type(@)` | number
+| `["abc"]` | `type(@)` | "array"
+| `{"abc": "123"}` | `type(@)` | "object"
 
-                        | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| “foo”
-
-                        | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | “string”
-
-              |
-| `true`
-
-                         | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | “boolean”
-
-             |
-| `false`
-
-                        | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | “boolean”
-
-             |
-| `null`
-
-                         | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | “null”
-
-                |
-| 123
-
-                          | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | number
-
-                |
-| 123.05
-
-                       | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | number
-
-                |
-| `["abc"]`
-
-                      | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | “array”
-
-               |
-| `{"abc": "123"}`
-
-               | `type(@)`
-
-                                                                                                                                                                                                                                                                                 | “object”
-
-              |
 ### values
 
 ```
@@ -946,35 +550,11 @@ Returns the values of the provided object.
 
 ### Examples
 
-| Given
-
-                        | Expression
-
-                                                                                                                                                                                                                                                                              | Result
-
-                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-| `{"foo": "baz", "bar": "bam"}`
-
- | `values(@)`
-
-                                                                                                                                                                                                                                                                               | `["baz", "bam"]`
-
-        |
-| `["a", "b"]`
-
-                   | `values(@)`
-
-                                                                                                                                                                                                                                                                               | `<error: invalid-type>`
-
- |
-| `false`
-
-                        | `values(@)`
-
-                                                                                                                                                                                                                                                                               | `<error: invalid-type>`
-
- |
+| Given | Expression | Result
+|---|---|---
+| `{"foo": "baz", "bar": "bam"}` | `values(@)` | `["baz", "bam"]` 
+| `["a", "b"]` | `values(@)` | `<error: invalid-type>`
+| `false` | `values(@)` | `<error: invalid-type>`
 ## Compliance Tests
 
 A `functions.json` will be added to the compliance test suite.
@@ -982,11 +562,7 @@ The test suite will add the following new error types:
 
 
 * unknown-function
-
-
 * invalid-arity
-
-
 * invalid-type
 
 The compliance does not specify **when** the errors are raised, as this will
