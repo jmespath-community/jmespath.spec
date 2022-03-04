@@ -4,7 +4,6 @@
 |---|---
 | **JEP**    | 
 | **Author** | \<author>
-| **Status** | draft
 | **Created**| \<date>
 
 ## Abstract
