@@ -5,6 +5,7 @@
 | **JEP**    | 
 | **Author** | \<author>
 | **Created**| \<date>
+| **[SemVer](https://semver.org/spec/v2.0.0.html#summary)** | MAJOR\|MINOR\|PATCH
 
 ## Abstract
 
