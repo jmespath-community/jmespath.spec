@@ -29,7 +29,7 @@ Describe the grammar changes or new functions.
 
 ## Rationale
 
-Why problems is this JEP addressing?
+What problems is this JEP addressing?
 Has alternatives been considered?
 
 ## Implementation Notes
