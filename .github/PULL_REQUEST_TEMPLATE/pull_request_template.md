@@ -1,3 +1,14 @@
+<!--
+Thank you for your interest in contributing to the JMESPath Specification.
+
+Before creating a pull request, please ensure that the feature or change has been fully discussed in a discussion and the discussion has been assigned a JEP tag.
+
+This PR should include a JEP specification file based off TEMPLATE.md, named with the pattern "jep-###-title.md".
+Additionally, the PR should include any intended modifications to the GRAMMAR file.
+
+Please complete the required sections below:
+-->
+
 # \<TITLE>
 
 |||
@@ -6,30 +17,13 @@
 | **Author** | \<author>
 | **Created**| \<date>
 | **[SemVer](https://semver.org/spec/v2.0.0.html#summary)** | MAJOR\|MINOR\|PATCH
+| **[Discussion #](https://github.com/jmespath-community/jmespath.jep/discussions)** | [##](https://github.com/jmespath-community/jmespath.jep/discussions/##)
+
+*Please discuss the merit of the JEP in the linked discussion. PR discussion should be limited to proofing the content of the PR and the PR proposal inital comment*
 
 ## Abstract
 
-## Motivation
-
-For example, suppose we had this data:
-
-```
-{"first_choice": "WA",
- "states": [
-   {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
-   {"name": "CA", "cities": ["Los Angeles", "San Francisco"]},
-   {"name": "NY", "cities": ["New York City", "Albany"]},
- ]
-}
-```
-## Specification
-
-Describe the grammar changes or new functions.
-
-## Rationale
-
-Why problems is this JEP addressing?
-Has alternatives been considered?
+\<copy from JEP>
 
 ## Implementation Survey
 
