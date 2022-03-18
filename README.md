@@ -36,9 +36,8 @@ Writing a JEP can be a lot of work, so it can help to get initial guidance
 before getting too far.  You can chat on the JMESPath gitter channel
 (https://gitter.im/jmespath/chat) to get an initial pulse of a new feature.
 
-You can also create an issue in this repo with a rough proposal
-to get initial high level feedback.  Keep in mind that creating
-an issue is only for initial feedback.  If you'd like to move
+You can also create an discussion in this repo with a rough proposal
+to get initial high level feedback. If you'd like to move
 forward with the proposal you will still need to write a JEP
 and send a pull request (PR).
 
