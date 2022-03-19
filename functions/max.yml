@@ -1,0 +1,28 @@
+name: max
+topic:
+args:
+  required:
+  - name: collection
+    type: ['array[number]', 'array[string]']
+    desc:
+  optional: []
+returns:
+  type: number
+  desc:
+desc: |
+  Returns the highest found number in the provided array argument.
+  
+  An empty array will produce a return value of null.
+examples:
+- context: [10, 15]
+  args: [@]
+  returns: 15
+- context: ["a", "b"]
+  args: [@]
+  returns: "b"
+- context: ["a", 2, "b"]
+  args: [@]
+  returns: "<error: invalid-type>"
+- context: [10, false, 20]
+  args: [@]
+  returns: "<error: invalid-type>"

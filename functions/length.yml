@@ -1,0 +1,44 @@
+name: length
+topic:
+args:
+  required:
+  - name: subject
+    type: [string, array, object]
+    desc:
+  optional: []
+returns:
+  type: number
+  desc:
+desc: |
+  Returns the length of the given argument using the following types rules:
+  
+  
+  1. string: returns the number of code points in the string
+  
+  
+  2. array: returns the number of elements in the array
+  
+  
+  3. object: returns the number of key-value pairs in the object
+examples:
+- context: None
+  args: [abc]
+  returns: 3
+- context: None
+  args: [@]
+  returns: 7
+- context: None
+  args: [not_there]
+  returns: "<error: invalid-type>"
+- context: ["a", "b", "c"]
+  args: [@]
+  returns: 3
+- context: []
+  args: [@]
+  returns: 0
+- context: {}
+  args: [@]
+  returns: 0
+- context: {"foo": "bar", "baz": "bam"}
+  args: [@]
+  returns: 2

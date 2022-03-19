@@ -1,0 +1,32 @@
+name: to_array
+topic:
+args:
+  required:
+  - name: arg
+    type: [any]
+    desc:
+  optional: []
+returns:
+  type: array
+  desc:
+desc: |
+  * array - Returns the passed in value.
+
+  * number/string/object/boolean - Returns a one element array containing
+  the passed in argument.
+examples:
+- context: None
+  args: [[1, 2]]
+  returns: [1, 2]
+- context: None
+  args: ["string"]
+  returns: ["string"]
+- context: None
+  args: [0]
+  returns: [0]
+- context: None
+  args: [true]
+  returns: [true]
+- context: None
+  args: [{"foo": "bar"}]
+  returns: [{"foo": "bar"}]

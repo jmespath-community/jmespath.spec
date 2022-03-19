@@ -1,0 +1,23 @@
+name: to_string
+topic:
+args:
+  required:
+  - name: arg
+    type: [any]
+    desc:
+  optional: []
+returns:
+  type: string
+  desc:
+desc: |
+  
+  * string - Returns the passed in value.
+  
+  
+  * number/array/object/boolean - The JSON encoded value of the object.  The
+  JSON encoder should emit the encoded JSON value without adding any additional
+  new lines.
+examples:
+- context: None
+  args: [2]
+  returns: "2"

@@ -1,0 +1,48 @@
+name: type
+topic:
+args:
+  required:
+  - name: subject
+    type: [array, object, string, number, boolean, 'null']
+    desc:
+  optional: []
+returns:
+  type: string
+  desc:
+desc: |
+  Returns the JavaScript type of the given `$subject` argument as a string
+  value.
+  
+  The return value MUST be one of the following:
+
+  * number
+  * string
+  * boolean
+  * array
+  * object
+  * null
+examples:
+- context: "foo"
+  args: [@]
+  returns: "string"
+- context: true
+  args: [@]
+  returns: "boolean"
+- context: false
+  args: [@]
+  returns: "boolean"
+- context: null
+  args: [@]
+  returns: "null"
+- context: 123
+  args: [@]
+  returns: "number"
+- context: 123.05
+  args: [@]
+  returns: "number"
+- context: ["abc"]
+  args: [@]
+  returns: "array"
+- context: {"abc": "123"}
+  args: [@]
+  returns: "object"

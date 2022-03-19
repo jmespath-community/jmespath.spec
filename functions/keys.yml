@@ -1,0 +1,30 @@
+name: keys
+topic:
+args:
+  required:
+  - name: obj
+    type: [object]
+    desc:
+  optional: []
+returns:
+  type: array
+  desc:
+desc: |
+  Returns an array containing the keys of the provided object.
+  Note that because JSON hashes are inheritently unordered, the
+  keys associated with the provided object `obj` are inheritently
+  unordered.  Implementations are not required to return keys in
+  any specific order.
+examples:
+- context: {"foo": "baz", "bar": "bam"}
+  args: [@]
+  returns: ["foo", "bar"]
+- context: {}
+  args: [@]
+  returns: []
+- context: false
+  args: [@]
+  returns: "<error: invalid-type>"
+- context: [b, a, c]
+  args: [@]
+  returns: "<error: invalid-type>"

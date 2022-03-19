@@ -1,0 +1,31 @@
+name: merge
+topic:
+args:
+  required:
+  - name: argument
+    type: [object]
+    desc:
+  optional:
+  - name: "$.."
+    type: [ object ]
+    desc:
+returns:
+  type: object
+  desc:
+desc: |
+  Accepts 0 or more objects as arguments, and returns a single object
+  with subsequent objects merged.  Each subsequent object’s key/value
+  pairs are added to the preceding object.  This function is used
+  to combine multiple objects into one.  You can think of this as
+  the first object being the base object, and each subsequent argument
+  being overrides that are applied to the base object.
+examples:
+- context: None
+  args: [{"a": "b"}, {"c": "d"}]
+  returns: {"a": "b", "c": "d"}
+- context: None
+  args: [{"a": "b"}, {"a": "override"}]
+  returns: {"a": "override"}
+- context: None
+  args: [{"a": "x", "b": "y"}, {"b": "override", "c": "z"}]
+  returns: {"a": "x", "b": "override", "c": "z"}

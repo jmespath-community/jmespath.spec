@@ -1,0 +1,28 @@
+name: sum
+topic:
+args:
+  required:
+  - name: collection
+    type: ['array[number]']
+    desc:
+  optional: []
+returns:
+  type: number
+  desc:
+desc: |
+  Returns the sum of the provided array argument.
+  
+  An empty array will produce a return value of 0.
+examples:
+- context: [10, 15]
+  args: [@]
+  returns: 25
+- context: [10, false, 20]
+  args: [@]
+  returns: "<error: invalid-type>"
+- context: [10, false, 20]
+  args: ["[].to_number(@)"]
+  returns: 30
+- context: []
+  args: [@]
+  returns: 0

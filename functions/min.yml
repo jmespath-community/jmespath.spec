@@ -1,0 +1,26 @@
+name: min
+topic:
+args:
+  required:
+  - name: collection
+    type: ['array[number]', 'array[string]']
+    desc:
+  optional: []
+returns:
+  type: number
+  desc:
+desc: |
+  Returns the lowest found number in the provided `$collection` argument.
+examples:
+- context: [10, 15]
+  args: [@]
+  returns: 10
+- context: ["a", "b"]
+  args: [@]
+  returns: "a"
+- context: ["a", 2, "b"]
+  args: [@]
+  returns: "<error: invalid-type>"
+- context: [10, false, 20]
+  args: [@]
+  returns: "<error: invalid-type>"

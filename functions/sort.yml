@@ -1,0 +1,36 @@
+name: sort
+topic:
+args:
+  required:
+  - name: list
+    type: ['array[number]', 'array[string]']
+    desc:
+  optional: []
+returns:
+  type: array
+  desc:
+desc: |
+  This function accepts an array `$list` argument and returns the sorted
+  elements of the `$list` as an array.
+  
+  The array must be a list of strings or numbers.  Sorting strings is based on
+  code points.  Locale is not taken into account.
+examples:
+- context: [b, a, c]
+  args: [@]
+  returns: [a, b, c]
+- context: [1, a, c]
+  args: [@]
+  returns: [1, a, c]
+- context: [false, [], null]
+  args: [@]
+  returns: [[], null, false]
+- context: [[], {}, false]
+  args: [@]
+  returns: [{}, [], false]
+- context: {"a": 1, "b": 2}
+  args: [@]
+  returns: null
+- context: false
+  args: [@]
+  returns: null

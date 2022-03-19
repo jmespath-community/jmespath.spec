@@ -1,0 +1,36 @@
+name: sort_by
+topic:
+args:
+  required:
+  - name: elements,
+    type: [array]
+    desc:
+  - name: expr
+    type: [expression->number, expression->string]
+    desc:
+  optional: []
+returns:
+  type: array
+  desc:
+desc: |
+  Sort an array using an expression `expr` as the sort key.  For each element
+  in the array of `elements`, the `expr` expression is applied and the
+  resulting value is used as the key used when sorting the `elements`.
+  
+  If the result of evaluating the `expr` against the current array element
+  results in type other than a `number` or a `string`, a type error will
+  occur.
+  
+  Below are several examples using the `people` array (defined above) as the
+  given input.  `sort_by` follows the same sorting logic as the `sort`
+  function.
+examples:
+- context: None
+  args: [people, &age]
+  returns: [10, 20, 30, 40, 50]
+- context: None
+  args: [people, &age]
+  returns: {"age": 10, "age_str": "10", "bool": true, "name": 3}
+- context: None
+  args: [people, &to_number(age_str)]
+  returns: {"age": 10, "age_str": "10", "bool": true, "name": 3}

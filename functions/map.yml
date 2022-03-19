@@ -1,0 +1,29 @@
+name: map
+topic:
+args:
+  required:
+  - name: expr,
+    type: [expression->any->any]
+    desc:
+  - name: elements
+    type: ['array[any]']
+    desc:
+  optional: []
+returns:
+  type: array[any]
+  desc:
+desc: |
+  Apply the `expr` to every element in the `elements` array
+  and return the array of results.  An `elements` of length
+  N will produce a return array of length N.
+  
+  Unlike a projection, (`[\*].bar`), `map()` will include
+  the result of applying the `expr` for every element in the
+  `elements` array, even if the result if `null`.
+examples:
+- context: {"array": [{"foo": "a"}, {"foo": "b"}, {}, [], {"foo": "f"}]}
+  args: [&foo, array]
+  returns: ["a", "b", null, null, "f"]
+- context: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
+  args: [&[], @]
+  returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
