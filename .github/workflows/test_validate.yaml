@@ -27,5 +27,6 @@ jobs:
         with:
           cache: pip
           cache-dependency-path: .github/workflows/validate_requirements.txt
+      - run: pip install -r .github/workflows/validate_requirements.txt
       - name: Validate tests
         run: "jsonschema test_schema.json -o pretty -i ${{ matrix.manifest }}"
