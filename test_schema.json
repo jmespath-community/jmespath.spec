@@ -1,0 +1,38 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+	"additionalProperties": "false",
+        "properties": {
+            "given": {},
+            "comment": {"type": "string"},
+            "cases": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "expression": {"type": "string"},
+                        "result": {},
+                        "error": {
+                            "enum": ["invalid-arity", "invalid-type",
+                                     "invalid-value", "syntax",
+                                     "unknown-function"]
+                        },
+                        "bench": {
+                            "enum": ["parse", "interpret", "full"]
+                        },
+                        "comment": {"type": "string"}
+                    },
+                    "required": ["expression"],
+                    "anyOf": [
+                        {"required": ["result"]},
+                        {"required": ["error"]},
+                        {"required": ["bench"]}
+                    ]
+                }
+            }
+        },
+        "required": ["given", "cases"]
+    }
+}
