@@ -1,0 +1,32 @@
+name: Validate tests
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # https://code.dblock.org/2021/09/03/generating-task-matrix-by-looping-over-repo-files-with-github-actions.html
+  list-tests:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(ls grammar/*.json functions/*.json | jq -R -s -c 'split("\n")[:-1]')"
+  validate:
+    needs: list-tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        manifest: ${{ fromJson(needs.list-tests.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v3
+        with:
+          cache: pip
+          cache-dependency-path: .github/workflows/validate_requirements.txt
+      - run: pip install -r .github/workflows/validate_requirements.txt
+      - name: Validate tests
+        run: "jsonschema test_schema.json -o pretty -i ${{ matrix.manifest }}"
