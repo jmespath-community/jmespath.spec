@@ -28,7 +28,7 @@
 ;; - object (an unordered collection of key value pairs)
 ;; - null
 ;;
-;; Expression types are discussed in the [Functions Expressions](#functions-expressions) section.
+;; Expression types are discussed in the [Function Expressions](#function-expressions) section.
 ;;
 ;; Implementations can map the corresponding JSON types to their language equivalent. For example, a JSON null could map to
 ;; None in python, and nil in ruby and go.
