@@ -1,7 +1,7 @@
 # JMESPath Enhancement Proposals
 
 Any changes to the JMESPath specification
-(https://jmespath-community.github.io/jmespath.site/specification.html) must have a JEP (JMESPath Enhancement
+(https://jmespath.site/specification.html) must have a JEP (JMESPath Enhancement
 Proposal) which is tracked in this repo.  There are implementations of JMESPath
 in over 9 different languages, and we want to make sure that any modifications
 to the spec make sense for all JMESPath libraries.  A JEP helps to work through
@@ -11,7 +11,7 @@ has a chance to give feedback before it's officially part of the specification.
 ## Things that need a JEP
 
 Any functionaly change that would require an update to the specification
-(http://jmespath.org/specification.html) requires a JEP.
+(http://jmespath.site/specification.html) requires a JEP.
 
 This includes, but is not limited to:
 
