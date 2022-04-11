@@ -1,15 +1,10 @@
+; This file is parsed to generate the specification included in the website
 ; Double semicolons (;;) at the beginning of a line represent documentation in markdown format for the preceding rule
 ; intended for inclusion in the html version of the specification.
 ; Double semicolons inline with a rule represent an alternative header to use when rendering markdown. This can optionally
 ; include a trailing '\' to indicate that it is to be included with the documentation of the following rule.
 
-;; # JMESPath Specification
-;;
-;; This document describes the specification for jmespath.
-;;
-;; If you'd like an introduction to the JMESPath language, see the JMESPath Tutorial and the JMESPath Examples page.
-;;
-;; In the specification, examples are shown through the use of a search function. The syntax for this function is:
+;; In this specification, examples are shown through the use of a search function. The syntax for this function is:
 ;;
 ;; ```
 ;; search(<jmespath expr>, <JSON document>) -> <return value>
@@ -33,7 +28,7 @@
 ;; - object (an unordered collection of key value pairs)
 ;; - null
 ;;
-;; Expression types are discussed in the Functions Expressions section.
+;; Expression types are discussed in the [Function Expressions](#function-expressions) section.
 ;;
 ;; Implementations can map the corresponding JSON types to their language equivalent. For example, a JSON null could map to
 ;; None in python, and nil in ruby and go.
@@ -49,6 +44,8 @@
 ;; - and: &&
 ;; - unary not: !
 ;; - rbracket: ]
+;;
+;; %%GRAMMAR%%
 
 expression        = sub-expression / index-expression  / comparator-expression / list-filter-expr
 expression        =/ or-expression / identifier
@@ -56,8 +53,8 @@ expression        =/ and-expression / not-expression / paren-expression
 expression        =/ multi-select-list / multi-select-hash / literal
 expression        =/ function-expression / pipe-expression / raw-string
 expression        =/ current-node
-sub-expression    = expression "." ( identifier / multi-select-list / multi-select-hash / function-expression / "*" ) ;; # SubExpressions
-;; A subexpression is a combination of two expressions separated by the '.' char. A subexpression is evaluated as follows:
+sub-expression    = expression "." ( identifier / multi-select-list / multi-select-hash / function-expression / "*" ) ;; # Sub-expressions
+;; A sub-expression is a combination of two expressions separated by the '.' char. A sub-expression is evaluated as follows:
 ;;
 ;; - Evaluate the expression on the left with the original JSON document.
 ;; - Evaluate the expression on the right with the result of the left expression evaluation.
@@ -67,7 +64,7 @@ sub-expression    = expression "." ( identifier / multi-select-list / multi-sele
 ;; left-evaluation = search(left-expression, original-json-document)
 ;; result = search(right-expression, left-evaluation)
 ;; ```
-;; A subexpression is itself an expression, so there can be multiple levels of subexpressions: grandparent.parent.child.
+;; A sub-expression is itself an expression, so there can be multiple levels of sub-expressions: grandparent.parent.child.
 ;; Examples
 ;;
 ;; Given a JSON document: ``{"foo": {"bar": "baz"}}``, and a jmespath expression: foo.bar, the evaluation process would be:
@@ -202,7 +199,7 @@ not-expression    = "!" expression ;; # Not Expressions
 ;; search(!EmptyList, {"EmptyList": []}) -> true
 ;; ```
 
-paren-expression  = "(" expression ")" ;; # Paren Expressions
+paren-expression  = "(" expression ")" ;; # Parenthetical Expressions
 ;; A paren-expression allows a user to override the precedence order of an expression, e.g. (a || b) && c.
 ;;
 ;; ## Examples
@@ -439,7 +436,7 @@ comparator        = "<" / "<=" / "==" / ">=" / ">" / "!="
 ;; search(foo[?a==b], {"foo": [{"a": 1, "b": 2}, {"a": 2, "b": 2}]}) -> [{"a": 2, "b": 2}]
 ;; ```
 
-function-expression = unquoted-string  ( no-args  / one-or-more-args ) ;; # Functions Expressions \
+function-expression = unquoted-string  ( no-args  / one-or-more-args ) ;; # Function Expressions \
 no-args             = "(" ")" ;; \
 one-or-more-args    = "(" ( function-arg *( "," function-arg ) ) ")" ;; \
 function-arg        = expression / expression-type ;; \
@@ -539,13 +536,14 @@ raw-string-escape = escape ("'" / escape)
 ;; - Not expanding tab characters or any other escape sequences documented in RFC 4627 section 2.5.
 ;;
 ;; ## Examples
-;;
+;; ```
 ;; search('foo', "") -> "foo"
 ;; search(' bar ', "") -> " bar "
 ;; search('[baz]', "") -> "[baz]"
 ;; search('[baz]', "") -> "[baz]"
 ;; search('\u03a6', "") -> "\u03a6"
 ;; search('\\', "") -> "\\"
+;; ```
 
 literal           = "`" json-value "`" ;; # Literal Expressions
 ;; A literal expression is an expression that allows arbitrary JSON objects to be specified. This is useful in filter
