@@ -17,20 +17,20 @@ desc: |
   code points.  Locale is not taken into account.
 examples:
 - context: [b, a, c]
-  args: [@]
+  args: ["@"]
   returns: [a, b, c]
 - context: [1, a, c]
-  args: [@]
+  args: ["@"]
   returns: [1, a, c]
 - context: [false, [], null]
-  args: [@]
+  args: ["@"]
   returns: [[], null, false]
 - context: [[], {}, false]
-  args: [@]
+  args: ["@"]
   returns: [{}, [], false]
 - context: {"a": 1, "b": 2}
-  args: [@]
+  args: ["@"]
   returns: null
 - context: false
-  args: [@]
+  args: ["@"]
   returns: null

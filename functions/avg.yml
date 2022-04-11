@@ -15,14 +15,14 @@ desc: |
   An empty array will produce a return value of null.
 examples:
 - context: [10, 15, 20]
-  args: [@]
+  args: ["@"]
   returns: 15
 - context: [10, false, 20]
-  args: [@]
+  args: ["@"]
   returns: "<error: invalid-type>"
 - context: [false]
-  args: [@]
+  args: ["@"]
   returns: "<error: invalid-type>"
 - context: false
-  args: [@]
+  args: ["@"]
   returns: "<error: invalid-type>"

@@ -17,14 +17,14 @@ desc: |
   any specific order.
 examples:
 - context: {"foo": "baz", "bar": "bam"}
-  args: [@]
+  args: ["@"]
   returns: ["foo", "bar"]
 - context: {}
-  args: [@]
+  args: ["@"]
   returns: []
 - context: false
-  args: [@]
+  args: ["@"]
   returns: "<error: invalid-type>"
 - context: [b, a, c]
-  args: [@]
+  args: ["@"]
   returns: "<error: invalid-type>"

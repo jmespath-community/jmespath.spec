@@ -25,20 +25,20 @@ examples:
   args: [abc]
   returns: 3
 - context: None
-  args: [@]
+  args: ["@"]
   returns: 7
 - context: None
   args: [not_there]
   returns: "<error: invalid-type>"
 - context: ["a", "b", "c"]
-  args: [@]
+  args: ["@"]
   returns: 3
 - context: []
-  args: [@]
+  args: ["@"]
   returns: 0
 - context: {}
-  args: [@]
+  args: ["@"]
   returns: 0
 - context: {"foo": "bar", "baz": "bam"}
-  args: [@]
+  args: ["@"]
   returns: 2

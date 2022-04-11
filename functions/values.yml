@@ -44,11 +44,11 @@ desc: |
   `sort` or `sort_by` functions.
 examples:
 - context: {"foo": "baz", "bar": "bam"}
-  args: [@]
+  args: ["@"]
   returns: ["baz", "bam"]
 - context: ["a", "b"]
-  args: [@]
+  args: ["@"]
   returns: "<error: invalid-type>"
 - context: false
-  args: [@]
+  args: ["@"]
   returns: "<error: invalid-type>"

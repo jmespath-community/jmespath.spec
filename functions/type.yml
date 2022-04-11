@@ -23,26 +23,26 @@ desc: |
   * null
 examples:
 - context: "foo"
-  args: [@]
+  args: ["@"]
   returns: "string"
 - context: true
-  args: [@]
+  args: ["@"]
   returns: "boolean"
 - context: false
-  args: [@]
+  args: ["@"]
   returns: "boolean"
 - context: null
-  args: [@]
+  args: ["@"]
   returns: "null"
 - context: 123
-  args: [@]
+  args: ["@"]
   returns: "number"
 - context: 123.05
-  args: [@]
+  args: ["@"]
   returns: "number"
 - context: ["abc"]
-  args: [@]
+  args: ["@"]
   returns: "array"
 - context: {"abc": "123"}
-  args: [@]
+  args: ["@"]
   returns: "object"

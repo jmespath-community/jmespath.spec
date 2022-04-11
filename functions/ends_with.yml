@@ -17,11 +17,11 @@ desc: |
   function returns `false`.
 examples:
 - context: foobarbaz
-  args: [@, baz]
+  args: ["@", baz]
   returns: true
 - context: foobarbaz
-  args: [@, foo]
+  args: ["@", foo]
   returns: false
 - context: foobarbaz
-  args: [@, z]
+  args: ["@", z]
   returns: true
