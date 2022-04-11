@@ -2,6 +2,10 @@ name: Validate tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - grammar/**
+      - test_data/**
+      - functions/**
   pull_request:
     branches: [ main ]
 
