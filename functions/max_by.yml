@@ -19,16 +19,16 @@ desc: |
   given input.
 examples:
 - context: None
-  args: [people, &age]
+  args: [people, "&age"]
   returns: {"age": 50, "age_str": "50", "bool": false, "name": "d"}
 - context: None
-  args: [people, &age]
+  args: [people, "&age"]
   returns: 50
 - context: None
-  args: [people, &to_number(age_str)]
+  args: [people, "&to_number(age_str)"]
   returns: {"age": 50, "age_str": "50", "bool": false, "name": "d"}
 - context: None
-  args: [people, &age_str]
+  args: [people, "&age_str"]
   returns: "<error: invalid-type>"
 - context: None
   args: [people, age]

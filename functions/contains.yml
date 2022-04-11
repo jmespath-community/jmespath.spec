@@ -38,17 +38,17 @@ examples:
   args: [foobar, 123]
   returns: false
 - context: ["a", "b"]
-  args: [@, a]
+  args: ["@", a]
   returns: true
 - context: ["a"]
-  args: [@, a]
+  args: ["@", a]
   returns: true
 - context: ["a"]
-  args: [@, b]
+  args: ["@", b]
   returns: false
 - context: ["foo", "bar"]
-  args: [@, foo]
+  args: ["@", foo]
   returns: true
 - context: ["foo", "bar"]
-  args: [@, b]
+  args: ["@", b]
   returns: false

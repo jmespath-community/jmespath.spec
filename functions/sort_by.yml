@@ -26,11 +26,11 @@ desc: |
   function.
 examples:
 - context: None
-  args: [people, &age]
+  args: [people, "&age"]
   returns: [10, 20, 30, 40, 50]
 - context: None
-  args: [people, &age]
+  args: [people, "&age"]
   returns: {"age": 10, "age_str": "10", "bool": true, "name": 3}
 - context: None
-  args: [people, &to_number(age_str)]
+  args: [people, "&to_number(age_str)"]
   returns: {"age": 10, "age_str": "10", "bool": true, "name": 3}

@@ -17,14 +17,14 @@ desc: |
   together using the `$glue` argument as a separator between each.
 examples:
 - context: ["a", "b"]
-  args: [", ", @]
+  args: [", ", "@"]
   returns: "a, b"
 - context: ["a", "b"]
-  args: ["", @]
+  args: ["", "@"]
   returns: "ab"
 - context: ["a", false, "b"]
-  args: [", ", @]
+  args: [", ", "@"]
   returns: "<error: invalid-type>"
 - context: [false]
-  args: [", ", @]
+  args: [", ", "@"]
   returns: "<error: invalid-type>"

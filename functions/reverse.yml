@@ -13,14 +13,14 @@ desc: |
   Reverses the order of the `$argument`.
 examples:
 - context: [0, 1, 2, 3, 4]
-  args: [@]
+  args: ["@"]
   returns: [4, 3, 2, 1, 0]
 - context: []
-  args: [@]
+  args: ["@"]
   returns: []
 - context: ["a", "b", "c", 1, 2, 3]
-  args: [@]
+  args: ["@"]
   returns: [3, 2, 1, "c", "b", "a"]
 - context: "abcd"
-  args: [@]
+  args: ["@"]
   returns: "dcba"
