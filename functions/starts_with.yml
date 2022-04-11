@@ -1,0 +1,27 @@
+name: starts_with
+topic:
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc:
+  - name: prefix
+    type: [string]
+    desc:
+  optional: []
+returns:
+  type: boolean
+  desc:
+desc: |
+  Returns `true` if the `$subject` starts with the `$prefix`, otherwise
+  this function returns `false`.
+examples:
+- context: foobarbaz
+  args: [@, foo]
+  returns: true
+- context: foobarbaz
+  args: [@, baz]
+  returns: false
+- context: foobarbaz
+  args: [@, f]
+  returns: true

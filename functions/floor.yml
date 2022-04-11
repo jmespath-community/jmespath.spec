@@ -1,0 +1,23 @@
+name: floor
+topic:
+args:
+  required:
+  - name: value
+    type: [number]
+    desc:
+  optional: []
+returns:
+  type: number
+  desc:
+desc: |
+  Returns the next lowest integer value by rounding down if necessary.
+examples:
+- context: None
+  args: [1.001]
+  returns: 1
+- context: None
+  args: [1.9]
+  returns: 1
+- context: None
+  args: [1]
+  returns: 1

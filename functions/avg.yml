@@ -1,0 +1,28 @@
+name: avg
+topic:
+args:
+  required:
+  - name: elements
+    type: ['array[number]']
+    desc:
+  optional: []
+returns:
+  type: number
+  desc:
+desc: |
+  Returns the average of the elements in the provided array.
+  
+  An empty array will produce a return value of null.
+examples:
+- context: [10, 15, 20]
+  args: [@]
+  returns: 15
+- context: [10, false, 20]
+  args: [@]
+  returns: "<error: invalid-type>"
+- context: [false]
+  args: [@]
+  returns: "<error: invalid-type>"
+- context: false
+  args: [@]
+  returns: "<error: invalid-type>"

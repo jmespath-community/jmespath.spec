@@ -1,0 +1,30 @@
+name: join
+topic:
+args:
+  required:
+  - name: glue
+    type: [string]
+    desc:
+  - name: stringsarray
+    type: ['array[string]']
+    desc:
+  optional: []
+returns:
+  type: string
+  desc:
+desc: |
+  Returns all of the elements from the provided `$stringsarray` array joined
+  together using the `$glue` argument as a separator between each.
+examples:
+- context: ["a", "b"]
+  args: [", ", @]
+  returns: "a, b"
+- context: ["a", "b"]
+  args: ["", @]
+  returns: "ab"
+- context: ["a", false, "b"]
+  args: [", ", @]
+  returns: "<error: invalid-type>"
+- context: [false]
+  args: [", ", @]
+  returns: "<error: invalid-type>"

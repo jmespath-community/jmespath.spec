@@ -1,0 +1,54 @@
+name: contains
+topic:
+args:
+  required:
+  - name: subject,
+    type: [array, string]
+    desc:
+  - name: search
+    type: [any]
+    desc:
+  optional: []
+returns:
+  type: boolean
+  desc:
+desc: |
+  Returns `true` if the given `$subject` contains the provided `$search`
+  string.
+  
+  If `$subject` is an array, this function returns true if one of the elements
+  in the array is equal to the provided `$search` value.
+  
+  If the provided `$subject` is a string, this function returns true if
+  the string contains the provided `$search` argument.
+examples:
+- context: None
+  args: [foobar, foo]
+  returns: true
+- context: None
+  args: [foobar, not]
+  returns: false
+- context: None
+  args: [foobar, bar]
+  returns: true
+- context: None
+  args: [false, bar]
+  returns: "<error: invalid-type>"
+- context: None
+  args: [foobar, 123]
+  returns: false
+- context: ["a", "b"]
+  args: [@, a]
+  returns: true
+- context: ["a"]
+  args: [@, a]
+  returns: true
+- context: ["a"]
+  args: [@, b]
+  returns: false
+- context: ["foo", "bar"]
+  args: [@, foo]
+  returns: true
+- context: ["foo", "bar"]
+  args: [@, b]
+  returns: false

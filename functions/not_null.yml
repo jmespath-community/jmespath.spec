@@ -1,0 +1,29 @@
+name: not_null
+topic:
+args:
+  required:
+  - name: argument
+    type: ['[any']
+    desc:
+  - name: any
+    type: ['[,']
+    desc:
+  optional: []
+returns:
+  type: any
+  desc:
+desc: |
+  Returns the first argument that does not resolve to `null`.  This function
+  accepts one or more arguments, and will evaluate them in order until a
+  non null argument is encounted.  If all arguments values resolve to `null`,
+  then a value of `null` is returned.
+examples:
+- context: {"a": null, "b": null, "c": [], "d": "foo"}
+  args: [no_exist, a, b, c, d]
+  returns: []
+- context: {"a": null, "b": null, "c": [], "d": "foo"}
+  args: [a, b, null, d, c]
+  returns: "foo"
+- context: {"a": null, "b": null, "c": [], "d": "foo"}
+  args: [a, b]
+  returns: null

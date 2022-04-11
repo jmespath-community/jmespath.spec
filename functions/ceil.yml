@@ -1,0 +1,26 @@
+name: ceil
+topic:
+args:
+  required:
+  - name: value
+    type: [number]
+    desc:
+  optional: []
+returns:
+  type: number
+  desc:
+desc: |
+  Returns the next highest integer value by rounding up if necessary.
+examples:
+- context: None
+  args: [1.001]
+  returns: 2
+- context: None
+  args: [1.9]
+  returns: 2
+- context: None
+  args: [1]
+  returns: 1
+- context: None
+  args: [abc]
+  returns: null

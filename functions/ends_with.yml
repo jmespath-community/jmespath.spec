@@ -1,0 +1,27 @@
+name: ends_with
+topic:
+args:
+  required:
+  - name: subject,
+    type: [string]
+    desc:
+  - name: prefix
+    type: [string]
+    desc:
+  optional: []
+returns:
+  type: boolean
+  desc:
+desc: |
+  Returns `true` if the `$subject` ends with the `$prefix`, otherwise this
+  function returns `false`.
+examples:
+- context: foobarbaz
+  args: [@, baz]
+  returns: true
+- context: foobarbaz
+  args: [@, foo]
+  returns: false
+- context: foobarbaz
+  args: [@, z]
+  returns: true
