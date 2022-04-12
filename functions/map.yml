@@ -16,14 +16,44 @@ desc: |
   Apply the `expr` to every element in the `elements` array
   and return the array of results.  An `elements` of length
   N will produce a return array of length N.
-  
+
   Unlike a projection, (`[\*].bar`), `map()` will include
   the result of applying the `expr` for every element in the
   `elements` array, even if the result if `null`.
 examples:
-- context: {"array": [{"foo": "a"}, {"foo": "b"}, {}, [], {"foo": "f"}]}
-  args: ["&foo", array]
-  returns: ["a", "b", null, null, "f"]
+- context: {array: [foo: a, foo: b, {}, [], foo: f]}
+  args: ['&foo', array]
+  returns: [a, b, null, null, f]
 - context: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
-  args: ["&[]", "@"]
+  args: ['&[]', '@']
+  returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
+- context: &data
+    people: [{a: 10, b: 1, c: z}, {a: 10, b: 2, c: null}, {a: 10, b: 3}, {a: 10, b: 4,
+        c: z}, {a: 10, b: 5, c: null}, {a: 10, b: 6}, {a: 10, b: 7, c: z}, {a: 10,
+        b: 8, c: null}, {a: 10, b: 9}]
+    empty: []
+  args: ['&a', people]
+  returns: [10, 10, 10, 10, 10, 10, 10, 10, 10]
+- context: *data
+  args: ['&c', people]
+  returns: [z, null, null, z, null, null, z, null, null]
+- context: *data
+  args: ['&a', badkey]
+  error: invalid-type
+- context: *data
+  args: ['&foo', empty]
+  returns: []
+- context: &data
+    array: [foo: {bar: yes1}, foo: {bar: yes2}, foo1: {bar: no}]
+  args: ['&foo.bar', array]
+  returns: [yes1, yes2, null]
+- context: *data
+  args: ['&foo1.bar', array]
+  returns: [null, null, no]
+- context: *data
+  args: ['&foo.bar.baz', array]
+  returns: [null, null, null]
+- context:
+    array: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
+  args: ['&[]', array]
   returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]

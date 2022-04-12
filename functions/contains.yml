@@ -15,40 +15,70 @@ returns:
 desc: |
   Returns `true` if the given `$subject` contains the provided `$search`
   string.
-  
+
   If `$subject` is an array, this function returns true if one of the elements
   in the array is equal to the provided `$search` value.
-  
+
   If the provided `$subject` is a string, this function returns true if
   the string contains the provided `$search` argument.
 examples:
-- context: None
+- context:
   args: [foobar, foo]
   returns: true
-- context: None
+- context:
   args: [foobar, not]
   returns: false
-- context: None
+- context:
   args: [foobar, bar]
   returns: true
-- context: None
+- context:
   args: [false, bar]
-  returns: "<error: invalid-type>"
-- context: None
+  error: invalid-type
+- context:
   args: [foobar, 123]
   returns: false
-- context: ["a", "b"]
-  args: ["@", a]
+- context: [a, b]
+  args: ['@', a]
   returns: true
-- context: ["a"]
-  args: ["@", a]
+- context: [a]
+  args: ['@', a]
   returns: true
-- context: ["a"]
-  args: ["@", b]
+- context: [a]
+  args: ['@', b]
   returns: false
-- context: ["foo", "bar"]
-  args: ["@", foo]
+- context: [foo, bar]
+  args: ['@', foo]
   returns: true
-- context: ["foo", "bar"]
-  args: ["@", b]
+- context: [foo, bar]
+  args: ['@', b]
+  returns: false
+- context: &data
+    foo: -1
+    zero: 0
+    numbers: [-1, 3, 4, 5]
+    array: [-1, 3, 4, 5, a, '100']
+    strings: [a, b, c]
+    decimals: [1.01, 1.2, -1.5]
+    str: Str
+    'false': false
+    empty_list: []
+    empty_hash: {}
+    objects: {foo: bar, bar: baz}
+    null_key:
+  args: ["'abc'", "'a'"]
+  returns: true
+- context: *data
+  args: ["'abc'", "'d'"]
+  returns: false
+- context: *data
+  args: ['`false`', "'d'"]
+  error: invalid-type
+- context: *data
+  args: [strings, "'a'"]
+  returns: true
+- context: *data
+  args: [decimals, '`1.2`']
+  returns: true
+- context: *data
+  args: [decimals, '`false`']
   returns: false

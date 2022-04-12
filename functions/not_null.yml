@@ -18,12 +18,39 @@ desc: |
   non null argument is encounted.  If all arguments values resolve to `null`,
   then a value of `null` is returned.
 examples:
-- context: {"a": null, "b": null, "c": [], "d": "foo"}
+- context: {a: null, b: null, c: [], d: foo}
   args: [no_exist, a, b, c, d]
   returns: []
-- context: {"a": null, "b": null, "c": [], "d": "foo"}
+- context: {a: null, b: null, c: [], d: foo}
   args: [a, b, null, d, c]
-  returns: "foo"
-- context: {"a": null, "b": null, "c": [], "d": "foo"}
+  returns: foo
+- context: {a: null, b: null, c: [], d: foo}
   args: [a, b]
-  returns: null
+  returns:
+- context: &data
+    foo: -1
+    zero: 0
+    numbers: [-1, 3, 4, 5]
+    array: [-1, 3, 4, 5, a, '100']
+    strings: [a, b, c]
+    decimals: [1.01, 1.2, -1.5]
+    str: Str
+    'false': false
+    empty_list: []
+    empty_hash: {}
+    objects: {foo: bar, bar: baz}
+    null_key:
+  args: [unknown_key, str]
+  returns: Str
+- context: *data
+  args: [unknown_key, foo.bar, empty_list, str]
+  returns: []
+- context: *data
+  args: [unknown_key, null_key, empty_list, str]
+  returns: []
+- context: *data
+  args: [all, expressions, are_null]
+  returns:
+- context: *data
+  args: ['']
+  error: invalid-arity
