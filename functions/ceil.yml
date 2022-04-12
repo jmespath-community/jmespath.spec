@@ -1,14 +1,14 @@
 name: ceil
-topic:
+topic: math
 args:
   required:
   - name: value
     type: [number]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   Returns the next highest integer value by rounding up if necessary.
 examples:

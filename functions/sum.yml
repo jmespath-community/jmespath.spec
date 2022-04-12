@@ -1,14 +1,14 @@
 name: sum
-topic:
+topic: math
 args:
   required:
   - name: collection
     type: ['array[number]']
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   Returns the sum of the provided array argument.
 

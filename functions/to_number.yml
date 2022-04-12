@@ -1,14 +1,14 @@
 name: to_number
-topic:
+topic: conversion
 args:
   required:
   - name: arg
     type: [any]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   * string - Returns the parsed number.  Any string that conforms to the
   `json-number` production is supported.  Note that the floating number

@@ -1,17 +1,17 @@
 name: contains
-topic:
+topic: collections
 args:
   required:
   - name: subject,
     type: [array, string]
-    desc:
+    desc: ""
   - name: search
     type: [any]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: boolean
-  desc:
+  desc: ""
 desc: |
   Returns `true` if the given `$subject` contains the provided `$search`
   string.

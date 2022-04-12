@@ -1,14 +1,14 @@
 name: keys
-topic:
+topic: collections
 args:
   required:
   - name: obj
     type: [object]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: array
-  desc:
+  desc: ""
 desc: |
   Returns an array containing the keys of the provided object.
   Note that because JSON hashes are inheritently unordered, the

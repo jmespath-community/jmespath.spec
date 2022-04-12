@@ -1,14 +1,14 @@
 name: abs
-topic:
+topic: math
 args:
   required:
   - name: value
     type: [number]
-    desc:
+    desc: positive or negative number
   optional: []
 returns:
   type: number
-  desc:
+  desc: positive magnitude of input value
 desc: |
   Returns the absolute value of the provided argument.  The signature indicates
   that a number is returned, and that the input argument `$value` **must**
@@ -122,23 +122,14 @@ examples:
   args: [foo]
   returns: 1
 - context: *data
-  args: [foo]
-  returns: 1
-- context: *data
   args: [str]
   error: invalid-type
 - context: *data
   args: ['array[1]']
   returns: 3
 - context: *data
-  args: ['array[1]']
-  returns: 3
-- context: *data
   args: ['`false`']
   error: invalid-type
-- context: *data
-  args: ['`-24`']
-  returns: 24
 - context: *data
   args: ['`-24`']
   returns: 24

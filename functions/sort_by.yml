@@ -1,17 +1,17 @@
 name: sort_by
-topic:
+topic: collections
 args:
   required:
   - name: elements,
     type: [array]
-    desc:
+    desc: ""
   - name: expr
     type: [expression->number, expression->string]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: array
-  desc:
+  desc: ""
 desc: |
   Sort an array using an expression `expr` as the sort key.  For each element
   in the array of `elements`, the `expr` expression is applied and the

@@ -1,14 +1,14 @@
 name: floor
-topic:
+topic: math
 args:
   required:
   - name: value
     type: [number]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   Returns the next lowest integer value by rounding down if necessary.
 examples:

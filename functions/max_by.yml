@@ -1,17 +1,17 @@
 name: max_by
-topic:
+topic: math
 args:
   required:
   - name: elements,
     type: [array]
-    desc:
+    desc: ""
   - name: expr
     type: [expression->number, expression->string]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: any
-  desc:
+  desc: ""
 desc: |
   Return the maximum element in an array using the expression `expr` as the
   comparison key.  The entire maximum element is returned.

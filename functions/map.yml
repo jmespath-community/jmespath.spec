@@ -1,17 +1,17 @@
 name: map
-topic:
+topic: collections
 args:
   required:
-  - name: expr,
-    type: [expression->any->any]
-    desc:
+  - name: expr
+    type: [expression]
+    desc: ""
   - name: elements
     type: ['array[any]']
-    desc:
+    desc: ""
   optional: []
 returns:
   type: array[any]
-  desc:
+  desc: ""
 desc: |
   Apply the `expr` to every element in the `elements` array
   and return the array of results.  An `elements` of length
@@ -27,30 +27,30 @@ examples:
 - context: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
   args: ['&[]', '@']
   returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
-- context: &data
+- context: &data1
     people: [{a: 10, b: 1, c: z}, {a: 10, b: 2, c: null}, {a: 10, b: 3}, {a: 10, b: 4,
         c: z}, {a: 10, b: 5, c: null}, {a: 10, b: 6}, {a: 10, b: 7, c: z}, {a: 10,
         b: 8, c: null}, {a: 10, b: 9}]
     empty: []
   args: ['&a', people]
   returns: [10, 10, 10, 10, 10, 10, 10, 10, 10]
-- context: *data
+- context: *data1
   args: ['&c', people]
   returns: [z, null, null, z, null, null, z, null, null]
-- context: *data
+- context: *data1
   args: ['&a', badkey]
   error: invalid-type
-- context: *data
+- context: *data1
   args: ['&foo', empty]
   returns: []
-- context: &data
+- context: &data2
     array: [foo: {bar: yes1}, foo: {bar: yes2}, foo1: {bar: no}]
   args: ['&foo.bar', array]
   returns: [yes1, yes2, null]
-- context: *data
+- context: *data2
   args: ['&foo1.bar', array]
   returns: [null, null, no]
-- context: *data
+- context: *data2
   args: ['&foo.bar.baz', array]
   returns: [null, null, null]
 - context:

@@ -1,14 +1,14 @@
 name: max
-topic:
+topic: math
 args:
   required:
   - name: collection
     type: ['array[number]', 'array[string]']
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   Returns the highest found number in the provided array argument.
 
@@ -53,9 +53,6 @@ examples:
 - context: *data
   args: [array]
   error: invalid-type
-- context: *data
-  args: [decimals]
-  returns: 1.2
 - context: *data
   args: [empty_list]
   returns:

@@ -1,14 +1,14 @@
 name: min
-topic:
+topic: math
 args:
   required:
   - name: collection
     type: ['array[number]', 'array[string]']
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   Returns the lowest found number in the provided `$collection` argument.
 examples:
@@ -51,9 +51,6 @@ examples:
 - context: *data
   args: [empty_list]
   returns:
-- context: *data
-  args: [decimals]
-  returns: -1.5
 - context: *data
   args: [strings]
   returns: a

@@ -1,14 +1,14 @@
 name: avg
-topic:
+topic: math
 args:
   required:
   - name: elements
     type: ['array[number]']
-    desc:
+    desc: array of numbers to calculate average from
   optional: []
 returns:
-  type: number
-  desc:
+  type: [number, "null"]
+  desc: average value of passed elements
 desc: |
   Returns the average of the elements in the provided array.
 

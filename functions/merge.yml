@@ -1,17 +1,17 @@
 name: merge
-topic:
+topic: collections
 args:
   required:
   - name: argument
     type: [object]
-    desc:
+    desc: ""
   optional:
   - name: $..
     type: [object]
-    desc:
+    desc: ""
 returns:
   type: object
-  desc:
+  desc: ""
 desc: |
   Accepts 0 or more objects as arguments, and returns a single object
   with subsequent objects merged.  Each subsequent object’s key/value

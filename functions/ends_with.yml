@@ -1,17 +1,17 @@
 name: ends_with
-topic:
+topic: strings
 args:
   required:
   - name: subject,
     type: [string]
-    desc:
+    desc: ""
   - name: prefix
     type: [string]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: boolean
-  desc:
+  desc: ""
 desc: |
   Returns `true` if the `$subject` ends with the `$prefix`, otherwise this
   function returns `false`.

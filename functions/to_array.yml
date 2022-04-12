@@ -1,14 +1,14 @@
 name: to_array
-topic:
+topic: conversion
 args:
   required:
   - name: arg
     type: [any]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: array
-  desc:
+  desc: ""
 desc: |
   * array - Returns the passed in value.
 

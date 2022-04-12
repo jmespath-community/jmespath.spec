@@ -1,0 +1,88 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://jmespath.net/function_schema.yml
+title: JMESPath function
+description: JMESPath function definition and tests
+type: object
+required: [name, topic, args, returns, desc, examples]
+properties:
+  name:
+    type: string
+    description: function identifier
+  topic:
+    enum: [math, strings, collections, conversion, misc]
+    description: related function topic
+  args:
+    type: object
+    additionalProperties: false
+    properties:
+      required: &arg
+        type: array
+        description: ""
+        items:
+          type: object
+          description: ""
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+              description: ""
+            type: &type
+              description: ""
+              oneOf:
+                - enum: &types [any, number, string, boolean, array, object, "null", expression, "array[number]", "array[string]", "array[boolean]", "array[object]", "array[any]", "expression->number", "expression->string"]
+                - type: array
+                  items:
+                    enum: *types
+            desc:
+              type: string
+              description: ""
+      optional: *arg
+  returns:
+    type: object
+    description: ""
+    required: [type, desc]
+    additionalProperties: false
+    properties:
+      type:
+        <<: *type
+        description: ""
+      desc:
+        type: string
+        description: ""
+  desc:
+    type: string
+    description: ""
+  examples:
+    type: array
+    description: ""
+    minItems: 1
+    uniqueItems: true
+    items:
+      description: ""
+      oneOf:
+        - type: object
+          required: [context, args, returns]
+          additionalProperties: false
+          properties:
+            context: &context
+              type: &any ["number","string","boolean","object","array","null"]
+              description: ""
+            args: &args
+              type: array
+              description: ""
+              items:
+                type: *any
+                description: ""
+            returns:
+              type: *any
+              description: ""
+        - type: object
+          required: [context, args, error]
+          additionalProperties: false
+          properties:
+            context: *context
+            args: *args
+            error:
+              type: string
+              description: ""

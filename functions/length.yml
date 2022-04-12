@@ -1,14 +1,14 @@
 name: length
-topic:
+topic: collections
 args:
   required:
   - name: subject
     type: [string, array, object]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   Returns the length of the given argument using the following types rules:
 
@@ -84,6 +84,3 @@ examples:
 - context: *data
   args: [foo]
   error: invalid-type
-- context: *data
-  args: ['strings[0]']
-  returns: 1
