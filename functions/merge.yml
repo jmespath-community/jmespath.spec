@@ -6,7 +6,7 @@ args:
     type: [object]
     desc: ""
   optional:
-  - name: $..
+  - name: ".."
     type: [object]
     desc: ""
 returns:

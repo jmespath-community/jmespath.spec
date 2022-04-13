@@ -6,7 +6,7 @@ args:
     type: [any]
     desc: ""
   optional:
-  - name: "$..."
+  - name: ".."
     type: [any]
     desc: ""
 returns:
