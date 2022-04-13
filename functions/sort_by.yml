@@ -2,7 +2,7 @@ name: sort_by
 topic: collections
 args:
   required:
-  - name: elements,
+  - name: elements
     type: [array]
     desc: ""
   - name: expr

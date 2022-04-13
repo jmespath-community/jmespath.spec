@@ -2,7 +2,7 @@ name: contains
 topic: collections
 args:
   required:
-  - name: subject,
+  - name: subject
     type: [array, string]
     desc: ""
   - name: search

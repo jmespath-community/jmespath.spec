@@ -2,7 +2,7 @@ name: min_by
 topic: math
 args:
   required:
-  - name: elements,
+  - name: elements
     type: [array]
     desc: ""
   - name: expr

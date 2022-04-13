@@ -2,7 +2,7 @@ name: ends_with
 topic: strings
 args:
   required:
-  - name: subject,
+  - name: subject
     type: [string]
     desc: ""
   - name: prefix
