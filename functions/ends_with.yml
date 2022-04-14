@@ -1,27 +1,57 @@
 name: ends_with
-topic:
+topic: strings
 args:
   required:
-  - name: subject,
+  - name: subject
     type: [string]
-    desc:
+    desc: ""
   - name: prefix
     type: [string]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: boolean
-  desc:
+  desc: ""
 desc: |
   Returns `true` if the `$subject` ends with the `$prefix`, otherwise this
   function returns `false`.
 examples:
 - context: foobarbaz
-  args: [@, baz]
+  args: ['@', baz]
   returns: true
 - context: foobarbaz
-  args: [@, foo]
+  args: ['@', foo]
   returns: false
 - context: foobarbaz
-  args: [@, z]
+  args: ['@', z]
   returns: true
+- context: &data
+    foo: -1
+    zero: 0
+    numbers: [-1, 3, 4, 5]
+    array: [-1, 3, 4, 5, a, '100']
+    strings: [a, b, c]
+    decimals: [1.01, 1.2, -1.5]
+    str: Str
+    'false': false
+    empty_list: []
+    empty_hash: {}
+    objects: {foo: bar, bar: baz}
+    null_key:
+  args: [str, "'r'"]
+  returns: true
+- context: *data
+  args: [str, "'tr'"]
+  returns: true
+- context: *data
+  args: [str, "'Str'"]
+  returns: true
+- context: *data
+  args: [str, "'SStr'"]
+  returns: false
+- context: *data
+  args: [str, "'foo'"]
+  returns: false
+- context: *data
+  args: [str, '`0`']
+  error: invalid-type

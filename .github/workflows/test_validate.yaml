@@ -2,6 +2,10 @@ name: Validate tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - grammar/**
+      - test_data/**
+      - functions/**
   pull_request:
     branches: [ main ]
 
@@ -14,8 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: set-matrix
-        run: echo "::set-output name=matrix::$(ls grammar/*.json functions/*.json | jq -R -s -c 'split("\n")[:-1]')"
-  validate:
+        run: echo "::set-output name=matrix::$(ls grammar/*.json | jq -R -s -c 'split("\n")[:-1]')"
+  validate-tests:
     needs: list-tests
     runs-on: ubuntu-latest
     strategy:
@@ -28,5 +32,29 @@ jobs:
           cache: pip
           cache-dependency-path: .github/workflows/validate_requirements.txt
       - run: pip install -r .github/workflows/validate_requirements.txt
-      - name: Validate tests
-        run: "jsonschema test_schema.json -o pretty -i ${{ matrix.manifest }}"
+      - name: Validate grammar tests
+        run: "check-jsonschema --schemafile test_schema.yml ${{ matrix.manifest }}"
+
+  list-functions:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(ls functions/*.yml | jq -R -s -c 'split("\n")[:-1]')"
+  validate-functions:
+    needs: list-functions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        manifest: ${{ fromJson(needs.list-functions.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v3
+        with:
+          cache: pip
+          cache-dependency-path: .github/workflows/validate_requirements.txt
+      - run: pip install -r .github/workflows/validate_requirements.txt
+      - name: Validate function spec
+        run: "check-jsonschema --schemafile function_schema.yml ${{ matrix.manifest }}"

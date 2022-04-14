@@ -1,44 +1,86 @@
 name: length
-topic:
+topic: collections
 args:
   required:
   - name: subject
     type: [string, array, object]
-    desc:
+    desc: ""
   optional: []
 returns:
   type: number
-  desc:
+  desc: ""
 desc: |
   Returns the length of the given argument using the following types rules:
-  
-  
+
+
   1. string: returns the number of code points in the string
-  
-  
+
+
   2. array: returns the number of elements in the array
-  
-  
+
+
   3. object: returns the number of key-value pairs in the object
 examples:
-- context: None
+- context:
   args: [abc]
   returns: 3
-- context: None
-  args: [@]
+- context:
+  args: ['@']
   returns: 7
-- context: None
+- context:
   args: [not_there]
-  returns: "<error: invalid-type>"
-- context: ["a", "b", "c"]
-  args: [@]
+  error: invalid-type
+- context: [a, b, c]
+  args: ['@']
   returns: 3
 - context: []
-  args: [@]
+  args: ['@']
   returns: 0
 - context: {}
-  args: [@]
+  args: ['@']
   returns: 0
-- context: {"foo": "bar", "baz": "bam"}
-  args: [@]
+- context: {foo: bar, baz: bam}
+  args: ['@']
   returns: 2
+- context: &data
+    foo: -1
+    zero: 0
+    numbers: [-1, 3, 4, 5]
+    array: [-1, 3, 4, 5, a, '100']
+    strings: [a, b, c]
+    decimals: [1.01, 1.2, -1.5]
+    str: Str
+    'false': false
+    empty_list: []
+    empty_hash: {}
+    objects: {foo: bar, bar: baz}
+    null_key:
+  args: ["'abc'"]
+  returns: 3
+- context: *data
+  args: ["'\u2713foo'"]
+  returns: 4
+- context: *data
+  args: ["''"]
+  returns: 0
+- context: *data
+  args: ['@']
+  returns: 12
+- context: *data
+  args: ['strings[0]']
+  returns: 1
+- context: *data
+  args: [str]
+  returns: 3
+- context: *data
+  args: [array]
+  returns: 6
+- context: *data
+  args: [objects]
+  returns: 2
+- context: *data
+  args: ['`false`']
+  error: invalid-type
+- context: *data
+  args: [foo]
+  error: invalid-type

@@ -1,30 +1,69 @@
 name: join
-topic:
+topic: collections
 args:
   required:
   - name: glue
     type: [string]
-    desc:
+    desc: ""
   - name: stringsarray
     type: ['array[string]']
-    desc:
+    desc: ""
   optional: []
 returns:
   type: string
-  desc:
+  desc: ""
 desc: |
   Returns all of the elements from the provided `$stringsarray` array joined
   together using the `$glue` argument as a separator between each.
 examples:
-- context: ["a", "b"]
-  args: [", ", @]
-  returns: "a, b"
-- context: ["a", "b"]
-  args: ["", @]
-  returns: "ab"
-- context: ["a", false, "b"]
-  args: [", ", @]
-  returns: "<error: invalid-type>"
+- context: [a, b]
+  args: [', ', '@']
+  returns: a, b
+- context: [a, b]
+  args: ['', '@']
+  returns: ab
+- context: [a, false, b]
+  args: [', ', '@']
+  error: invalid-type
 - context: [false]
-  args: [", ", @]
-  returns: "<error: invalid-type>"
+  args: [', ', '@']
+  error: invalid-type
+- context: &data
+    foo: -1
+    zero: 0
+    numbers: [-1, 3, 4, 5]
+    array: [-1, 3, 4, 5, a, '100']
+    strings: [a, b, c]
+    decimals: [1.01, 1.2, -1.5]
+    str: Str
+    'false': false
+    empty_list: []
+    empty_hash: {}
+    objects: {foo: bar, bar: baz}
+    null_key:
+  args: ["'", "'", strings]
+  returns: a, b, c
+- context: *data
+  args: ["'", "'", '`["a"', '"b"]`']
+  returns: a,b
+- context: *data
+  args: ["'", "'", '`["a"', '0]`']
+  error: invalid-type
+- context: *data
+  args: ["'", "'", str]
+  error: invalid-type
+- context: *data
+  args: ["'|'", strings]
+  returns: a|b|c
+- context: *data
+  args: ['`2`', strings]
+  error: invalid-type
+- context: *data
+  args: ["'|'", decimals]
+  error: invalid-type
+- context: *data
+  args: ["'|'", 'decimals[].to_string(@)']
+  returns: 1.01|1.2|-1.5
+- context: *data
+  args: ["'|'", empty_list]
+  returns: ''
