@@ -1,6 +1,6 @@
 ---
 $schema: https://json-schema.org/draft/2020-12/schema
-$id: https://jmespath.net/function_schema.yml
+$id: https://jmespath.site/function_schema.yml
 title: JMESPath function
 description: JMESPath function definition and tests
 type: object
