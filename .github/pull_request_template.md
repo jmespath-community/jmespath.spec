@@ -5,7 +5,7 @@ Before creating a pull request, please ensure that the feature or change has bee
 
 This PR should include a JEP specification file based off TEMPLATE.md, named with the pattern "jep-###-title.md", and a compliance test json in either
 grammar/ or functions/ as appropriate.
-Additionally, the PR should include any intended modifications to the GRAMMAR file.
+Additionally, the PR should include any intended modifications to the GRAMMAR.ABNF file.
 
 Please complete the required sections below:
 -->
