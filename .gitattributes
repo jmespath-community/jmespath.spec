@@ -7,3 +7,6 @@
 *.md text
 *.py text
 *.sh text
+
+*.abnf text eol=crlf
+*.ABNF text eol=crlf
