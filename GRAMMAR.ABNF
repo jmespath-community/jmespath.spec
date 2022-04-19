@@ -224,7 +224,7 @@ bracket-specifier = "[" (number / slice-expression) "]"
 ;; For the grammar rule expression bracket-specifier the expression is first evaluated, and then return value from the
 ;; expression is given as input to the bracket-specifier.
 ;;
-;; Using a "*” character within a bracket-specifier is discussed below in the wildcard expressions section.
+;; Using a "*" character within a bracket-specifier is discussed below in the wildcard expressions section.
 
 bracket-specifier =/ "[]" ;; ## Flatten Operator
 ;; When the character sequence [] is provided as a bracket specifier, then a flattening operation occurs on the current
@@ -346,7 +346,7 @@ keyval-expr       = identifier ":" expression
 ;; ```
 
 expression        =/ "*" ;; # Wildcard Expressions \
-bracket-specifier =  "[" "*" "]"
+bracket-specifier =/ "[" "*" "]"
 ;; A wildcard expression is a expression of either `*` or `[*]`. A wildcard expression can return multiple elements, and the
 ;; remaining expressions are evaluated against each returned element from a wildcard expression. The `[*]` syntax applies to
 ;; a list type and the `*`syntax applies to a hash type.
@@ -515,11 +515,11 @@ expression-type     = "&" expression
 
 raw-string        = "'" *raw-string-char "'" ;; # Raw String Literals \
 raw-string-char   = (%x20-26 / %x28-5B / %x5D-10FFFF) / preserved-escape / raw-string-escape ;; \
-preserved-escape  = escape (%x20-26 / %28-5B / %x5D-10FFFF) ;; \
+preserved-escape  = escape (%x20-26 / %x28-5B / %x5D-10FFFF) ;; \
 raw-string-escape = escape ("'" / escape)
 ;; A raw string is an expression that allows for a literal string value to be specified. The result of evaluating the raw
 ;; string literal expression is the literal string value. It is a simpler form of a literal expression that is special
-;; cased for strings. For example, the following expressions both evaluate to the same value: "foo”:
+;; cased for strings. For example, the following expressions both evaluate to the same value: "foo":
 ;;
 ;; ```
 ;; search(`"foo"`, "") -> "foo"
@@ -562,13 +562,13 @@ literal           = "`" json-value "`" ;; # Literal Expressions
 ;; search({first: a, type: `"mytype"`}, {"a": "b", "c": "d"}) -> {"first": "b", "type": "mytype"}
 ;; ```
 
-unescaped-literal = %x20-21 /       ; space !
-                        %x23-5B /   ; # - [
-                        %x5D-5F /   ; ] ^ _
-                        %x61-7A     ; a-z
-                        %x7C-10FFFF ; |}~ ...
-escaped-literal   = escaped-char / (escape %x60)
-number            = ["-"]1*digit
+unescaped-literal = %x20-21 /   ; space !
+										%x23-5B /   ; # - [
+										%x5D-5F /   ; ] ^ _
+										%x61-7A /   ; a-z
+										%x7C-10FFFF ; |}~ ...
+escaped-literal   = escaped-char / (escape "`")
+number            = ["-"] 1*digit
 digit             = %x30-39
 identifier        = unquoted-string / quoted-string ;; # Identifiers
 ;; An identifier is the most basic expression and can be used to extract a single element from a JSON document.
@@ -599,7 +599,7 @@ unquoted-string   = (%x41-5A / %x61-7A / %x5F) *(  ; A-Za-z_
                         %x61-7A)   ; a-z
 quoted-string     = quote 1*(unescaped-char / escaped-char) quote
 unescaped-char    = %x20-21 / %x23-5B / %x5D-10FFFF
-escape            = %x5C   ; Back slash: \
+escape            = "\"
 quote             = %x22   ; Double quote: '"'
 escaped-char      = escape (
                         %x22 /          ; "    quotation mark  U+0022
@@ -641,9 +641,9 @@ json-number = [ minus ] int [ frac ] [ exp ]
 decimal-point = %x2E       ; .
 digit1-9 = %x31-39         ; 1-9
 e = %x65 / %x45            ; e E
-exp = e [ minus / plus ] 1*DIGIT
-frac = decimal-point 1*DIGIT
-int = zero / ( digit1-9 *DIGIT )
+exp = e [ minus / plus ] 1*digit
+frac = decimal-point 1*digit
+int = zero / ( digit1-9 *digit )
 minus = %x2D               ; -
 plus = %x2B                ; +
 zero = %x30                ; 0
