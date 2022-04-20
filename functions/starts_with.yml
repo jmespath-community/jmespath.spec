@@ -38,17 +38,17 @@ examples:
     empty_hash: {}
     objects: {foo: bar, bar: baz}
     null_key:
-  args: [str, "'S'"]
+  args: [str, 'S']
   returns: true
 - context: *data
-  args: [str, "'St'"]
+  args: [str, 'St']
   returns: true
 - context: *data
-  args: [str, "'Str'"]
+  args: [str, 'Str']
   returns: true
 - context: *data
-  args: [str, "'String'"]
+  args: [str, 'String']
   returns: false
 - context: *data
-  args: [str, '`0`']
+  args: [str, 0]
   error: invalid-type

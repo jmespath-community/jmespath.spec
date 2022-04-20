@@ -55,13 +55,13 @@ examples:
     empty_hash: {}
     objects: {foo: bar, bar: baz}
     null_key:
-  args: ["'abc'"]
+  args: ['abc']
   returns: 3
 - context: *data
-  args: ["'\u2713foo'"]
+  args: ['\u2713foo']
   returns: 4
 - context: *data
-  args: ["''"]
+  args: ['']
   returns: 0
 - context: *data
   args: ['@']
@@ -79,7 +79,7 @@ examples:
   args: [objects]
   returns: 2
 - context: *data
-  args: ['`false`']
+  args: [false]
   error: invalid-type
 - context: *data
   args: [foo]

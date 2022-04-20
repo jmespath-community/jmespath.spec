@@ -45,7 +45,7 @@ examples:
   args: [array]
   error: invalid-type
 - context: *data
-  args: ["'abc'"]
+  args: ['abc']
   error: invalid-type
 - context: *data
   args: [foo]

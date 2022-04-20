@@ -47,7 +47,7 @@ examples:
   args: [strings]
   error: invalid-type
 - context: *data
-  args: ['`false`']
+  args: [false]
   error: invalid-type
 - context: *data
   args: [empty_hash]

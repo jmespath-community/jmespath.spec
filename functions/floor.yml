@@ -34,10 +34,10 @@ examples:
     empty_hash: {}
     objects: {foo: bar, bar: baz}
     null_key:
-  args: ['`1.2`']
+  args: [1.2]
   returns: 1
 - context: *data
-  args: ["'string'"]
+  args: ['string']
   error: invalid-type
 - context: *data
   args: ['decimals[0]']
