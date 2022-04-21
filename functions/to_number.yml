@@ -44,26 +44,26 @@ examples:
     empty_hash: {}
     objects: {foo: bar, bar: baz}
     null_key:
-  args: ["'1.0'"]
+  args: ['1.0']
   returns: 1.0
 - context: *data
-  args: ["'1.1'"]
+  args: ['1.1']
   returns: 1.1
 - context: *data
-  args: ["'4'"]
+  args: ['4']
   returns: 4
 - context: *data
-  args: ["'notanumber'"]
+  args: ['notanumber']
   returns:
 - context: *data
-  args: ['`false`']
+  args: [false]
   returns:
 - context: *data
-  args: ['`null`']
+  args: [null]
   returns:
 - context: *data
-  args: ['`[0]`']
+  args: [[0]]
   returns:
 - context: *data
-  args: ['`{"foo": 0}`']
+  args: [{"foo": 0}]
   returns:

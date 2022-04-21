@@ -34,11 +34,11 @@ examples:
     empty_hash: {}
     objects: {foo: bar, bar: baz}
     null_key:
-  args: ["'foo'"]
+  args: ['foo']
   returns: foo
 - context: *data
-  args: ['`1.2`']
+  args: [1.2]
   returns: '1.2'
 - context: *data
-  args: ['`[0', '1]`']
+  args: [[0, 1]]
   returns: '[0,1]'

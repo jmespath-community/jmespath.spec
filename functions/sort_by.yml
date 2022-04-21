@@ -75,7 +75,7 @@ examples:
   args: [people, '&age)[].extr']
   returns: [foo, bar]
 - context: *data
-  args: ['`[]`', '&age']
+  args: [[], '&age']
   returns: []
 - context:
     people: [{age: 10, order: '1'}, {age: 10, order: '2'}, {age: 10, order: '3'},

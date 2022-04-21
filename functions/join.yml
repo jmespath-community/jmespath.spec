@@ -41,29 +41,29 @@ examples:
     empty_hash: {}
     objects: {foo: bar, bar: baz}
     null_key:
-  args: ["'", "'", strings]
+  args: [', ', strings]
   returns: a, b, c
 - context: *data
-  args: ["'", "'", '`["a"', '"b"]`']
+  args: [', ', ["a', 'b"]]
   returns: a,b
 - context: *data
-  args: ["'", "'", '`["a"', '0]`']
+  args: [', ', ["a", 0]]
   error: invalid-type
 - context: *data
-  args: ["'", "'", str]
+  args: [', ', str]
   error: invalid-type
 - context: *data
-  args: ["'|'", strings]
+  args: ['|', strings]
   returns: a|b|c
 - context: *data
-  args: ['`2`', strings]
+  args: [2, strings]
   error: invalid-type
 - context: *data
-  args: ["'|'", decimals]
+  args: ['|', decimals]
   error: invalid-type
 - context: *data
-  args: ["'|'", 'decimals[].to_string(@)']
-  returns: 1.01|1.2|-1.5
+  args: ['|', 'decimals[].to_string(@)']
+  returns: '1.01|1.2|-1.5'
 - context: *data
-  args: ["'|'", empty_list]
+  args: ['|', empty_list]
   returns: ''

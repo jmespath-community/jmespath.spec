@@ -43,11 +43,11 @@ examples:
   args: [array]
   returns: ['100', a, 5, 4, 3, -1]
 - context: *data
-  args: ['`[]`']
+  args: [[]]
   returns: []
 - context: *data
-  args: ["''"]
+  args: ['']
   returns: ''
 - context: *data
-  args: ["'hello world'"]
+  args: ['hello world']
   returns: dlrow olleh

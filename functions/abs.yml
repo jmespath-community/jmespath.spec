@@ -128,13 +128,13 @@ examples:
   args: ['array[1]']
   returns: 3
 - context: *data
-  args: ['`false`']
+  args: [false]
   error: invalid-type
 - context: *data
-  args: ['`-24`']
+  args: [-24]
   returns: 24
 - context: *data
-  args: ['`1`', '`2`']
+  args: [1, 2]
   error: invalid-arity
 - context: *data
   args: ['']

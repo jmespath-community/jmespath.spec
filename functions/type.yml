@@ -59,28 +59,28 @@ examples:
     empty_hash: {}
     objects: {foo: bar, bar: baz}
     null_key:
-  args: ["'abc'"]
+  args: ['abc']
   returns: string
 - context: *data
-  args: ['`1.0`']
+  args: [1.0]
   returns: number
 - context: *data
-  args: ['`2`']
+  args: [2]
   returns: number
 - context: *data
-  args: ['`true`']
+  args: [true]
   returns: boolean
 - context: *data
-  args: ['`false`']
+  args: [false]
   returns: boolean
 - context: *data
-  args: ['`null`']
+  args: [null]
   returns: 'null'
 - context: *data
-  args: ['`[0]`']
+  args: [[0]]
   returns: array
 - context: *data
-  args: ['`{"a": "b"}`']
+  args: [{"a": "b"}]
   returns: object
 - context: *data
   args: ['@']

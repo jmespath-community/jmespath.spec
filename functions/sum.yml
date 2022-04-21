@@ -51,5 +51,5 @@ examples:
   args: ['array[].to_number(@)']
   returns: 111
 - context: *data
-  args: ['`[]`']
+  args: [[]]
   returns: 0
