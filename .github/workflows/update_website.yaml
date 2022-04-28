@@ -1,7 +1,9 @@
 name: Trigger website update
 on:
   push:
-    tags: "v*"
+    tags: 
+      - v*
+      - 2015-09-05-9e8d0e3
 jobs:
   dispatch:
     runs-on: ubuntu-latest
