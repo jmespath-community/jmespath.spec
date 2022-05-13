@@ -30,7 +30,7 @@ properties:
             type: &type
               description: ""
               oneOf:
-                - enum: &types [any, number, string, boolean, array, object, "null", expression, "array[number]", "array[string]", "array[boolean]", "array[object]", "array[any]", "expression->number", "expression->string"]
+                - enum: &types [any, number, string, boolean, array, object, "null", expression, "array[number]", "array[string]", "array[boolean]", "array[object]", "array[any]", "expression->any", "expression->number", "expression->string"]
                 - type: array
                   items:
                     enum: *types
