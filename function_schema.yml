@@ -78,6 +78,9 @@ properties:
               returns:
                 type: *any
                 description: ""
+              comment: &comment
+                type: string
+                description: ""
           - type: object
             required: [context, args, error]
             additionalProperties: false
@@ -87,3 +90,4 @@ properties:
               error:
                 type: string
                 description: ""
+              comment: *comment
