@@ -4,52 +4,61 @@ args:
   required:
   - name: collection
     type: ['array[number]']
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: number
-  desc: ""
+  desc: ''
 desc: |
   Returns the sum of the provided array argument.
 
   An empty array will produce a return value of 0.
 examples:
-- context: [10, 15]
-  args: ['@']
-  returns: 25
-- context: [10, false, 20]
-  args: ['@']
-  error: invalid-type
-- context: [10, false, 20]
-  args: ['[].to_number(@)']
-  returns: 30
-- context: []
-  args: ['@']
-  returns: 0
-- context: &data
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: [numbers]
-  returns: 11
-- context: *data
-  args: [decimals]
-  returns: 0.71
-- context: *data
-  args: [array]
-  error: invalid-type
-- context: *data
-  args: ['array[].to_number(@)']
-  returns: 111
-- context: *data
-  args: [[]]
-  returns: 0
+  test0:
+    context: [10, 15]
+    args: ['@']
+    returns: 25
+  test1:
+    context: [10, false, 20]
+    args: ['@']
+    error: invalid-type
+  test2:
+    context: [10, false, 20]
+    args: ['[].to_number(@)']
+    returns: 30
+  test3:
+    context: []
+    args: ['@']
+    returns: 0
+  test4:
+    context: &data
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: [numbers]
+    returns: 11
+  test5:
+    context: *data
+    args: [decimals]
+    returns: 0.71
+  test6:
+    context: *data
+    args: [array]
+    error: invalid-type
+  test7:
+    context: *data
+    args: ['array[].to_number(@)']
+    returns: 111
+  test8:
+    context: *data
+    args: [empty_list]
+    returns: 0

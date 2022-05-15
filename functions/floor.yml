@@ -4,47 +4,55 @@ args:
   required:
   - name: value
     type: [number]
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: number
-  desc: ""
+  desc: ''
 desc: |
   Returns the next lowest integer value by rounding down if necessary.
 examples:
-- context:
-  args: [1.001]
-  returns: 1
-- context:
-  args: [1.9]
-  returns: 1
-- context:
-  args: [1]
-  returns: 1
-- context: &data
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: [1.2]
-  returns: 1
-- context: *data
-  args: ['string']
-  error: invalid-type
-- context: *data
-  args: ['decimals[0]']
-  returns: 1
-- context: *data
-  args: [foo]
-  returns: -1
-- context: *data
-  args: [str]
-  error: invalid-type
+  test0:
+    context:
+    args: [1.001]
+    returns: 1
+  test1:
+    context:
+    args: [1.9]
+    returns: 1
+  test2:
+    context:
+    args: [1]
+    returns: 1
+  test3:
+    context: &data
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: [1.2]
+    returns: 1
+  test4:
+    context: *data
+    args: [string]
+    error: invalid-type
+  test5:
+    context: *data
+    args: ['decimals[0]']
+    returns: 1
+  test6:
+    context: *data
+    args: [foo]
+    returns: -1
+  test7:
+    context: *data
+    args: [str]
+    error: invalid-type

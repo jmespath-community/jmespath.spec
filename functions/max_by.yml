@@ -4,51 +4,51 @@ args:
   required:
   - name: elements
     type: [array]
-    desc: ""
+    desc: ''
   - name: expr
     type: [expression->number, expression->string]
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: any
-  desc: ""
+  desc: ''
 desc: |
   Return the maximum element in an array using the expression `expr` as the
   comparison key.  The entire maximum element is returned.
   Below are several examples using the `people` array (defined above) as the
   given input.
 examples:
-- context:
-  args: [people, '&age']
-  returns: {age: 50, age_str: '50', bool: false, name: d}
-- context:
-  args: [people, '&age']
-  returns: 50
-- context:
-  args: [people, '&to_number(age_str)']
-  returns: {age: 50, age_str: '50', bool: false, name: d}
-- context:
-  args: [people, '&age_str']
-  error: invalid-type
-- context:
-  args: [people, age]
-  error: invalid-type
-- context: &data
-    people: [{age: 20, age_str: '20', bool: true, name: a, extra: foo}, {age: 40,
-        age_str: '40', bool: false, name: b, extra: bar}, {age: 30, age_str: '30',
-        bool: true, name: c}, {age: 50, age_str: '50', bool: false, name: d}, {age: 10,
-        age_str: '10', bool: true, name: 3}]
-  args: [people, '&age']
-  returns: {age: 50, age_str: '50', bool: false, name: d}
-- context: *data
-  args: [people, '&age_str']
-  returns: {age: 50, age_str: '50', bool: false, name: d}
-- context: *data
-  args: [people, '&bool']
-  error: invalid-type
-- context: *data
-  args: [people, '&extra']
-  error: invalid-type
-- context: *data
-  args: [people, '&to_number(age_str)']
-  returns: {age: 50, age_str: '50', bool: false, name: d}
+  test5:
+    context: &data
+      people:
+      - {age: 20, age_str: '20', bool: true, name: a, extra: foo}
+      - {age: 40, age_str: '40', bool: false, name: b, extra: bar}
+      - {age: 30, age_str: '30', bool: true, name: c}
+      - {age: 50, age_str: '50', bool: false, name: d}
+      - {age: 10, age_str: '10', bool: true, name: 3}
+    args: [people, '&age']
+    returns: {age: 50, age_str: '50', bool: false, name: d}
+  test6:
+    context: *data
+    args: [people, '&age_str']
+    returns: {age: 50, age_str: '50', bool: false, name: d}
+  test7:
+    context: *data
+    args: [people, '&bool']
+    error: invalid-type
+  test8:
+    context: *data
+    args: [people, '&extra']
+    error: invalid-type
+  test9:
+    context: *data
+    args: [people, '&to_number(age_str)']
+    returns: {age: 50, age_str: '50', bool: false, name: d}
+  test3:
+    context: *data
+    args: [people, '&age_str']
+    error: invalid-type
+  test4:
+    context: *data
+    args: [people, age]
+    error: invalid-type

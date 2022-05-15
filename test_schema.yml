@@ -1,29 +1,32 @@
-type: array
-items:
-  type: object
-  additionalProperties: false
-  properties:
-    given: {}
-    comment:
-      type: string
-    cases:
-      type: array
-      items:
-        type: object
+type: object
+additionalProperties: false
+patternProperties:
+  "^\\w.*":
+    description: ""
+    oneOf:
+      - type: object
+        required: [ context, query, returns ]
         additionalProperties: false
         properties:
-          expression:
+          context: &context
+            type: &any [ "number","string","boolean","object","array","null" ]
+            description: ""
+          query: &query
             type: string
-          result: {}
+            description: ""
+          returns:
+            type: *any
+            description: ""
+          comment: &comment
+            type: string
+            description: ""
+      - type: object
+        required: [ context, query, error ]
+        additionalProperties: false
+        properties:
+          context: *context
+          query: *query
           error:
-            enum: [invalid-arity, invalid-type, invalid-value, syntax, unknown-function]
-          bench:
-            enum: [parse, interpret, full]
-          comment:
             type: string
-        required: [expression]
-        anyOf:
-        - required: [result]
-        - required: [error]
-        - required: [bench]
-  required: [given, cases]
+            description: ""
+          comment: *comment

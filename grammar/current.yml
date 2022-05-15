@@ -1,0 +1,14 @@
+test0:
+  context: &data
+    foo: [name: a, name: b]
+    bar: {baz: qux}
+  query: '@'
+  returns: {foo: [name: a, name: b], bar: {baz: qux}}
+test1:
+  context: *data
+  query: '@.bar'
+  returns: {baz: qux}
+test2:
+  context: *data
+  query: '@.foo[0]'
+  returns: {name: a}

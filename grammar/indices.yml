@@ -1,0 +1,260 @@
+test0:
+  context: &data
+    foo: {bar: [zero, one, two]}
+  query: foo.bar[0]
+  returns: zero
+test1:
+  context: *data
+  query: foo.bar[1]
+  returns: one
+test2:
+  context: *data
+  query: foo.bar[2]
+  returns: two
+test3:
+  context: *data
+  query: foo.bar[3]
+  returns:
+test4:
+  context: *data
+  query: foo.bar[-1]
+  returns: two
+test5:
+  context: *data
+  query: foo.bar[-2]
+  returns: one
+test6:
+  context: *data
+  query: foo.bar[-3]
+  returns: zero
+test7:
+  context: *data
+  query: foo.bar[-4]
+  returns:
+test8:
+  context: &data
+    foo: [bar: one, bar: two, bar: three, notbar: four]
+  query: foo.bar
+  returns:
+test9:
+  context: *data
+  query: foo[0].bar
+  returns: one
+test10:
+  context: *data
+  query: foo[1].bar
+  returns: two
+test11:
+  context: *data
+  query: foo[2].bar
+  returns: three
+test12:
+  context: *data
+  query: foo[3].notbar
+  returns: four
+test13:
+  context: *data
+  query: foo[3].bar
+  returns:
+test14:
+  context: *data
+  query: foo[0]
+  returns: {bar: one}
+test15:
+  context: *data
+  query: foo[1]
+  returns: {bar: two}
+test16:
+  context: *data
+  query: foo[2]
+  returns: {bar: three}
+test17:
+  context: *data
+  query: foo[3]
+  returns: {notbar: four}
+test18:
+  context: *data
+  query: foo[4]
+  returns:
+test19:
+  context: &data
+  - one
+  - two
+  - three
+  query: '[0]'
+  returns: one
+test20:
+  context: *data
+  query: '[1]'
+  returns: two
+test21:
+  context: *data
+  query: '[2]'
+  returns: three
+test22:
+  context: *data
+  query: '[-1]'
+  returns: three
+test23:
+  context: *data
+  query: '[-2]'
+  returns: two
+test24:
+  context: *data
+  query: '[-3]'
+  returns: one
+test25:
+  context: &data
+    reservations: [instances: [foo: 1, foo: 2]]
+  query: reservations[].instances[].foo
+  returns: [1, 2]
+test26:
+  context: *data
+  query: reservations[].instances[].bar
+  returns: []
+test27:
+  context: *data
+  query: reservations[].notinstances[].foo
+  returns: []
+test28:
+  context: *data
+  query: reservations[].notinstances[].foo
+  returns: []
+test29:
+  context: &data
+    reservations: [{instances: [foo: [bar: 1, bar: 2, notbar: 3, bar: 4], foo: [bar: 5,
+              bar: 6, notbar: [7], bar: 8], foo: bar, notfoo: [bar: 20, bar: 21, 
+                notbar: [7], bar: 22], bar: [baz: [1], baz: [2], baz: [3], baz: [
+                  4]], baz: [baz: [1, 2], baz: [], baz: [], baz: [3, 4]], qux: [baz: [],
+              baz: [1, 2, 3], baz: [4], baz: []]], otherkey: {foo: [bar: 1, bar: 2,
+            notbar: 3, bar: 4]}}, {instances: [a: [bar: 1, bar: 2, notbar: 3, bar: 4],
+          b: [bar: 5, bar: 6, notbar: [7], bar: 8], c: bar, notfoo: [bar: 23, bar: 24,
+              notbar: [7], bar: 25], qux: [baz: [], baz: [1, 2, 3], baz: [4], baz: []]],
+        otherkey: {foo: [bar: 1, bar: 2, notbar: 3, bar: 4]}}]
+  query: reservations[].instances[].foo[].bar
+  returns: [1, 2, 4, 5, 6, 8]
+test30:
+  context: *data
+  query: reservations[].instances[].foo[].baz
+  returns: []
+test31:
+  context: *data
+  query: reservations[].instances[].notfoo[].bar
+  returns: [20, 21, 22, 23, 24, 25]
+test32:
+  context: *data
+  query: reservations[].instances[].notfoo[].notbar
+  returns: [[7], [7]]
+test33:
+  context: *data
+  query: reservations[].notinstances[].foo
+  returns: []
+test34:
+  context: *data
+  query: reservations[].instances[].foo[].notbar
+  returns: [3, [7]]
+test35:
+  context: *data
+  query: reservations[].instances[].bar[].baz
+  returns: [[1], [2], [3], [4]]
+test36:
+  context: *data
+  query: reservations[].instances[].baz[].baz
+  returns: [[1, 2], [], [], [3, 4]]
+test37:
+  context: *data
+  query: reservations[].instances[].qux[].baz
+  returns: [[], [1, 2, 3], [4], [], [], [1, 2, 3], [4], []]
+test38:
+  context: *data
+  query: reservations[].instances[].qux[].baz[]
+  returns: [1, 2, 3, 4, 1, 2, 3, 4]
+test39:
+  context: &data
+    foo: [[[one, two], [three, four]], [[five, six], [seven, eight]], [[nine], [ten]]]
+  query: foo[]
+  returns: [[one, two], [three, four], [five, six], [seven, eight], [nine], [ten]]
+test40:
+  context: *data
+  query: foo[][0]
+  returns: [one, three, five, seven, nine, ten]
+test41:
+  context: *data
+  query: foo[][1]
+  returns: [two, four, six, eight]
+test42:
+  context: *data
+  query: foo[][0][0]
+  returns: []
+test43:
+  context: *data
+  query: foo[][2][2]
+  returns: []
+test44:
+  context: *data
+  query: foo[][0][0][100]
+  returns: []
+test45:
+  context: &data
+    foo: [bar: [{qux: 2, baz: 1}, {qux: 4, baz: 3}], bar: [{qux: 6, baz: 5}, {qux: 8,
+            baz: 7}]]
+  query: foo
+  returns: [bar: [{qux: 2, baz: 1}, {qux: 4, baz: 3}], bar: [{qux: 6, baz: 5}, {qux: 8,
+          baz: 7}]]
+test46:
+  context: *data
+  query: foo[]
+  returns: [bar: [{qux: 2, baz: 1}, {qux: 4, baz: 3}], bar: [{qux: 6, baz: 5}, {qux: 8,
+          baz: 7}]]
+test47:
+  context: *data
+  query: foo[].bar
+  returns: [[{qux: 2, baz: 1}, {qux: 4, baz: 3}], [{qux: 6, baz: 5}, {qux: 8, baz: 7}]]
+test48:
+  context: *data
+  query: foo[].bar[]
+  returns: [{qux: 2, baz: 1}, {qux: 4, baz: 3}, {qux: 6, baz: 5}, {qux: 8, baz: 7}]
+test49:
+  context: *data
+  query: foo[].bar[].baz
+  returns: [1, 3, 5, 7]
+test50:
+  context: &data
+    string: string
+    hash: {foo: bar, bar: baz}
+    number: 23
+    nullvalue:
+  query: string[]
+  returns:
+test51:
+  context: *data
+  query: hash[]
+  returns:
+test52:
+  context: *data
+  query: number[]
+  returns:
+test53:
+  context: *data
+  query: nullvalue[]
+  returns:
+test54:
+  context: *data
+  query: string[].foo
+  returns:
+test55:
+  context: *data
+  query: hash[].foo
+  returns:
+test56:
+  context: *data
+  query: number[].foo
+  returns:
+test57:
+  context: *data
+  query: nullvalue[].foo
+  returns:
+test58:
+  context: *data
+  query: nullvalue[].foo[].bar
+  returns:

@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: set-matrix
-        run: echo "::set-output name=matrix::$(ls grammar/*.json | jq -R -s -c 'split("\n")[:-1]')"
+        run: echo "::set-output name=matrix::$(ls grammar/*.yml | jq -R -s -c 'split("\n")[:-1]')"
   validate-tests:
     needs: list-tests
     runs-on: ubuntu-latest

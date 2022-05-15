@@ -4,11 +4,11 @@ args:
   required:
   - name: obj
     type: [object]
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: array
-  desc: ""
+  desc: ''
 desc: |
   Returns the values of the provided object.
   Note that because JSON hashes are inheritently unordered, the
@@ -43,27 +43,31 @@ desc: |
   If you would like a specific order, consider using the
   `sort` or `sort_by` functions.
 examples:
-- context: {foo: baz, bar: bam}
-  args: ['@']
-  returns: [baz, bam]
-- context: [a, b]
-  args: ['@']
-  error: invalid-type
-- context: false
-  args: ['@']
-  error: invalid-type
-- context:
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: [foo]
-  error: invalid-type
+  test0:
+    context: {foo: baz, bar: bam}
+    args: ['@']
+    returns: [baz, bam]
+  test1:
+    context: [a, b]
+    args: ['@']
+    error: invalid-type
+  test2:
+    context: false
+    args: ['@']
+    error: invalid-type
+  test3:
+    context:
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: [foo]
+    error: invalid-type

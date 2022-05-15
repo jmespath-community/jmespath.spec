@@ -1,0 +1,631 @@
+test0:
+  context:
+    __L: true
+  query: __L
+  returns: true
+test1:
+  context:
+    "!\r": true
+  query: '"!\r"'
+  returns: true
+test2:
+  context:
+    Y_1623: true
+  query: Y_1623
+  returns: true
+test3:
+  context:
+    x: true
+  query: x
+  returns: true
+test4:
+  context:
+    "\tF\uCEBB": true
+  query: '"\tF\uCebb"'
+  returns: true
+test5:
+  context:
+    " \t": true
+  query: '" \t"'
+  returns: true
+test6:
+  context:
+    ' ': true
+  query: '" "'
+  returns: true
+test7:
+  context:
+    v2: true
+  query: v2
+  returns: true
+test8:
+  context:
+    "\t": true
+  query: '"\t"'
+  returns: true
+test9:
+  context:
+    _X: true
+  query: _X
+  returns: true
+test10:
+  context:
+    "\t4\uD9DA\uDD15": true
+  query: '"\t4\ud9da\udd15"'
+  returns: true
+test11:
+  context:
+    v24_W: true
+  query: v24_W
+  returns: true
+test12:
+  context:
+    H: true
+  query: '"H"'
+  returns: true
+test13:
+  context:
+    "\f": true
+  query: '"\f"'
+  returns: true
+test14:
+  context:
+    E4: true
+  query: '"E4"'
+  returns: true
+test15:
+  context:
+    '!': true
+  query: '"!"'
+  returns: true
+test16:
+  context:
+    tM: true
+  query: tM
+  returns: true
+test17:
+  context:
+    ' [': true
+  query: '" ["'
+  returns: true
+test18:
+  context:
+    R!: true
+  query: '"R!"'
+  returns: true
+test19:
+  context:
+    _6W: true
+  query: _6W
+  returns: true
+test20:
+  context:
+    "\uABA1\r": true
+  query: '"\uaBA1\r"'
+  returns: true
+test21:
+  context:
+    tL7: true
+  query: tL7
+  returns: true
+test22:
+  context:
+    "<<U\t": true
+  query: '"<<U\t"'
+  returns: true
+test23:
+  context:
+    "\uBBCE\uFAFB": true
+  query: '"\ubBcE\ufAfB"'
+  returns: true
+test24:
+  context:
+    sNA_: true
+  query: sNA_
+  returns: true
+test25:
+  context:
+    '9': true
+  query: '"9"'
+  returns: true
+test26:
+  context:
+    "\\\b\uD8CB\uDC83": true
+  query: '"\\\b\ud8cb\udc83"'
+  returns: true
+test27:
+  context:
+    r: true
+  query: '"r"'
+  returns: true
+test28:
+  context:
+    Q: true
+  query: Q
+  returns: true
+test29:
+  context:
+    _Q__7GL8: true
+  query: _Q__7GL8
+  returns: true
+test30:
+  context:
+    \: true
+  query: '"\\"'
+  returns: true
+test31:
+  context:
+    RR9_: true
+  query: RR9_
+  returns: true
+test32:
+  context:
+    "\r\f:": true
+  query: '"\r\f:"'
+  returns: true
+test33:
+  context:
+    r7: true
+  query: r7
+  returns: true
+test34:
+  context:
+    '-': true
+  query: '"-"'
+  returns: true
+test35:
+  context:
+    p9: true
+  query: p9
+  returns: true
+test36:
+  context:
+    __: true
+  query: __
+  returns: true
+test37:
+  context:
+    "\b\t": true
+  query: '"\b\t"'
+  returns: true
+test38:
+  context:
+    O_: true
+  query: O_
+  returns: true
+test39:
+  context:
+    _r_8: true
+  query: _r_8
+  returns: true
+test40:
+  context:
+    _j: true
+  query: _j
+  returns: true
+test41:
+  context:
+    ':': true
+  query: '":"'
+  returns: true
+test42:
+  context:
+    "\rB": true
+  query: '"\rB"'
+  returns: true
+test43:
+  context:
+    Obf: true
+  query: Obf
+  returns: true
+test44:
+  context:
+    ? "\n"
+    : true
+  query: '"\n"'
+  returns: true
+test45:
+  context:
+    "\\\\f\\uDB54\\uDF33": true
+  query: '"\\\\f\\uDB54\\uDF33"'
+  returns: true
+test46:
+  context:
+    "\\\u4FDC": true
+  query: '"\\\u4FDc"'
+  returns: true
+test47:
+  context:
+    "\r": true
+  query: '"\r"'
+  returns: true
+test48:
+  context:
+    m_: true
+  query: m_
+  returns: true
+test49:
+  context:
+    "\r\fB ": true
+  query: '"\r\fB "'
+  returns: true
+test50:
+  context:
+    +"": true
+  query: '"+\"\""'
+  returns: true
+test51:
+  context:
+    Mg: true
+  query: Mg
+  returns: true
+test52:
+  context:
+    '"!/': true
+  query: '"\"!\/"'
+  returns: true
+test53:
+  context:
+    7": true
+  query: '"7\""'
+  returns: true
+test54:
+  context:
+    "\\\uDB3A\uDCA4S": true
+  query: "\"\\\\\uDB3A\uDCA4S\""
+  returns: true
+test55:
+  context:
+    '"': true
+  query: '"\""'
+  returns: true
+test56:
+  context:
+    Kl: true
+  query: Kl
+  returns: true
+test57:
+  context:
+    "\b\b": true
+  query: '"\b\b"'
+  returns: true
+test58:
+  context:
+    '>': true
+  query: '">"'
+  returns: true
+test59:
+  context:
+    hvu: true
+  query: hvu
+  returns: true
+test60:
+  context:
+    ; !: true
+  query: '"; !"'
+  returns: true
+test61:
+  context:
+    hU: true
+  query: hU
+  returns: true
+test62:
+  context:
+    ? "!I\n/"
+    : true
+  query: '"!I\n\/"'
+  returns: true
+test63:
+  context:
+    "\uEEBF": true
+  query: '"\uEEbF"'
+  returns: true
+test64:
+  context:
+    "U)\t": true
+  query: '"U)\t"'
+  returns: true
+test65:
+  context:
+    fa0_9: true
+  query: fa0_9
+  returns: true
+test66:
+  context:
+    /: true
+  query: '"/"'
+  returns: true
+test67:
+  context:
+    Gy: true
+  query: Gy
+  returns: true
+test68:
+  context:
+    "\b": true
+  query: '"\b"'
+  returns: true
+test69:
+  context:
+    <: true
+  query: '"<"'
+  returns: true
+test70:
+  context:
+    "\t": true
+  query: '"\t"'
+  returns: true
+test71:
+  context:
+    "\t&\\\r": true
+  query: '"\t&\\\r"'
+  returns: true
+test72:
+  context:
+    '#': true
+  query: '"#"'
+  returns: true
+test73:
+  context:
+    B__: true
+  query: B__
+  returns: true
+test74:
+  context:
+    ? "\nS \n"
+    : true
+  query: '"\nS \n"'
+  returns: true
+test75:
+  context:
+    Bp: true
+  query: Bp
+  returns: true
+test76:
+  context:
+    ",\t;": true
+  query: '",\t;"'
+  returns: true
+test77:
+  context:
+    B_q: true
+  query: B_q
+  returns: true
+test78:
+  context:
+    ? "/+\t\n\b!Z"
+    : true
+  query: '"\/+\t\n\b!Z"'
+  returns: true
+test79:
+  context:
+    "\uDADD\uDFC7\\ueFAc": true
+  query: "\"\uDADD\uDFC7\\\\ueFAc\""
+  returns: true
+test80:
+  context:
+    ":\f": true
+  query: '":\f"'
+  returns: true
+test81:
+  context:
+    /: true
+  query: '"\/"'
+  returns: true
+test82:
+  context:
+    _BW_6Hg_Gl: true
+  query: _BW_6Hg_Gl
+  returns: true
+test83:
+  context:
+    "\uDBCF\uDC02": true
+  query: "\"\uDBCF\uDC02\""
+  returns: true
+test84:
+  context:
+    zs1DC: true
+  query: zs1DC
+  returns: true
+test85:
+  context:
+    __434: true
+  query: __434
+  returns: true
+test86:
+  context:
+    "\uDB94\uDD41": true
+  query: "\"\uDB94\uDD41\""
+  returns: true
+test87:
+  context:
+    Z_5: true
+  query: Z_5
+  returns: true
+test88:
+  context:
+    z_M_: true
+  query: z_M_
+  returns: true
+test89:
+  context:
+    YU_2: true
+  query: YU_2
+  returns: true
+test90:
+  context:
+    _0: true
+  query: _0
+  returns: true
+test91:
+  context:
+    "\b+": true
+  query: '"\b+"'
+  returns: true
+test92:
+  context:
+    '"': true
+  query: '"\""'
+  returns: true
+test93:
+  context:
+    D7: true
+  query: D7
+  returns: true
+test94:
+  context:
+    _62L: true
+  query: _62L
+  returns: true
+test95:
+  context:
+    "\tK\t": true
+  query: '"\tK\t"'
+  returns: true
+test96:
+  context:
+    ? "\n\\\f"
+    : true
+  query: '"\n\\\f"'
+  returns: true
+test97:
+  context:
+    I_: true
+  query: I_
+  returns: true
+test98:
+  context:
+    W_a0_: true
+  query: W_a0_
+  returns: true
+test99:
+  context:
+    BQ: true
+  query: BQ
+  returns: true
+test100:
+  context:
+    "\tX$\uABBB": true
+  query: '"\tX$\uABBb"'
+  returns: true
+test101:
+  context:
+    Z9: true
+  query: Z9
+  returns: true
+test102:
+  context:
+    "\b%\"\uDA38\uDD0F": true
+  query: "\"\\b%\\\"\uDA38\uDD0F\""
+  returns: true
+test103:
+  context:
+    _F: true
+  query: _F
+  returns: true
+test104:
+  context:
+    '!,': true
+  query: '"!,"'
+  returns: true
+test105:
+  context:
+    '"!': true
+  query: '"\"!"'
+  returns: true
+test106:
+  context:
+    Hh: true
+  query: Hh
+  returns: true
+test107:
+  context:
+    '&': true
+  query: '"&"'
+  returns: true
+test108:
+  context:
+    "9\r\\R": true
+  query: '"9\r\\R"'
+  returns: true
+test109:
+  context:
+    M_k: true
+  query: M_k
+  returns: true
+test110:
+  context:
+    ? "!\b\n\uDB06\uDE52\"\""
+    : true
+  query: "\"!\\b\\n\uDB06\uDE52\\\"\\\"\""
+  returns: true
+test111:
+  context:
+    '6': true
+  query: '"6"'
+  returns: true
+test112:
+  context:
+    _7: true
+  query: _7
+  returns: true
+test113:
+  context:
+    '0': true
+  query: '"0"'
+  returns: true
+test114:
+  context:
+    \8\: true
+  query: '"\\8\\"'
+  returns: true
+test115:
+  context:
+    b7eo: true
+  query: b7eo
+  returns: true
+test116:
+  context:
+    xIUo9: true
+  query: xIUo9
+  returns: true
+test117:
+  context:
+    '5': true
+  query: '"5"'
+  returns: true
+test118:
+  context:
+    '?': true
+  query: '"?"'
+  returns: true
+test119:
+  context:
+    sU: true
+  query: sU
+  returns: true
+test120:
+  context:
+    VH2&H\/: true
+  query: '"VH2&H\\\/"'
+  returns: true
+test121:
+  context:
+    _C: true
+  query: _C
+  returns: true
+test122:
+  context:
+    _: true
+  query: _
+  returns: true
+test123:
+  context:
+    "<\t": true
+  query: '"<\t"'
+  returns: true
+test124:
+  context:
+    "\uD834\uDD1E": true
+  query: '"\uD834\uDD1E"'
+  returns: true

@@ -1,0 +1,41 @@
+test0:
+  context: &data
+    foo.bar: dot
+    foo bar: space
+    ? "foo\nbar"
+    : newline
+    foo"bar: doublequote
+    c:\\windows\path: windows
+    /unix/path: unix
+    '"""': threequotes
+    bar: {baz: qux}
+  query: '"foo.bar"'
+  returns: dot
+test1:
+  context: *data
+  query: '"foo bar"'
+  returns: space
+test2:
+  context: *data
+  query: '"foo\nbar"'
+  returns: newline
+test3:
+  context: *data
+  query: '"foo\"bar"'
+  returns: doublequote
+test4:
+  context: *data
+  query: '"c:\\\\windows\\path"'
+  returns: windows
+test5:
+  context: *data
+  query: '"/unix/path"'
+  returns: unix
+test6:
+  context: *data
+  query: '"\"\"\""'
+  returns: threequotes
+test7:
+  context: *data
+  query: '"bar"."baz"'
+  returns: qux

@@ -4,14 +4,14 @@ args:
   required:
   - name: subject
     type: [array, string]
-    desc: ""
+    desc: ''
   - name: search
     type: [any]
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: boolean
-  desc: ""
+  desc: ''
 desc: |
   Returns `true` if the given `$subject` contains the provided `$search`
   string.
@@ -22,63 +22,79 @@ desc: |
   If the provided `$subject` is a string, this function returns true if
   the string contains the provided `$search` argument.
 examples:
-- context:
-  args: [foobar, foo]
-  returns: true
-- context:
-  args: [foobar, not]
-  returns: false
-- context:
-  args: [foobar, bar]
-  returns: true
-- context:
-  args: [false, bar]
-  error: invalid-type
-- context:
-  args: [foobar, 123]
-  returns: false
-- context: [a, b]
-  args: ['@', a]
-  returns: true
-- context: [a]
-  args: ['@', a]
-  returns: true
-- context: [a]
-  args: ['@', b]
-  returns: false
-- context: [foo, bar]
-  args: ['@', foo]
-  returns: true
-- context: [foo, bar]
-  args: ['@', b]
-  returns: false
-- context: &data
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: ['abc', 'a']
-  returns: true
-- context: *data
-  args: ['abc', 'd']
-  returns: false
-- context: *data
-  args: [false, 'd']
-  error: invalid-type
-- context: *data
-  args: [strings, 'a']
-  returns: true
-- context: *data
-  args: [decimals, 1.2]
-  returns: true
-- context: *data
-  args: [decimals, false]
-  returns: false
+  test0:
+    context:
+    args: ["'foobar'", "'foo'"]
+    returns: true
+  test1:
+    context:
+    args: ["'foobar'", "'not'"]
+    returns: false
+  test2:
+    context:
+    args: ["'foobar'", "'bar'"]
+    returns: true
+  test3:
+    context:
+    args: [false, "'bar'"]
+    error: invalid-type
+  test4:
+    context:
+    args: ["'foobar'", "'123'"]
+    returns: false
+  test5:
+    context: [a, b]
+    args: ['@', "'a'"]
+    returns: true
+  test6:
+    context: [a]
+    args: ['@', "'a'"]
+    returns: true
+  test7:
+    context: [a]
+    args: ['@', "'b'"]
+    returns: false
+  test8:
+    context: [foo, bar]
+    args: ['@', "'foo'"]
+    returns: true
+  test9:
+    context: [foo, bar]
+    args: ['@', "'b'"]
+    returns: false
+  test10:
+    context: &data
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: ["'abc'", "'a'"]
+    returns: true
+  test11:
+    context: *data
+    args: ["'abc'", "'d'"]
+    returns: false
+  test12:
+    context: *data
+    args: [false, "'d'"]
+    error: invalid-type
+  test13:
+    context: *data
+    args: [strings, "'a'"]
+    returns: true
+  test14:
+    context: *data
+    args: [decimals, 1.2]
+    returns: true
+  test15:
+    context: *data
+    args: [decimals, false]
+    returns: false

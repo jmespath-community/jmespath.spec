@@ -4,14 +4,14 @@ args:
   required:
   - name: expr
     type: [expression]
-    desc: ""
+    desc: ''
   - name: elements
     type: ['array[any]']
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: array[any]
-  desc: ""
+  desc: ''
 desc: |
   Apply the `expr` to every element in the `elements` array
   and return the array of results.  An `elements` of length
@@ -21,39 +21,49 @@ desc: |
   the result of applying the `expr` for every element in the
   `elements` array, even if the result if `null`.
 examples:
-- context: {array: [foo: a, foo: b, {}, [], foo: f]}
-  args: ['&foo', array]
-  returns: [a, b, null, null, f]
-- context: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
-  args: ['&[]', '@']
-  returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
-- context: &data1
-    people: [{a: 10, b: 1, c: z}, {a: 10, b: 2, c: null}, {a: 10, b: 3}, {a: 10, b: 4,
-        c: z}, {a: 10, b: 5, c: null}, {a: 10, b: 6}, {a: 10, b: 7, c: z}, {a: 10,
-        b: 8, c: null}, {a: 10, b: 9}]
-    empty: []
-  args: ['&a', people]
-  returns: [10, 10, 10, 10, 10, 10, 10, 10, 10]
-- context: *data1
-  args: ['&c', people]
-  returns: [z, null, null, z, null, null, z, null, null]
-- context: *data1
-  args: ['&a', badkey]
-  error: invalid-type
-- context: *data1
-  args: ['&foo', empty]
-  returns: []
-- context: &data2
-    array: [foo: {bar: yes1}, foo: {bar: yes2}, foo1: {bar: no}]
-  args: ['&foo.bar', array]
-  returns: [yes1, yes2, null]
-- context: *data2
-  args: ['&foo1.bar', array]
-  returns: [null, null, no]
-- context: *data2
-  args: ['&foo.bar.baz', array]
-  returns: [null, null, null]
-- context:
-    array: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
-  args: ['&[]', array]
-  returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
+  test0:
+    context: {array: [foo: a, foo: b, {}, [], foo: f]}
+    args: ['&foo', array]
+    returns: [a, b, !!null '', !!null '', f]
+  test1:
+    context: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
+    args: ['&[]', '@']
+    returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]
+  test2:
+    context: &data1
+      people: [{a: 10, b: 1, c: z}, {a: 10, b: 2, c: !!null ''}, {a: 10, b: 3}, {
+          a: 10, b: 4, c: z}, {a: 10, b: 5, c: !!null ''}, {a: 10, b: 6}, {a: 10,
+          b: 7, c: z}, {a: 10, b: 8, c: !!null ''}, {a: 10, b: 9}]
+      empty: []
+    args: ['&a', people]
+    returns: [10, 10, 10, 10, 10, 10, 10, 10, 10]
+  test3:
+    context: *data1
+    args: ['&c', people]
+    returns: [z, !!null '', !!null '', z, !!null '', !!null '', z, !!null '', !!null '']
+  test4:
+    context: *data1
+    args: ['&a', badkey]
+    error: invalid-type
+  test5:
+    context: *data1
+    args: ['&foo', empty]
+    returns: []
+  test6:
+    context: &data2
+      array: [foo: {bar: yes1}, foo: {bar: yes2}, foo1: {bar: no}]
+    args: ['&foo.bar', array]
+    returns: [yes1, yes2, !!null '']
+  test7:
+    context: *data2
+    args: ['&foo1.bar', array]
+    returns: [!!null '', !!null '', no]
+  test8:
+    context: *data2
+    args: ['&foo.bar.baz', array]
+    returns: [!!null '', !!null '', !!null '']
+  test9:
+    context:
+      array: [[1, 2, 3, [4]], [5, 6, 7, [8, 9]]]
+    args: ['&[]', array]
+    returns: [[1, 2, 3, 4], [5, 6, 7, 8, 9]]

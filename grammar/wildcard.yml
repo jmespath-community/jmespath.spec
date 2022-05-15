@@ -1,0 +1,296 @@
+test0:
+  context: &data
+    foo: {bar: {baz: val}, other: {baz: val}, other2: {baz: val}, other3: {notbaz: [
+          a, b, c]}, other4: {notbaz: [a, b, c]}, other5: {other: {a: 1, b: 1, c: 1}}}
+  query: foo.*.baz
+  returns: [val, val, val]
+test1:
+  context: *data
+  query: foo.bar.*
+  returns: [val]
+test2:
+  context: *data
+  query: foo.*.notbaz
+  returns: [[a, b, c], [a, b, c]]
+test3:
+  context: *data
+  query: foo.*.notbaz[0]
+  returns: [a, a]
+test4:
+  context: *data
+  query: foo.*.notbaz[-1]
+  returns: [c, c]
+test5:
+  context: &data
+    foo: {first-1: {second-1: val}, first-2: {second-1: val}, first-3: {second-1: val}}
+  query: foo.*
+  returns: [second-1: val, second-1: val, second-1: val]
+test6:
+  context: *data
+  query: foo.*.*
+  returns: [[val], [val], [val]]
+test7:
+  context: *data
+  query: foo.*.*.*
+  returns: [[], [], []]
+test8:
+  context: *data
+  query: foo.*.*.*.*
+  returns: [[], [], []]
+test9:
+  context:
+    foo: {bar: one}
+    other: {bar: one}
+    nomatch: {notbar: three}
+  query: '*.bar'
+  returns: [one, one]
+test10:
+  context: &data
+    top1: {sub1: {foo: one}}
+    top2: {sub1: {foo: one}}
+  query: '*'
+  returns: [sub1: {foo: one}, sub1: {foo: one}]
+test11:
+  context: *data
+  query: '*.sub1'
+  returns: [foo: one, foo: one]
+test12:
+  context: *data
+  query: '*.*'
+  returns: [[foo: one], [foo: one]]
+test13:
+  context: *data
+  query: '*.*.foo[]'
+  returns: [one, one]
+test14:
+  context: *data
+  query: '*.sub1.foo'
+  returns: [one, one]
+test15:
+  context: &data
+    foo: [bar: one, bar: two, bar: three, notbar: four]
+  query: foo[*].bar
+  returns: [one, two, three]
+test16:
+  context: *data
+  query: foo[*].notbar
+  returns: [four]
+test17:
+  context: &data
+  - {bar: one}
+  - {bar: two}
+  - {bar: three}
+  - {notbar: four}
+  query: '[*]'
+  returns: [bar: one, bar: two, bar: three, notbar: four]
+test18:
+  context: *data
+  query: '[*].bar'
+  returns: [one, two, three]
+test19:
+  context: *data
+  query: '[*].notbar'
+  returns: [four]
+test20:
+  context: &data
+    foo: {bar: [baz: [one, two, three], baz: [four, five, six], baz: [seven, eight,
+            nine]]}
+  query: foo.bar[*].baz
+  returns: [[one, two, three], [four, five, six], [seven, eight, nine]]
+test21:
+  context: *data
+  query: foo.bar[*].baz[0]
+  returns: [one, four, seven]
+test22:
+  context: *data
+  query: foo.bar[*].baz[1]
+  returns: [two, five, eight]
+test23:
+  context: *data
+  query: foo.bar[*].baz[2]
+  returns: [three, six, nine]
+test24:
+  context: *data
+  query: foo.bar[*].baz[3]
+  returns: []
+test25:
+  context: &data
+    foo: {bar: [[one, two], [three, four]]}
+  query: foo.bar[*]
+  returns: [[one, two], [three, four]]
+test26:
+  context: *data
+  query: foo.bar[0]
+  returns: [one, two]
+test27:
+  context: *data
+  query: foo.bar[0][0]
+  returns: one
+test28:
+  context: *data
+  query: foo.bar[0][0][0]
+  returns:
+test29:
+  context: *data
+  query: foo.bar[0][0][0][0]
+  returns:
+test30:
+  context: *data
+  query: foo[0][0]
+  returns:
+test31:
+  context: &data
+    foo: [bar: [kind: basic, kind: intermediate], bar: [kind: advanced, kind: expert],
+      bar: string]
+
+  query: foo[*].bar[*].kind
+  returns: [[basic, intermediate], [advanced, expert]]
+test32:
+  context: *data
+  query: foo[*].bar[0].kind
+  returns: [basic, advanced]
+test33:
+  context:
+    foo: [bar: {kind: basic}, bar: {kind: intermediate}, bar: {kind: advanced}, bar: {
+          kind: expert}, bar: string]
+  query: foo[*].bar.kind
+  returns: [basic, intermediate, advanced, expert]
+test34:
+  context: &data
+    foo: [bar: [one, two], bar: [three, four], bar: [five]]
+  query: foo[*].bar[0]
+  returns: [one, three, five]
+test35:
+  context: *data
+  query: foo[*].bar[1]
+  returns: [two, four]
+test36:
+  context: *data
+  query: foo[*].bar[2]
+  returns: []
+test37:
+  context:
+    foo: [bar: [], bar: [], bar: []]
+  query: foo[*].bar[0]
+  returns: []
+test38:
+  context: &data
+    foo: [[one, two], [three, four], [five]]
+  query: foo[*][0]
+  returns: [one, three, five]
+test39:
+  context: *data
+  query: foo[*][1]
+  returns: [two, four]
+test40:
+  context: &data
+    foo: [[[one, two], [three, four]], [[five, six], [seven, eight]], [[nine], [ten]]]
+  query: foo[*][0]
+  returns: [[one, two], [five, six], [nine]]
+test41:
+  context: *data
+  query: foo[*][1]
+  returns: [[three, four], [seven, eight], [ten]]
+test42:
+  context: *data
+  query: foo[*][0][0]
+  returns: [one, five, nine]
+test43:
+  context: *data
+  query: foo[*][1][0]
+  returns: [three, seven, ten]
+test44:
+  context: *data
+  query: foo[*][0][1]
+  returns: [two, six]
+test45:
+  context: *data
+  query: foo[*][1][1]
+  returns: [four, eight]
+test46:
+  context: *data
+  query: foo[*][2]
+  returns: []
+test47:
+  context: *data
+  query: foo[*][2][2]
+  returns: []
+test48:
+  context: *data
+  query: bar[*]
+  returns:
+test49:
+  context: *data
+  query: bar[*].baz[*]
+  returns:
+test50:
+  context: &data
+    string: string
+    hash: {foo: bar, bar: baz}
+    number: 23
+    nullvalue:
+  query: string[*]
+  returns:
+test51:
+  context: *data
+  query: hash[*]
+  returns:
+test52:
+  context: *data
+  query: number[*]
+  returns:
+test53:
+  context: *data
+  query: nullvalue[*]
+  returns:
+test54:
+  context: *data
+  query: string[*].foo
+  returns:
+test55:
+  context: *data
+  query: hash[*].foo
+  returns:
+test56:
+  context: *data
+  query: number[*].foo
+  returns:
+test57:
+  context: *data
+  query: nullvalue[*].foo
+  returns:
+test58:
+  context: *data
+  query: nullvalue[*].foo[*].bar
+  returns:
+test59:
+  context: &data
+    string: string
+    hash: {foo: val, bar: val}
+    number: 23
+    array: [1, 2, 3]
+    nullvalue:
+  query: string.*
+  returns:
+test60:
+  context: *data
+  query: hash.*
+  returns: [val, val]
+test61:
+  context: *data
+  query: number.*
+  returns:
+test62:
+  context: *data
+  query: array.*
+  returns:
+test63:
+  context: *data
+  query: nullvalue.*
+  returns:
+test64:
+  context:
+    a: [0, 1, 2]
+    b: [0, 1, 2]
+  query: '*[0]'
+  returns: [0, 0]

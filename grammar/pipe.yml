@@ -1,0 +1,73 @@
+test0:
+  context: &data
+    foo: {bar: {baz: subkey}, other: {baz: subkey}, other2: {baz: subkey}, other3: {
+        notbaz: [a, b, c]}, other4: {notbaz: [a, b, c]}}
+  query: foo.*.baz | [0]
+  returns: subkey
+test1:
+  context: *data
+  query: foo.*.baz | [1]
+  returns: subkey
+test2:
+  context: *data
+  query: foo.*.baz | [2]
+  returns: subkey
+test3:
+  context: *data
+  query: foo.bar.* | [0]
+  returns: subkey
+test4:
+  context: *data
+  query: foo.*.notbaz | [*]
+  returns: [[a, b, c], [a, b, c]]
+test5:
+  context: *data
+  query: '{"a": foo.bar, "b": foo.other} | *.baz'
+  returns: [subkey, subkey]
+test6:
+  context: &data
+    foo: {bar: {baz: one}, other: {baz: two}, other2: {baz: three}, other3: {notbaz: [
+          a, b, c]}, other4: {notbaz: [d, e, f]}}
+  query: foo | bar
+  returns: {baz: one}
+test7:
+  context: *data
+  query: foo | bar | baz
+  returns: one
+test8:
+  context: *data
+  query: foo|bar| baz
+  returns: one
+test9:
+  context: *data
+  query: not_there | [0]
+  returns:
+test10:
+  context: *data
+  query: not_there | [0]
+  returns:
+test11:
+  context: *data
+  query: '[foo.bar, foo.other] | [0]'
+  returns: {baz: one}
+test12:
+  context: *data
+  query: '{"a": foo.bar, "b": foo.other} | a'
+  returns: {baz: one}
+test13:
+  context: *data
+  query: '{"a": foo.bar, "b": foo.other} | b'
+  returns: {baz: two}
+test14:
+  context: *data
+  query: foo.bam || foo.bar | baz
+  returns: one
+test15:
+  context: *data
+  query: foo | not_there || bar
+  returns: {baz: one}
+test16:
+  context:
+    foo: [bar: [baz: one, baz: two], bar: [baz: three, baz: four]]
+  query: foo[*].bar[*] | [0][0]
+  returns: {baz: one}
