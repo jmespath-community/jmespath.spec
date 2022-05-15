@@ -100,7 +100,7 @@ the input object `{"foo": "a", "bar": "b"}`.  The context object defines
 `a`.
 
 In the case of a sub expression, where the current evaluation context
-changes once the left hand side of the sub expression is evaluted:
+changes once the left hand side of the sub expression is evaluated:
 
 ```
 search(a.b, {"a": {"b": "y"}) -> "y"
@@ -146,7 +146,7 @@ Now let’s look at an example where an identifier is resolved from
 a scope object provided via `let()`:
 
 ```
-search(let({a: `x`}, &a, {"b": "y"})) -> "x"
+search(let({a: `x`}, &a), {"b": "y"}) -> "x"
 ```
 
 Here, we’re trying to resolve the `a` identifier.  The current
