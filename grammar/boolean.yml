@@ -1,0 +1,240 @@
+test0:
+  context: &data
+    outer: {foo: foo, bar: bar, baz: baz}
+  query: outer.foo || outer.bar
+  returns: foo
+test1:
+  context: *data
+  query: outer.foo||outer.bar
+  returns: foo
+test2:
+  context: *data
+  query: outer.bar || outer.baz
+  returns: bar
+test3:
+  context: *data
+  query: outer.bar||outer.baz
+  returns: bar
+test4:
+  context: *data
+  query: outer.bad || outer.foo
+  returns: foo
+test5:
+  context: *data
+  query: outer.bad||outer.foo
+  returns: foo
+test6:
+  context: *data
+  query: outer.foo || outer.bad
+  returns: foo
+test7:
+  context: *data
+  query: outer.foo||outer.bad
+  returns: foo
+test8:
+  context: *data
+  query: outer.bad || outer.alsobad
+  returns:
+test9:
+  context: *data
+  query: outer.bad||outer.alsobad
+  returns:
+test10:
+  context: &data
+    outer: {foo: foo, bool: false, empty_list: [], empty_string: ''}
+  query: outer.empty_string || outer.foo
+  returns: foo
+test11:
+  context: *data
+  query: outer.nokey || outer.bool || outer.empty_list || outer.empty_string || outer.foo
+  returns: foo
+test12:
+  context: &data
+    'True': true
+    'False': false
+    Number: 5
+    EmptyList: []
+    Zero: 0
+  query: True && False
+  returns: false
+test13:
+  context: *data
+  query: False && True
+  returns: false
+test14:
+  context: *data
+  query: True && True
+  returns: true
+test15:
+  context: *data
+  query: False && False
+  returns: false
+test16:
+  context: *data
+  query: True && Number
+  returns: 5
+test17:
+  context: *data
+  query: Number && True
+  returns: true
+test18:
+  context: *data
+  query: Number && False
+  returns: false
+test19:
+  context: *data
+  query: Number && EmptyList
+  returns: []
+test20:
+  context: *data
+  query: Number && True
+  returns: true
+test21:
+  context: *data
+  query: EmptyList && True
+  returns: []
+test22:
+  context: *data
+  query: EmptyList && False
+  returns: []
+test23:
+  context: *data
+  query: True || False
+  returns: true
+test24:
+  context: *data
+  query: True || True
+  returns: true
+test25:
+  context: *data
+  query: False || True
+  returns: true
+test26:
+  context: *data
+  query: False || False
+  returns: false
+test27:
+  context: *data
+  query: Number || EmptyList
+  returns: 5
+test28:
+  context: *data
+  query: Number || True
+  returns: 5
+test29:
+  context: *data
+  query: Number || True && False
+  returns: 5
+test30:
+  context: *data
+  query: (Number || True) && False
+  returns: false
+test31:
+  context: *data
+  query: Number || (True && False)
+  returns: 5
+test32:
+  context: *data
+  query: '!True'
+  returns: false
+test33:
+  context: *data
+  query: '!False'
+  returns: true
+test34:
+  context: *data
+  query: '!Number'
+  returns: false
+test35:
+  context: *data
+  query: '!EmptyList'
+  returns: true
+test36:
+  context: *data
+  query: True && !False
+  returns: true
+test37:
+  context: *data
+  query: True && !EmptyList
+  returns: true
+test38:
+  context: *data
+  query: '!False && !EmptyList'
+  returns: true
+test39:
+  context: *data
+  query: '!(True && False)'
+  returns: true
+test40:
+  context: *data
+  query: '!Zero'
+  returns: false
+test41:
+  context: *data
+  query: '!!Zero'
+  returns: true
+test42:
+  context: &data
+    one: 1
+    two: 2
+    three: 3
+    emptylist: []
+    boolvalue: false
+  query: one < two
+  returns: true
+test43:
+  context: *data
+  query: one <= two
+  returns: true
+test44:
+  context: *data
+  query: one == one
+  returns: true
+test45:
+  context: *data
+  query: one == two
+  returns: false
+test46:
+  context: *data
+  query: one > two
+  returns: false
+test47:
+  context: *data
+  query: one >= two
+  returns: false
+test48:
+  context: *data
+  query: one != two
+  returns: true
+test49:
+  context: *data
+  query: emptylist < one
+  returns:
+test50:
+  context: *data
+  query: emptylist < nullvalue
+  returns:
+test51:
+  context: *data
+  query: emptylist < boolvalue
+  returns:
+test52:
+  context: *data
+  query: one < boolvalue
+  returns:
+test53:
+  context: *data
+  query: one < two && three > one
+  returns: true
+test54:
+  context: *data
+  query: one < two || three > one
+  returns: true
+test55:
+  context: *data
+  query: one < two || three < one
+  returns: true
+test56:
+  context: *data
+  query: two < one || three < one
+  returns: false

@@ -4,14 +4,14 @@ args:
   required:
   - name: argument
     type: [object]
-    desc: ""
+    desc: ''
   optional:
-  - name: ".."
+  - name: ..
     type: [object]
-    desc: ""
+    desc: ''
 returns:
   type: object
-  desc: ""
+  desc: ''
 desc: |
   Accepts 0 or more objects as arguments, and returns a single object
   with subsequent objects merged.  Each subsequent object’s key/value
@@ -20,39 +20,47 @@ desc: |
   the first object being the base object, and each subsequent argument
   being overrides that are applied to the base object.
 examples:
-- context:
-  args: [a: b, c: d]
-  returns: {a: b, c: d}
-- context:
-  args: [a: b, a: override]
-  returns: {a: override}
-- context:
-  args: [{a: x, b: y}, {b: override, c: z}]
-  returns: {a: x, b: override, c: z}
-- context: &data
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: [{}]
-  returns: {}
-- context: *data
-  args: [{}, {}]
-  returns: {}
-- context: *data
-  args: [{"a": 1}, {"b": 2}]
-  returns: {a: 1, b: 2}
-- context: *data
-  args: [{"a": 1}, {"a": 2}]
-  returns: {a: 2}
-- context: *data
-  args: [{"a": 1, "b": 2}, {"a": 2, "c": 3}, {"d": 4}]
-  returns: {a: 2, b: 2, c: 3, d: 4}
+  test0:
+    context:
+    args: [a: "'b'", c: "'d'"]
+    returns: {a: b, c: d}
+  test1:
+    context:
+    args: [a: "'b'", a: "'override'"]
+    returns: {a: override}
+  test2:
+    context:
+    args: [{a: "'x'", b: "'y'"}, {b: "'override'", c: "'z'"}]
+    returns: {a: x, b: override, c: z}
+  test3:
+    context: &data
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: [empty_hash]
+    returns: {}
+  test4:
+    context: *data
+    args: [empty_hash, empty_hash]
+    returns: {}
+  test5:
+    context: *data
+    args: [a: 1, b: 2]
+    returns: {a: 1, b: 2}
+  test6:
+    context: *data
+    args: [a: 1, a: 2]
+    returns: {a: 2}
+  test7:
+    context: *data
+    args: [{a: 1, b: 2}, {a: 2, c: 3}, d: 4]
+    returns: {a: 2, b: 2, c: 3, d: 4}

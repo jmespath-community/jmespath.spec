@@ -1,0 +1,181 @@
+test0:
+  context: &data
+    foo: [name: a, name: b]
+    bar: {baz: qux}
+  query: '`"foo"`'
+  returns: foo
+test1:
+  context: *data
+  query: '`"\u03a6"`'
+  returns: "\u03A6"
+  comment: Interpret escaped unicode.
+test2:
+  context: *data
+  query: "`\"\u2713\"`"
+  returns: "\u2713"
+test3:
+  context: *data
+  query: '`[1, 2, 3]`'
+  returns: [1, 2, 3]
+test4:
+  context: *data
+  query: '`{"a": "b"}`'
+  returns: {a: b}
+test5:
+  context: *data
+  query: '`true`'
+  returns: true
+test6:
+  context: *data
+  query: '`false`'
+  returns: false
+test7:
+  context: *data
+  query: '`null`'
+  returns:
+test8:
+  context: *data
+  query: '`0`'
+  returns: 0
+test9:
+  context: *data
+  query: '`1`'
+  returns: 1
+test10:
+  context: *data
+  query: '`2`'
+  returns: 2
+test11:
+  context: *data
+  query: '`3`'
+  returns: 3
+test12:
+  context: *data
+  query: '`4`'
+  returns: 4
+test13:
+  context: *data
+  query: '`5`'
+  returns: 5
+test14:
+  context: *data
+  query: '`6`'
+  returns: 6
+test15:
+  context: *data
+  query: '`7`'
+  returns: 7
+test16:
+  context: *data
+  query: '`8`'
+  returns: 8
+test17:
+  context: *data
+  query: '`9`'
+  returns: 9
+test18:
+  context: *data
+  query: '`"foo\`bar"`'
+  returns: foo`bar
+  comment: Escaping a backtick in quotes
+test19:
+  context: *data
+  query: '`"foo\"bar"`'
+  returns: foo"bar
+  comment: Double quote in literal
+test20:
+  context: *data
+  query: '`"1\`"`'
+  returns: 1`
+test21:
+  context: *data
+  query: '`"\\"`.{a:`"b"`}'
+  returns: {a: b}
+  comment: Multiple literal expressions with escapes
+test22:
+  context: *data
+  query: '`{"a": "b"}`.a'
+  returns: b
+  comment: literal . identifier
+test23:
+  context: *data
+  query: '`{"a": {"b": "c"}}`.a.b'
+  returns: c
+  comment: literal . identifier . identifier
+test24:
+  context: *data
+  query: '`[0, 1, 2]`[1]'
+  returns: 1
+  comment: literal . identifier bracket-expr
+test25:
+  context: &data
+    type: object
+  query: '`  {"foo": true}`'
+  returns: {foo: true}
+  comment: Literal with leading whitespace
+test26:
+  context: *data
+  query: '`{"foo": true}   `'
+  returns: {foo: true}
+  comment: Literal with trailing whitespace
+test27:
+  context: *data
+  query: foo.`"bar"`
+  error: syntax
+  comment: Literal on RHS of subexpr not allowed
+test28:
+  context: &data {}
+  query: "'foo'"
+  returns: foo
+test29:
+  context: *data
+  query: "'  foo  '"
+  returns: '  foo  '
+test30:
+  context: *data
+  query: "'0'"
+  returns: '0'
+test31:
+  context: *data
+  query: "'newline\n'"
+  returns: "newline\n"
+test32:
+  context: *data
+  query: "'\n'"
+  returns: "\n"
+test33:
+  context: *data
+  query: "'\u2713'"
+  returns: "\u2713"
+test34:
+  context: *data
+  query: "'\U0001D11E'"
+  returns: "\U0001D11E"
+test35:
+  context: *data
+  query: "'  [foo]  '"
+  returns: '  [foo]  '
+test36:
+  context: *data
+  query: "'[foo]'"
+  returns: '[foo]'
+test37:
+  context: *data
+  query: "'\\u03a6'"
+  returns: \u03a6
+  comment: Do not interpret escaped unicode.
+test38:
+  context: *data
+  query: "'foo\\'bar'"
+  returns: foo'bar
+  comment: Can escape the single quote
+test39:
+  context: *data
+  query: "'\\z'"
+  returns: \z
+  comment: Backslash not followed by single quote is treated as any other character
+test40:
+  context: *data
+  query: "'\\\\'"
+  returns: \\
+  comment: Backslash not followed by single quote is treated as any other character

@@ -4,11 +4,11 @@ args:
   required:
   - name: list
     type: ['array[number]', 'array[string]']
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: array
-  desc: ""
+  desc: ''
 desc: |
   This function accepts an array `$list` argument and returns the sorted
   elements of the `$list` as an array.
@@ -16,60 +16,75 @@ desc: |
   The array must be a list of strings or numbers.  Sorting strings is based on
   code points.  Locale is not taken into account.
 examples:
-- context: [b, a, c]
-  args: ['@']
-  returns: [a, b, c]
-- context: [1, a, c]
-  args: ['@']
-  returns: [1, a, c]
-- context: [false, [], null]
-  args: ['@']
-  returns: [[], null, false]
-- context: [[], {}, false]
-  args: ['@']
-  returns: [{}, [], false]
-- context: {a: 1, b: 2}
-  args: ['@']
-  returns:
-- context: false
-  args: ['@']
-  returns:
-- context: &data
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: [keys(objects)]
-  returns: [bar, foo]
-- context: *data
-  args: [values(objects)]
-  returns: [bar, baz]
-- context: *data
-  args: [numbers]
-  returns: [-1, 3, 4, 5]
-- context: *data
-  args: [strings]
-  returns: [a, b, c]
-- context: *data
-  args: [decimals]
-  returns: [-1.5, 1.01, 1.2]
-- context: *data
-  args: [array]
-  error: invalid-type
-- context: *data
-  args: [abc]
-  error: invalid-type
-- context: *data
-  args: [empty_list]
-  returns: []
-- context: *data
-  args: ['@']
-  error: invalid-type
+  test0:
+    context: [b, a, c]
+    args: ['@']
+    returns: [a, b, c]
+  test1:
+    context: [1, a, c]
+    args: ['@']
+    returns: [1, a, c]
+  test2:
+    context: [false, [], !!null '']
+    args: ['@']
+    returns: [[], !!null '', false]
+  test3:
+    context: [[], {}, false]
+    args: ['@']
+    returns: [{}, [], false]
+  test4:
+    context: {a: 1, b: 2}
+    args: ['@']
+    returns:
+  test5:
+    context: false
+    args: ['@']
+    returns:
+  test6:
+    context: &data
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: [keys(objects)]
+    returns: [bar, foo]
+  test7:
+    context: *data
+    args: [values(objects)]
+    returns: [bar, baz]
+  test8:
+    context: *data
+    args: [numbers]
+    returns: [-1, 3, 4, 5]
+  test9:
+    context: *data
+    args: [strings]
+    returns: [a, b, c]
+  test10:
+    context: *data
+    args: [decimals]
+    returns: [-1.5, 1.01, 1.2]
+  test11:
+    context: *data
+    args: [array]
+    error: invalid-type
+  test12:
+    context: *data
+    args: [abc]
+    error: invalid-type
+  test13:
+    context: *data
+    args: [empty_list]
+    returns: []
+  test14:
+    context: *data
+    args: ['@']
+    error: invalid-type

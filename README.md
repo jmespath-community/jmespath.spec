@@ -1,4 +1,4 @@
-# JMESPath Enhancement Proposals
+# JMESPath Specification
 
 Any changes to the JMESPath specification
 (https://jmespath.site/specification.html) must have a JEP (JMESPath Enhancement
@@ -50,3 +50,15 @@ these tenets gives your proposal a higher likelihood of being accepted:
   constructs that are difficult to implement in another language.
 * JMESPath strives to have one way to do something.
 * Features are driven from real world use cases.
+
+# JMESPath Compliance Tests
+
+This repo contains a suite of JMESPath compliance tests. JMESPath's implementations can use these tests in order to verify their
+implementation adheres to the JMESPath spec.
+
+## Test Organization
+
+`grammar/*.yml` contains tests for general grammar functionality. These documents must validate against the `grammar_schema.yml`.
+
+`functions/*.yml` contains a description of each function accompanied by a suite of tests/examples. These documents must validate against the `function_schema.yml`.
+

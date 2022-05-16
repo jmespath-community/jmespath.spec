@@ -1,0 +1,82 @@
+test0:
+  context: &data
+    foo: {bar: {baz: correct}}
+  query: foo
+  returns: {bar: {baz: correct}}
+test1:
+  context: *data
+  query: foo.bar
+  returns: {baz: correct}
+test2:
+  context: *data
+  query: foo.bar.baz
+  returns: correct
+test3:
+  context: *data
+  query: "foo\n.\nbar\n.baz"
+  returns: correct
+test4:
+  context: *data
+  query: foo.bar.baz.bad
+  returns:
+test5:
+  context: *data
+  query: foo.bar.bad
+  returns:
+test6:
+  context: *data
+  query: foo.bad
+  returns:
+test7:
+  context: *data
+  query: bad
+  returns:
+test8:
+  context: *data
+  query: bad.morebad.morebad
+  returns:
+test9:
+  context: &data
+    foo: {bar: [one, two, three]}
+  query: foo
+  returns: {bar: [one, two, three]}
+test10:
+  context: *data
+  query: foo.bar
+  returns: [one, two, three]
+test11:
+  context: &data
+  - one
+  - two
+  - three
+  query: one
+  returns:
+test12:
+  context: *data
+  query: two
+  returns:
+test13:
+  context: *data
+  query: three
+  returns:
+test14:
+  context: *data
+  query: one.two
+  returns:
+test15:
+  context: &data
+    foo: {'1': [one, two, three], '-1': bar}
+  query: foo."1"
+  returns: [one, two, three]
+test16:
+  context: *data
+  query: foo."1"[0]
+  returns: one
+test17:
+  context: *data
+  query: foo."-1"
+  returns: bar
+null_input:
+  context:
+  query: foo
+  returns:

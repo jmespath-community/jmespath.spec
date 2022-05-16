@@ -1,0 +1,172 @@
+test0:
+  context: &data
+    foo: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    bar: {baz: 1}
+  query: bar[0:10]
+  returns:
+test1:
+  context: *data
+  query: foo[0:10:1]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test2:
+  context: *data
+  query: foo[0:10]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test3:
+  context: *data
+  query: foo[0:10:]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test4:
+  context: *data
+  query: foo[0::1]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test5:
+  context: *data
+  query: foo[0::]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test6:
+  context: *data
+  query: foo[0:]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test7:
+  context: *data
+  query: foo[:10:1]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test8:
+  context: *data
+  query: foo[::1]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test9:
+  context: *data
+  query: foo[:10:]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test10:
+  context: *data
+  query: foo[::]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test11:
+  context: *data
+  query: foo[:]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test12:
+  context: *data
+  query: foo[1:9]
+  returns: [1, 2, 3, 4, 5, 6, 7, 8]
+test13:
+  context: *data
+  query: foo[0:10:2]
+  returns: [0, 2, 4, 6, 8]
+test14:
+  context: *data
+  query: foo[5:]
+  returns: [5, 6, 7, 8, 9]
+test15:
+  context: *data
+  query: foo[5::2]
+  returns: [5, 7, 9]
+test16:
+  context: *data
+  query: foo[::2]
+  returns: [0, 2, 4, 6, 8]
+test17:
+  context: *data
+  query: foo[::-1]
+  returns: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+test18:
+  context: *data
+  query: foo[1::2]
+  returns: [1, 3, 5, 7, 9]
+test19:
+  context: *data
+  query: foo[10:0:-1]
+  returns: [9, 8, 7, 6, 5, 4, 3, 2, 1]
+test20:
+  context: *data
+  query: foo[10:5:-1]
+  returns: [9, 8, 7, 6]
+test21:
+  context: *data
+  query: foo[8:2:-2]
+  returns: [8, 6, 4]
+test22:
+  context: *data
+  query: foo[0:20]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test23:
+  context: *data
+  query: foo[10:-20:-1]
+  returns: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+test24:
+  context: *data
+  query: foo[10:-20]
+  returns: []
+test25:
+  context: *data
+  query: foo[-4:-1]
+  returns: [6, 7, 8]
+test26:
+  context: *data
+  query: foo[:-5:-1]
+  returns: [9, 8, 7, 6]
+test27:
+  context: *data
+  query: foo[8:2:0]
+  error: invalid-value
+test28:
+  context: *data
+  query: foo[8:2:0:1]
+  error: syntax
+test29:
+  context: *data
+  query: foo[8:2&]
+  error: syntax
+test30:
+  context: *data
+  query: foo[2:a:3]
+  error: syntax
+test31:
+  context: &data
+    foo: [a: 1, a: 2, a: 3]
+    bar: [a: {b: 1}, a: {b: 2}, a: {b: 3}]
+    baz: 50
+  query: foo[:2].a
+  returns: [1, 2]
+test32:
+  context: *data
+  query: foo[:2].b
+  returns: []
+test33:
+  context: *data
+  query: foo[:2].a.b
+  returns: []
+test34:
+  context: *data
+  query: bar[::-1].a.b
+  returns: [3, 2, 1]
+test35:
+  context: *data
+  query: bar[:2].a.b
+  returns: [1, 2]
+test36:
+  context: *data
+  query: baz[:2].a
+  returns:
+test37:
+  context: &data
+  - {a: 1}
+  - {a: 2}
+  - {a: 3}
+  query: '[:]'
+  returns: [a: 1, a: 2, a: 3]
+test38:
+  context: *data
+  query: '[:2].a'
+  returns: [1, 2]
+test39:
+  context: *data
+  query: '[::-1].a'
+  returns: [3, 2, 1]
+test40:
+  context: *data
+  query: '[:2].b'
+  returns: []

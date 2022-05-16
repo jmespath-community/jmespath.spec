@@ -1,0 +1,236 @@
+test0:
+  context: &data
+    foo: {bar: bar, baz: baz, qux: qux, nested: {one: {a: first, b: second, c: third},
+        two: {a: first, b: second, c: third}, three: {a: first, b: second, c: {inner: third}}}}
+    bar: 1
+    baz: 2
+    qux": 3
+  query: 'foo.{bar: bar}'
+  returns: {bar: bar}
+test1:
+  context: *data
+  query: 'foo.{"bar": bar}'
+  returns: {bar: bar}
+test2:
+  context: *data
+  query: 'foo.{"foo.bar": bar}'
+  returns: {foo.bar: bar}
+test3:
+  context: *data
+  query: 'foo.{bar: bar, baz: baz}'
+  returns: {bar: bar, baz: baz}
+test4:
+  context: *data
+  query: 'foo.{"bar": bar, "baz": baz}'
+  returns: {bar: bar, baz: baz}
+test5:
+  context: *data
+  query: '{"baz": baz, "qux\"": "qux\""}'
+  returns: {baz: 2, qux": 3}
+test6:
+  context: *data
+  query: foo.{bar:bar,baz:baz}
+  returns: {bar: bar, baz: baz}
+test7:
+  context: *data
+  query: 'foo.{bar: bar,qux: qux}'
+  returns: {bar: bar, qux: qux}
+test8:
+  context: *data
+  query: 'foo.{bar: bar, noexist: noexist}'
+  returns: {bar: bar, noexist: !!null ''}
+test9:
+  context: *data
+  query: 'foo.{noexist: noexist, alsonoexist: alsonoexist}'
+  returns: {noexist: !!null '', alsonoexist: !!null ''}
+test10:
+  context: *data
+  query: 'foo.badkey.{nokey: nokey, alsonokey: alsonokey}'
+  returns:
+test11:
+  context: *data
+  query: 'foo.nested.*.{a: a,b: b}'
+  returns: [{a: first, b: second}, {a: first, b: second}, {a: first, b: second}]
+test12:
+  context: *data
+  query: 'foo.nested.three.{a: a, cinner: c.inner}'
+  returns: {a: first, cinner: third}
+test13:
+  context: *data
+  query: 'foo.nested.three.{a: a, c: c.inner.bad.key}'
+  returns: {a: first, c: !!null ''}
+test14:
+  context: *data
+  query: 'foo.{a: nested.one.a, b: nested.two.b}'
+  returns: {a: first, b: second}
+test15:
+  context: *data
+  query: '{bar: bar, baz: baz}'
+  returns: {bar: 1, baz: 2}
+test16:
+  context: *data
+  query: '{bar: bar}'
+  returns: {bar: 1}
+test17:
+  context: *data
+  query: '{otherkey: bar}'
+  returns: {otherkey: 1}
+test18:
+  context: *data
+  query: '{no: no, exist: exist}'
+  returns: {no: !!null '', exist: !!null ''}
+test19:
+  context: *data
+  query: foo.[bar]
+  returns: [bar]
+test20:
+  context: *data
+  query: foo.[bar,baz]
+  returns: [bar, baz]
+test21:
+  context: *data
+  query: foo.[bar,qux]
+  returns: [bar, qux]
+test22:
+  context: *data
+  query: foo.[bar,noexist]
+  returns: [bar, !!null '']
+test23:
+  context: *data
+  query: foo.[noexist,alsonoexist]
+  returns: [!!null '', !!null '']
+test24:
+  context: &data
+    foo: {bar: 1, baz: [2, 3, 4]}
+  query: foo.{bar:bar,baz:baz}
+  returns: {bar: 1, baz: [2, 3, 4]}
+test25:
+  context: *data
+  query: foo.[bar,baz[0]]
+  returns: [1, 2]
+test26:
+  context: *data
+  query: foo.[bar,baz[1]]
+  returns: [1, 3]
+test27:
+  context: *data
+  query: foo.[bar,baz[2]]
+  returns: [1, 4]
+test28:
+  context: *data
+  query: foo.[bar,baz[3]]
+  returns: [1, !!null '']
+test29:
+  context: *data
+  query: foo.[bar[0],baz[3]]
+  returns: [!!null '', !!null '']
+test30:
+  context: &data
+    foo: {bar: 1, baz: 2}
+  query: 'foo.{bar: bar, baz: baz}'
+  returns: {bar: 1, baz: 2}
+test31:
+  context: *data
+  query: foo.[bar,baz]
+  returns: [1, 2]
+test32:
+  context: &data
+    foo: {bar: {baz: [{common: first, one: 1}, {common: second, two: 2}]}, ignoreme: 1,
+      includeme: true}
+  query: 'foo.{bar: bar.baz[1],includeme: includeme}'
+  returns: {bar: {common: second, two: 2}, includeme: true}
+test33:
+  context: *data
+  query: 'foo.{"bar.baz.two": bar.baz[1].two, includeme: includeme}'
+  returns: {bar.baz.two: 2, includeme: true}
+test34:
+  context: *data
+  query: foo.[includeme, bar.baz[*].common]
+  returns: [true, [first, second]]
+test35:
+  context: *data
+  query: foo.[includeme, bar.baz[*].none]
+  returns: [true, []]
+test36:
+  context: *data
+  query: foo.[includeme, bar.baz[].common]
+  returns: [true, [first, second]]
+test37:
+  context: &data
+    reservations: [instances: [{id: id1, name: first}, {id: id2, name: second}], 
+        instances: [{id: id3, name: third}, {id: id4, name: fourth}]]
+  query: 'reservations[*].instances[*].{id: id, name: name}'
+  returns: [[{id: id1, name: first}, {id: id2, name: second}], [{id: id3, name: third},
+      {id: id4, name: fourth}]]
+test38:
+  context: *data
+  query: 'reservations[].instances[].{id: id, name: name}'
+  returns: [{id: id1, name: first}, {id: id2, name: second}, {id: id3, name: third},
+    {id: id4, name: fourth}]
+test39:
+  context: *data
+  query: reservations[].instances[].[id, name]
+  returns: [[id1, first], [id2, second], [id3, third], [id4, fourth]]
+test40:
+  context: &data
+    foo: [bar: [{qux: 2, baz: 1}, {qux: 4, baz: 3}], bar: [{qux: 6, baz: 5}, {qux: 8,
+            baz: 7}]]
+  query: foo
+  returns: [bar: [{qux: 2, baz: 1}, {qux: 4, baz: 3}], bar: [{qux: 6, baz: 5}, {qux: 8,
+          baz: 7}]]
+test41:
+  context: *data
+  query: foo[]
+  returns: [bar: [{qux: 2, baz: 1}, {qux: 4, baz: 3}], bar: [{qux: 6, baz: 5}, {qux: 8,
+          baz: 7}]]
+test42:
+  context: *data
+  query: foo[].bar
+  returns: [[{qux: 2, baz: 1}, {qux: 4, baz: 3}], [{qux: 6, baz: 5}, {qux: 8, baz: 7}]]
+test43:
+  context: *data
+  query: foo[].bar[]
+  returns: [{qux: 2, baz: 1}, {qux: 4, baz: 3}, {qux: 6, baz: 5}, {qux: 8, baz: 7}]
+test44:
+  context: *data
+  query: foo[].bar[].[baz, qux]
+  returns: [[1, 2], [3, 4], [5, 6], [7, 8]]
+test45:
+  context: *data
+  query: foo[].bar[].[baz]
+  returns: [[1], [3], [5], [7]]
+test46:
+  context: *data
+  query: foo[].bar[].[baz, qux][]
+  returns: [1, 2, 3, 4, 5, 6, 7, 8]
+test47:
+  context:
+    foo: {baz: [bar: abc, bar: def], qux: [zero]}
+  query: foo.[baz[*].bar, qux[0]]
+  returns: [[abc, def], zero]
+test48:
+  context:
+    foo: {baz: [{bar: a, bam: b, boo: c}, {bar: d, bam: e, boo: f}], qux: [zero]}
+  query: foo.[baz[*].[bar, boo], qux[0]]
+  returns: [[[a, c], [d, f]], zero]
+test49:
+  context:
+    foo: {baz: [{bar: a, bam: b, boo: c}, {bar: d, bam: e, boo: f}], qux: [zero]}
+  query: foo.[baz[*].not_there || baz[*].bar, qux[0]]
+  returns: [[a, d], zero]
+test50:
+  context:
+    type: object
+  query: '[[*],*]'
+  returns: [!!null '', [object]]
+  comment: Nested multiselect
+test51:
+  context: &data []
+  query: '[[*]]'
+  returns: [[]]
+  comment: Nested multiselect
+test52:
+  context: *data
+  query: 'missing.{foo: bar}'
+  returns:
+  comment: Select on null

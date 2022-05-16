@@ -4,53 +4,61 @@ args:
   required:
   - name: argument
     type: [any]
-    desc: ""
+    desc: ''
   optional:
-  - name: ".."
+  - name: ..
     type: [any]
-    desc: ""
+    desc: ''
 returns:
   type: any
-  desc: ""
+  desc: ''
 desc: |
   Returns the first argument that does not resolve to `null`.  This function
   accepts one or more arguments, and will evaluate them in order until a
   non null argument is encounted.  If all arguments values resolve to `null`,
   then a value of `null` is returned.
 examples:
-- context: {a: null, b: null, c: [], d: foo}
-  args: [no_exist, a, b, c, d]
-  returns: []
-- context: {a: null, b: null, c: [], d: foo}
-  args: [a, b, null, d, c]
-  returns: foo
-- context: {a: null, b: null, c: [], d: foo}
-  args: [a, b]
-  returns:
-- context: &data
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: [unknown_key, str]
-  returns: Str
-- context: *data
-  args: [unknown_key, foo.bar, empty_list, str]
-  returns: []
-- context: *data
-  args: [unknown_key, null_key, empty_list, str]
-  returns: []
-- context: *data
-  args: [all, expressions, are_null]
-  returns:
-- context: *data
-  args: ['']
-  error: invalid-arity
+  test0:
+    context: {a: !!null '', b: !!null '', c: [], d: foo}
+    args: [no_exist, a, b, c, d]
+    returns: []
+  test1:
+    context: {a: !!null '', b: !!null '', c: [], d: foo}
+    args: [a, b, !!null '', d, c]
+    returns: foo
+  test2:
+    context: {a: !!null '', b: !!null '', c: [], d: foo}
+    args: [a, b]
+    returns:
+  test3:
+    context: &data
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: [unknown_key, str]
+    returns: Str
+  test4:
+    context: *data
+    args: [unknown_key, foo.bar, empty_list, str]
+    returns: []
+  test5:
+    context: *data
+    args: [unknown_key, null_key, empty_list, str]
+    returns: []
+  test6:
+    context: *data
+    args: [all, expressions, are_null]
+    returns:
+  test7:
+    context: *data
+    args: ['']
+    error: invalid-arity

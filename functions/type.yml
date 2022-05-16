@@ -4,11 +4,11 @@ args:
   required:
   - name: subject
     type: [array, object, string, number, boolean, 'null']
-    desc: ""
+    desc: ''
   optional: []
 returns:
   type: string
-  desc: ""
+  desc: ''
 desc: |
   Returns the JavaScript type of the given `$subject` argument as a string
   value.
@@ -22,66 +22,83 @@ desc: |
   * object
   * null
 examples:
-- context: foo
-  args: ['@']
-  returns: string
-- context: true
-  args: ['@']
-  returns: boolean
-- context: false
-  args: ['@']
-  returns: boolean
-- context:
-  args: ['@']
-  returns: 'null'
-- context: 123
-  args: ['@']
-  returns: number
-- context: 123.05
-  args: ['@']
-  returns: number
-- context: [abc]
-  args: ['@']
-  returns: array
-- context: {abc: '123'}
-  args: ['@']
-  returns: object
-- context: &data
-    foo: -1
-    zero: 0
-    numbers: [-1, 3, 4, 5]
-    array: [-1, 3, 4, 5, a, '100']
-    strings: [a, b, c]
-    decimals: [1.01, 1.2, -1.5]
-    str: Str
-    'false': false
-    empty_list: []
-    empty_hash: {}
-    objects: {foo: bar, bar: baz}
-    null_key:
-  args: ['abc']
-  returns: string
-- context: *data
-  args: [1.0]
-  returns: number
-- context: *data
-  args: [2]
-  returns: number
-- context: *data
-  args: [true]
-  returns: boolean
-- context: *data
-  args: [false]
-  returns: boolean
-- context: *data
-  args: [null]
-  returns: 'null'
-- context: *data
-  args: [[0]]
-  returns: array
-- context: *data
-  args: [{"a": "b"}]
-  returns: object
-- context: *data
-  args: ['@']
-  returns: object
+  test0:
+    context: foo
+    args: ['@']
+    returns: string
+  test1:
+    context: true
+    args: ['@']
+    returns: boolean
+  test2:
+    context: false
+    args: ['@']
+    returns: boolean
+  test3:
+    context:
+    args: ['@']
+    returns: 'null'
+  test4:
+    context: 123
+    args: ['@']
+    returns: number
+  test5:
+    context: 123.05
+    args: ['@']
+    returns: number
+  test6:
+    context: [abc]
+    args: ['@']
+    returns: array
+  test7:
+    context: {abc: '123'}
+    args: ['@']
+    returns: object
+  test8:
+    context: &data
+      foo: -1
+      zero: 0
+      numbers: [-1, 3, 4, 5]
+      array: [-1, 3, 4, 5, a, '100']
+      strings: [a, b, c]
+      decimals: [1.01, 1.2, -1.5]
+      str: Str
+      'false': false
+      empty_list: []
+      empty_hash: {}
+      objects: {foo: bar, bar: baz}
+      null_key:
+    args: ["'abc'"]
+    returns: string
+  test9:
+    context: *data
+    args: [1.0]
+    returns: number
+  test10:
+    context: *data
+    args: [2]
+    returns: number
+  test11:
+    context: *data
+    args: [true]
+    returns: boolean
+  test12:
+    context: *data
+    args: [false]
+    returns: boolean
+  test13:
+    context: *data
+    args: [!!null '']
+    returns: 'null'
+  test14:
+    context: *data
+    args: [[0]]
+    returns: array
+  test15:
+    context: *data
+    args: [a: b]
+    returns: object
+  test16:
+    context: *data
+    args: ['@']
+    returns: object

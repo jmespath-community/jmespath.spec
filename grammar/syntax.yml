@@ -1,0 +1,593 @@
+test0:
+  context: &data
+    type: object
+  query: foo.bar
+  returns:
+test1:
+  context: *data
+  query: foo.1
+  error: syntax
+test2:
+  context: *data
+  query: foo.-11
+  error: syntax
+test3:
+  context: *data
+  query: foo.
+  error: syntax
+test4:
+  context: *data
+  query: .foo
+  error: syntax
+test5:
+  context: *data
+  query: foo..bar
+  error: syntax
+test6:
+  context: *data
+  query: foo.bar.
+  error: syntax
+test7:
+  context: *data
+  query: foo[.]
+  error: syntax
+test8:
+  context: &data
+    type: object
+  query: .
+  error: syntax
+test9:
+  context: *data
+  query: ':'
+  error: syntax
+test10:
+  context: *data
+  query: ','
+  error: syntax
+test11:
+  context: *data
+  query: ']'
+  error: syntax
+test12:
+  context: *data
+  query: '['
+  error: syntax
+test13:
+  context: *data
+  query: '}'
+  error: syntax
+test14:
+  context: *data
+  query: '{'
+  error: syntax
+test15:
+  context: *data
+  query: )
+  error: syntax
+test16:
+  context: *data
+  query: (
+  error: syntax
+test17:
+  context: *data
+  query: ((&
+  error: syntax
+test18:
+  context: *data
+  query: a[
+  error: syntax
+test19:
+  context: *data
+  query: a]
+  error: syntax
+test20:
+  context: *data
+  query: a][
+  error: syntax
+test21:
+  context: *data
+  query: '!'
+  error: syntax
+test22:
+  context: *data
+  query: '@='
+  error: syntax
+test23:
+  context: *data
+  query: '@``'
+  error: syntax
+test24:
+  context:
+    type: object
+  query: '![!(!'
+  error: syntax
+test25:
+  context: {}
+  query: (@
+  error: syntax
+  comment: missing closing paren
+test26:
+  context: &data {}
+  query: '@(foo)'
+  error: syntax
+  comment: invalid start of function
+test27:
+  context: *data
+  query: '"foo"(bar)'
+  error: syntax
+  comment: function names cannot be quoted
+test28:
+  context: &data
+    type: object
+  query: '*'
+  returns: [object]
+test29:
+  context: *data
+  query: '*.*'
+  returns: []
+test30:
+  context: *data
+  query: '*.foo'
+  returns: []
+test31:
+  context: *data
+  query: '*[0]'
+  returns: []
+test32:
+  context: *data
+  query: .*
+  error: syntax
+test33:
+  context: *data
+  query: '*foo'
+  error: syntax
+test34:
+  context: *data
+  query: '*0'
+  error: syntax
+test35:
+  context: *data
+  query: foo[*]bar
+  error: syntax
+test36:
+  context: *data
+  query: foo[*]*
+  error: syntax
+test37:
+  context:
+    type: object
+  query: '[]'
+  returns:
+test38:
+  context: &data
+    type: object
+  query: '[0]'
+  returns:
+test39:
+  context: *data
+  query: '[*]'
+  returns:
+test40:
+  context: *data
+  query: '*.[0]'
+  error: syntax
+test41:
+  context: *data
+  query: '*.["0"]'
+  returns: [[!!null '']]
+test42:
+  context: *data
+  query: '[*].bar'
+  returns:
+test43:
+  context: *data
+  query: '[*][0]'
+  returns:
+test44:
+  context: *data
+  query: foo[#]
+  error: syntax
+test45:
+  context: *data
+  query: led[*
+  error: syntax
+  comment: missing rbracket for led wildcard index
+test46:
+  context: &data {}
+  query: '[:@]'
+  error: syntax
+  comment: slice expected colon or rbracket
+test47:
+  context: *data
+  query: '[:::]'
+  error: syntax
+  comment: slice has too many colons
+test48:
+  context: *data
+  query: '[:@:]'
+  error: syntax
+  comment: slice expected number
+test49:
+  context: *data
+  query: '[:1@]'
+  error: syntax
+  comment: slice expected number of colon
+test50:
+  context: &data
+    type: object
+  query: foo[0]
+  returns:
+test51:
+  context: *data
+  query: foo[0, 1]
+  error: syntax
+  comment: Valid multi-select of a list
+test52:
+  context: *data
+  query: foo.[0]
+  error: syntax
+test53:
+  context: *data
+  query: foo.[*]
+  returns:
+test54:
+  context: *data
+  query: foo[0, ]
+  error: syntax
+  comment: Multi-select of a list with trailing comma
+test55:
+  context: *data
+  query: foo[0,
+  error: syntax
+  comment: Multi-select of a list with trailing comma and no close
+test56:
+  context: *data
+  query: foo.[a
+  error: syntax
+  comment: Multi-select of a list with trailing comma and no close
+test57:
+  context: *data
+  query: foo[0,, 1]
+  error: syntax
+  comment: Multi-select of a list with extra comma
+test58:
+  context: *data
+  query: foo[abc]
+  error: syntax
+  comment: Multi-select of a list using an identifier index
+test59:
+  context: *data
+  query: foo[abc, def]
+  error: syntax
+  comment: Multi-select of a list using identifier indices
+test60:
+  context: *data
+  query: foo[abc, 1]
+  error: syntax
+  comment: Multi-select of a list using an identifier index
+test61:
+  context: *data
+  query: foo[abc, ]
+  error: syntax
+  comment: Multi-select of a list using an identifier index with trailing comma
+test62:
+  context: *data
+  query: foo.[abc]
+  returns:
+  comment: Valid multi-select of a hash using an identifier index
+test63:
+  context: *data
+  query: foo.[abc, def]
+  returns:
+  comment: Valid multi-select of a hash
+test64:
+  context: *data
+  query: foo.[abc, 1]
+  error: syntax
+  comment: Multi-select of a hash using a numeric index
+test65:
+  context: *data
+  query: foo.[abc, ]
+  error: syntax
+  comment: Multi-select of a hash with a trailing comma
+test66:
+  context: *data
+  query: foo.[abc,, def]
+  error: syntax
+  comment: Multi-select of a hash with extra commas
+test67:
+  context: *data
+  query: foo.[0, 1]
+  error: syntax
+  comment: Multi-select of a hash using number indices
+test68:
+  context: &data
+    type: object
+  query: a{}
+  error: syntax
+  comment: No key or value
+test69:
+  context: *data
+  query: a{
+  error: syntax
+  comment: No closing token
+test70:
+  context: *data
+  query: a{foo}
+  error: syntax
+  comment: Not a key value pair
+test71:
+  context: *data
+  query: 'a{foo:'
+  error: syntax
+  comment: Missing value and closing character
+test72:
+  context: *data
+  query: 'a{foo: 0'
+  error: syntax
+  comment: Missing closing character
+test73:
+  context: *data
+  query: a{foo:}
+  error: syntax
+  comment: Missing value
+test74:
+  context: *data
+  query: 'a{foo: 0, '
+  error: syntax
+  comment: Trailing comma and no closing character
+test75:
+  context: *data
+  query: 'a{foo: ,}'
+  error: syntax
+  comment: Missing value with trailing comma
+test76:
+  context: *data
+  query: 'a{foo: bar}'
+  error: syntax
+  comment: Accessing Array using an identifier
+test77:
+  context: *data
+  query: 'a{foo: 0}'
+  error: syntax
+test78:
+  context: *data
+  query: a.{}
+  error: syntax
+  comment: Missing key-value pair
+test79:
+  context: *data
+  query: a.{foo}
+  error: syntax
+  comment: Not a key-value pair
+test80:
+  context: *data
+  query: 'a.{foo: bar}'
+  returns:
+  comment: Valid multi-select hash extraction
+test81:
+  context: *data
+  query: 'a.{foo: bar, baz: bam}'
+  returns:
+  comment: Valid multi-select hash extraction
+test82:
+  context: *data
+  query: 'a.{foo: bar, }'
+  error: syntax
+  comment: Trailing comma
+test83:
+  context: *data
+  query: 'a.{foo: bar, baz}'
+  error: syntax
+  comment: Missing key in second key-value pair
+test84:
+  context: *data
+  query: 'a.{foo: bar, baz:}'
+  error: syntax
+  comment: Missing value in second key-value pair
+test85:
+  context: *data
+  query: 'a.{foo: bar, baz: bam, }'
+  error: syntax
+  comment: Trailing comma
+test86:
+  context: *data
+  query: '{"\\":{" ":*}}'
+  returns: {\: {' ': [object]}}
+  comment: Nested multi select
+test87:
+  context: *data
+  query: '{a: @'
+  error: syntax
+  comment: Missing closing } after a valid nud
+test88:
+  context: &data
+    type: object
+  query: foo || bar
+  returns:
+test89:
+  context: *data
+  query: foo ||
+  error: syntax
+test90:
+  context: *data
+  query: foo.|| bar
+  error: syntax
+test91:
+  context: *data
+  query: ' || foo'
+  error: syntax
+test92:
+  context: *data
+  query: foo || || foo
+  error: syntax
+test93:
+  context: *data
+  query: foo.[a || b]
+  returns:
+test94:
+  context: *data
+  query: foo.[a ||]
+  error: syntax
+test95:
+  context: *data
+  query: '"foo'
+  error: syntax
+test96:
+  context: &data
+    type: object
+  query: foo[?bar==`"baz"`]
+  returns:
+test97:
+  context: *data
+  query: foo[? bar == `"baz"` ]
+  returns:
+test98:
+  context: *data
+  query: foo[ ?bar==`"baz"`]
+  error: syntax
+test99:
+  context: *data
+  query: foo[?bar==]
+  error: syntax
+test100:
+  context: *data
+  query: foo[?==]
+  error: syntax
+test101:
+  context: *data
+  query: foo[?==bar]
+  error: syntax
+test102:
+  context: *data
+  query: foo[?bar==baz?]
+  error: syntax
+test103:
+  context: *data
+  query: foo[?a.b.c==d.e.f]
+  returns:
+test104:
+  context: *data
+  query: foo[?bar==`[0, 1, 2]`]
+  returns:
+test105:
+  context: *data
+  query: foo[?bar==`["a", "b", "c"]`]
+  returns:
+test106:
+  context: *data
+  query: foo[?bar==`["foo`bar"]`]
+  error: syntax
+  comment: Literal char not escaped
+test107:
+  context: *data
+  query: foo[?bar==`["foo\`bar"]`]
+  returns:
+  comment: Literal char escaped
+test108:
+  context: *data
+  query: foo[?bar<>baz]
+  error: syntax
+  comment: Unknown comparator
+test109:
+  context: *data
+  query: foo[?bar^baz]
+  error: syntax
+  comment: Unknown comparator
+test110:
+  context: *data
+  query: foo[bar==baz]
+  error: syntax
+test111:
+  context: *data
+  query: '[?"\\">`"foo"`]'
+  returns:
+  comment: Quoted identifier in filter expression no spaces
+test112:
+  context: *data
+  query: '[?"\\" > `"foo"`]'
+  returns:
+  comment: Quoted identifier in filter expression with spaces
+test113:
+  context: &data
+    type: object
+  query: bar.`"anything"`
+  error: syntax
+test114:
+  context: *data
+  query: bar.baz.noexists.`"literal"`
+  error: syntax
+test115:
+  context: *data
+  query: foo[*].`"literal"`
+  error: syntax
+  comment: Literal wildcard projection
+test116:
+  context: *data
+  query: foo[*].name.`"literal"`
+  error: syntax
+test117:
+  context: *data
+  query: foo[].name.`"literal"`
+  error: syntax
+test118:
+  context: *data
+  query: foo[].name.`"literal"`.`"subliteral"`
+  error: syntax
+test119:
+  context: *data
+  query: foo[*].name.noexist.`"literal"`
+  error: syntax
+  comment: Projecting a literal onto an empty list
+test120:
+  context: *data
+  query: foo[].name.noexist.`"literal"`
+  error: syntax
+test121:
+  context: *data
+  query: twolen[*].`"foo"`
+  error: syntax
+test122:
+  context: *data
+  query: twolen[*].threelen[*].`"bar"`
+  error: syntax
+  comment: Two level projection of a literal
+test123:
+  context: *data
+  query: twolen[].threelen[].`"bar"`
+  error: syntax
+  comment: Two level flattened projection of a literal
+test124:
+  context: *data
+  query: foo[? @ | @
+  error: syntax
+  comment: expects closing ]
+test125:
+  context: &data
+    type: object
+  query: foo
+  returns:
+test126:
+  context: *data
+  query: '"foo"'
+  returns:
+test127:
+  context: *data
+  query: '"\\"'
+  returns:
+test128:
+  context: *data
+  query: '"\u"'
+  error: syntax
+test129:
+  context: &data []
+  query: '*||*|*|*'
+  returns:
+test130:
+  context: *data
+  query: '*[]||[*]'
+  returns: []
+test131:
+  context: *data
+  query: '[*.*]'
+  returns: [!!null '']

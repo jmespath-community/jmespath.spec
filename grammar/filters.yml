@@ -1,0 +1,353 @@
+test0:
+  context:
+    foo: [name: a, name: b]
+  query: foo[?name == 'a']
+  returns: [name: a]
+  comment: Matching a literal
+test1:
+  context:
+    foo: [0, 1]
+    bar: [2, 3]
+  query: '*[?[0] == `0`]'
+  returns: [[], []]
+  comment: Matching a literal
+test2:
+  context: &data
+    foo: [{first: foo, last: bar}, {first: foo, last: foo}, {first: foo, last: baz}]
+  query: foo[?first == last]
+  returns: [{first: foo, last: foo}]
+  comment: Matching an expression
+test3:
+  context: *data
+  query: foo[?first == last].first
+  returns: [foo]
+  comment: Verify projection created from filter
+test4:
+  context: &data
+    foo: [age: 20, age: 25, age: 30]
+  query: foo[?age > `25`]
+  returns: [age: 30]
+  comment: Greater than with a number
+test5:
+  context: *data
+  query: foo[?age >= `25`]
+  returns: [age: 25, age: 30]
+test6:
+  context: *data
+  query: foo[?age > `30`]
+  returns: []
+  comment: Greater than with a number
+test7:
+  context: *data
+  query: foo[?age < `25`]
+  returns: [age: 20]
+  comment: Greater than with a number
+test8:
+  context: *data
+  query: foo[?age <= `25`]
+  returns: [age: 20, age: 25]
+  comment: Greater than with a number
+test9:
+  context: *data
+  query: foo[?age < `20`]
+  returns: []
+  comment: Greater than with a number
+test10:
+  context: *data
+  query: foo[?age == `20`]
+  returns: [age: 20]
+test11:
+  context: *data
+  query: foo[?age != `20`]
+  returns: [age: 25, age: 30]
+test12:
+  context:
+    foo: [top: {name: a}, top: {name: b}]
+  query: foo[?top.name == 'a']
+  returns: [top: {name: a}]
+  comment: Filter with subexpression
+test13:
+  context: &data
+    foo: [top: {first: foo, last: bar}, top: {first: foo, last: foo}, top: {first: foo,
+          last: baz}]
+  query: foo[?top.first == top.last]
+  returns: [top: {first: foo, last: foo}]
+  comment: Matching an expression
+test14:
+  context: *data
+  query: 'foo[?top == `{"first": "foo", "last": "bar"}`]'
+  returns: [top: {first: foo, last: bar}]
+  comment: Matching a JSON array
+test15:
+  context: &data
+    foo: [key: true, key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+      key: [1], key: {a: 2}]
+  query: foo[?key == `true`]
+  returns: [key: true]
+test16:
+  context: *data
+  query: foo[?key == `false`]
+  returns: [key: false]
+test17:
+  context: *data
+  query: foo[?key == `0`]
+  returns: [key: 0]
+test18:
+  context: *data
+  query: foo[?key == `1`]
+  returns: [key: 1]
+test19:
+  context: *data
+  query: foo[?key == `[0]`]
+  returns: [key: [0]]
+test20:
+  context: *data
+  query: 'foo[?key == `{"bar": [0]}`]'
+  returns: [key: {bar: [0]}]
+test21:
+  context: *data
+  query: foo[?key == `null`]
+  returns: [key: !!null '']
+test22:
+  context: *data
+  query: foo[?key == `[1]`]
+  returns: [key: [1]]
+test23:
+  context: *data
+  query: foo[?key == `{"a":2}`]
+  returns: [key: {a: 2}]
+test24:
+  context: *data
+  query: foo[?`true` == key]
+  returns: [key: true]
+test25:
+  context: *data
+  query: foo[?`false` == key]
+  returns: [key: false]
+test26:
+  context: *data
+  query: foo[?`0` == key]
+  returns: [key: 0]
+test27:
+  context: *data
+  query: foo[?`1` == key]
+  returns: [key: 1]
+test28:
+  context: *data
+  query: foo[?`[0]` == key]
+  returns: [key: [0]]
+test29:
+  context: *data
+  query: 'foo[?`{"bar": [0]}` == key]'
+  returns: [key: {bar: [0]}]
+test30:
+  context: *data
+  query: foo[?`null` == key]
+  returns: [key: !!null '']
+test31:
+  context: *data
+  query: foo[?`[1]` == key]
+  returns: [key: [1]]
+test32:
+  context: *data
+  query: foo[?`{"a":2}` == key]
+  returns: [key: {a: 2}]
+test33:
+  context: *data
+  query: foo[?key != `true`]
+  returns: [key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test34:
+  context: *data
+  query: foo[?key != `false`]
+  returns: [key: true, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test35:
+  context: *data
+  query: foo[?key != `0`]
+  returns: [key: true, key: false, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test36:
+  context: *data
+  query: foo[?key != `1`]
+  returns: [key: true, key: false, key: 0, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test37:
+  context: *data
+  query: foo[?key != `null`]
+  returns: [key: true, key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: [
+        1], key: {a: 2}]
+test38:
+  context: *data
+  query: foo[?key != `[1]`]
+  returns: [key: true, key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: {a: 2}]
+test39:
+  context: *data
+  query: foo[?key != `{"a":2}`]
+  returns: [key: true, key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1]]
+test40:
+  context: *data
+  query: foo[?`true` != key]
+  returns: [key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test41:
+  context: *data
+  query: foo[?`false` != key]
+  returns: [key: true, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test42:
+  context: *data
+  query: foo[?`0` != key]
+  returns: [key: true, key: false, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test43:
+  context: *data
+  query: foo[?`1` != key]
+  returns: [key: true, key: false, key: 0, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1], key: {a: 2}]
+test44:
+  context: *data
+  query: foo[?`null` != key]
+  returns: [key: true, key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: [
+        1], key: {a: 2}]
+test45:
+  context: *data
+  query: foo[?`[1]` != key]
+  returns: [key: true, key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: {a: 2}]
+test46:
+  context: *data
+  query: foo[?`{"a":2}` != key]
+  returns: [key: true, key: false, key: 0, key: 1, key: [0], key: {bar: [0]}, key: !!null '',
+    key: [1]]
+test47:
+  context: &data
+    reservations: [instances: [{foo: 1, bar: 2}, {foo: 1, bar: 3}, {foo: 1, bar: 2},
+          {foo: 2, bar: 1}]]
+  query: reservations[].instances[?bar==`1`]
+  returns: [[{foo: 2, bar: 1}]]
+test48:
+  context: *data
+  query: reservations[*].instances[?bar==`1`]
+  returns: [[{foo: 2, bar: 1}]]
+test49:
+  context: *data
+  query: reservations[].instances[?bar==`1`][]
+  returns: [{foo: 2, bar: 1}]
+test50:
+  context:
+    baz: other
+    foo: [bar: 1, bar: 2, bar: 3, bar: 4, {bar: 1, baz: 2}]
+  query: foo[?bar==`1`].bar[0]
+  returns: []
+test51:
+  context:
+    foo: [{a: 1, b: {c: x}}, {a: 1, b: {c: y}}, {a: 1, b: {c: z}}, {a: 2, b: {c: z}},
+      {a: 1, baz: 2}]
+  query: foo[?a==`1`].b.c
+  returns: [x, y, z]
+test52:
+  context: &data
+    foo: [name: a, name: b, name: c]
+  query: foo[?name == 'a' || name == 'b']
+  returns: [name: a, name: b]
+  comment: Filter with or expression
+test53:
+  context: *data
+  query: foo[?name == 'a' || name == 'e']
+  returns: [name: a]
+test54:
+  context: *data
+  query: foo[?name == 'a' || name == 'b' || name == 'c']
+  returns: [name: a, name: b, name: c]
+test55:
+  context: &data
+    foo: [{a: 1, b: 2}, {a: 1, b: 3}]
+  query: foo[?a == `1` && b == `2`]
+  returns: [{a: 1, b: 2}]
+  comment: Filter with and expression
+test56:
+  context: *data
+  query: foo[?a == `1` && b == `4`]
+  returns: []
+test57:
+  context: &data
+    foo: [{a: 1, b: 2, c: 3}, {a: 3, b: 4}]
+  query: foo[?c == `3` || a == `1` && b == `4`]
+  returns: [{a: 1, b: 2, c: 3}]
+  comment: Filter with Or and And expressions
+test58:
+  context: *data
+  query: foo[?b == `2` || a == `3` && b == `4`]
+  returns: [{a: 1, b: 2, c: 3}, {a: 3, b: 4}]
+test59:
+  context: *data
+  query: foo[?a == `3` && b == `4` || b == `2`]
+  returns: [{a: 1, b: 2, c: 3}, {a: 3, b: 4}]
+test60:
+  context: *data
+  query: foo[?(a == `3` && b == `4`) || b == `2`]
+  returns: [{a: 1, b: 2, c: 3}, {a: 3, b: 4}]
+test61:
+  context: *data
+  query: foo[?((a == `3` && b == `4`)) || b == `2`]
+  returns: [{a: 1, b: 2, c: 3}, {a: 3, b: 4}]
+test62:
+  context: *data
+  query: foo[?a == `3` && (b == `4` || b == `2`)]
+  returns: [{a: 3, b: 4}]
+test63:
+  context: *data
+  query: foo[?a == `3` && ((b == `4` || b == `2`))]
+  returns: [{a: 3, b: 4}]
+test64:
+  context: &data
+    foo: [{a: 1, b: 2, c: 3}, {a: 3, b: 4}]
+  query: foo[?a == `1` || b ==`2` && c == `5`]
+  returns: [{a: 1, b: 2, c: 3}]
+  comment: Verify precedence of or/and expressions
+test65:
+  context: *data
+  query: foo[?(a == `1` || b ==`2`) && c == `5`]
+  returns: []
+  comment: Parentheses can alter precedence
+test66:
+  context: *data
+  query: foo[?!(a == `1` || b ==`2`)]
+  returns: [{a: 3, b: 4}]
+  comment: Not expressions combined with and/or
+test67:
+  context: &data
+    foo: [key: true, key: false, key: [], key: {}, key: [0], key: {a: b}, key: 0,
+      key: 1, key: !!null '', notkey: true]
+  query: foo[?key]
+  returns: [key: true, key: [0], key: {a: b}, key: 0, key: 1]
+  comment: Unary filter expression
+test68:
+  context: *data
+  query: foo[?!key]
+  returns: [key: false, key: [], key: {}, key: !!null '', notkey: true]
+  comment: Unary not filter expression
+test69:
+  context: *data
+  query: foo[?key == `null`]
+  returns: [key: !!null '', notkey: true]
+  comment: Equality with null RHS
+test70:
+  context: &data
+    foo: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  query: foo[?@ < `5`]
+  returns: [0, 1, 2, 3, 4]
+  comment: Using @ in a filter expression
+test71:
+  context: *data
+  query: foo[?`5` > @]
+  returns: [0, 1, 2, 3, 4]
+  comment: Using @ in a filter expression
+test72:
+  context: *data
+  query: foo[?@ == @]
+  returns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  comment: Using @ in a filter expression

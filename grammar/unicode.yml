@@ -1,0 +1,21 @@
+test0:
+  context:
+    foo: ["\u2713": "\u2713", "\u2713": "\u2717"]
+  query: "foo[].\"\u2713\""
+  returns: ["\u2713", "\u2717"]
+test1:
+  context:
+    "\u262F": true
+  query: "\"\u262F\""
+  returns: true
+test2:
+  context:
+    "\u266A\u266B\u2022*\xA8*\u2022.\xB8\xB8\u2764\xB8\xB8.\u2022*\xA8*\u2022\u266B\u266A": true
+  query: "\"\u266A\u266B\u2022*\xA8*\u2022.\xB8\xB8\u2764\xB8\xB8.\u2022*\xA8*\u2022\
+    \u266B\u266A\""
+  returns: true
+test3:
+  context:
+    "\u2603": true
+  query: "\"\u2603\""
+  returns: true

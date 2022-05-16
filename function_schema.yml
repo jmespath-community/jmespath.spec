@@ -54,35 +54,40 @@ properties:
     type: string
     description: ""
   examples:
-    type: array
+    type: object
     description: ""
-    minItems: 1
-    uniqueItems: true
-    items:
-      description: ""
-      oneOf:
-        - type: object
-          required: [context, args, returns]
-          additionalProperties: false
-          properties:
-            context: &context
-              type: &any ["number","string","boolean","object","array","null"]
-              description: ""
-            args: &args
-              type: array
-              description: ""
-              items:
+    additionalProperties: false
+    minProperties: 1
+    patternProperties:
+      "^\\w.*$":
+        description: ""
+        oneOf:
+          - type: object
+            required: [context, args, returns]
+            additionalProperties: false
+            properties:
+              context: &context
+                type: &any ["number","string","boolean","object","array","null"]
+                description: ""
+              args: &args
+                type: array
+                description: ""
+                items:
+                  type: *any
+                  description: ""
+              returns:
                 type: *any
                 description: ""
-            returns:
-              type: *any
-              description: ""
-        - type: object
-          required: [context, args, error]
-          additionalProperties: false
-          properties:
-            context: *context
-            args: *args
-            error:
-              type: string
-              description: ""
+              comment: &comment
+                type: string
+                description: ""
+          - type: object
+            required: [context, args, error]
+            additionalProperties: false
+            properties:
+              context: *context
+              args: *args
+              error:
+                type: string
+                description: ""
+              comment: *comment

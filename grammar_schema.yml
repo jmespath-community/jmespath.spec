@@ -1,0 +1,32 @@
+type: object
+additionalProperties: false
+patternProperties:
+  "^\\w.*":
+    description: ""
+    oneOf:
+      - type: object
+        required: [ context, query, returns ]
+        additionalProperties: false
+        properties:
+          context: &context
+            type: &any [ "number","string","boolean","object","array","null" ]
+            description: ""
+          query: &query
+            type: string
+            description: ""
+          returns:
+            type: *any
+            description: ""
+          comment: &comment
+            type: string
+            description: ""
+      - type: object
+        required: [ context, query, error ]
+        additionalProperties: false
+        properties:
+          context: *context
+          query: *query
+          error:
+            type: string
+            description: ""
+          comment: *comment
