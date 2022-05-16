@@ -13,12 +13,12 @@ The test YAML must validate against function_schema.yml or test_schema.yml.
 
 Additionally, test names can be supplied to only execute matching tests
 """
-import os
 import ruamel.yaml as yaml
 import json
 import sys
 import subprocess
 import warnings
+from collections import Counter
 from ruamel.yaml.error import ReusedAnchorWarning
 
 warnings.simplefilter("ignore", ReusedAnchorWarning)
@@ -61,25 +61,37 @@ def main(exe, path, *tests):
             query = f"""{func_name}( {", ".join(json.dumps(arg, cls=JMESPathEncoder) for arg in test["args"])} )"""
         else:
             query = test["query"]
+        input = json.dumps(test["context"])
         query = query.encode('utf8', 'surrogatepass')
-        p = subprocess.run([exe, query], input=json.dumps(test["context"] if test["context"] is not None else {}), capture_output=True, timeout=30, encoding="utf8", errors="surrogatepass")
+        p = subprocess.run([exe, query], input=input, capture_output=True, timeout=30, encoding="utf8", errors="surrogatepass")
         stderr = p.stderr.strip().replace("\n", "\\n")
 
         if "returns" in test:
+            if p.returncode:
+                print(f"""{path}: {name} Error: {stderr}""")
+                fail_count += 1
+                continue
+            if not p.stdout:
+                print(f"""{path}: {name} Empty result""")
+                fail_count += 1
+                continue
             try:
-                if p.stdout:
-                    result = json.loads(p.stdout)  # Parse output rather than doing string comparison to allow for different key ordering
-                else:
-                    result = None
+                result = json.loads(p.stdout)  # Parse output rather than doing string comparison to allow for different key ordering
             except json.JSONDecodeError as e:
-                result = e.msg
-            if result != test["returns"]:
+                print(f"""{path}: {name} Failed to decode output: {e.msg}""")
+                fail_count += 1
+                continue
+            fail = result != test["returns"]
+            if fail and isinstance(result, list) and isinstance(test["returns"], list):
+                try:
+                    fail = Counter(result) != Counter(test["returns"])
+                except TypeError:
+                    pass
+            if fail:
                 print(f"""{path}: {name} failed. Expected '{json.dumps(test["returns"])}' got '{json.dumps(result)}'""")
                 fail_count += 1
             else:
                 print(f"""{path}: {name} success""")
-            if p.returncode:
-                print(f"""{path}: {name} Error: {stderr}""")
         else:
             error = test["error"]
             if error != stderr:
