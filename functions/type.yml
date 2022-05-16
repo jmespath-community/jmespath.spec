@@ -68,7 +68,7 @@ examples:
       empty_hash: {}
       objects: {foo: bar, bar: baz}
       null_key:
-    args: [abc]
+    args: ["'abc'"]
     returns: string
   test9:
     context: *data

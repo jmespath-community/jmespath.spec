@@ -26,7 +26,7 @@ examples:
     args: ["'abc'"]
     returns: 3
   test1:
-    context:
+    context: [1, 2, 3, 4, 5, 6, 7]
     args: ['@']
     returns: 7
   test2:
@@ -63,11 +63,11 @@ examples:
       empty_hash: {}
       objects: {foo: bar, bar: baz}
       null_key:
-    args: [abc]
+    args: ["'abc'"]
     returns: 3
   test8:
     context: *data
-    args: ["'\\u2713foo'"]
+    args: ["'\u2713foo'"]
     returns: 4
   test9:
     context: *data

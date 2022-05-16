@@ -272,7 +272,7 @@ test53:
 test54:
   context:
     "\\\uDB3A\uDCA4S": true
-  query: "\"\\\\\uDB3A\uDCA4S\""
+  query: '"\\\uDB3A\uDCA4S"'
   returns: true
 test55:
   context:
@@ -400,7 +400,7 @@ test78:
 test79:
   context:
     "\uDADD\uDFC7\\ueFAc": true
-  query: "\"\uDADD\uDFC7\\\\ueFAc\""
+  query: '"\uDADD\uDFC7\\ueFAc"'
   returns: true
 test80:
   context:
@@ -420,7 +420,7 @@ test82:
 test83:
   context:
     "\uDBCF\uDC02": true
-  query: "\"\uDBCF\uDC02\""
+  query: '"\uDBCF\uDC02"'
   returns: true
 test84:
   context:
@@ -435,7 +435,7 @@ test85:
 test86:
   context:
     "\uDB94\uDD41": true
-  query: "\"\uDB94\uDD41\""
+  query: '"\uDB94\uDD41"'
   returns: true
 test87:
   context:
@@ -516,7 +516,7 @@ test101:
 test102:
   context:
     "\b%\"\uDA38\uDD0F": true
-  query: "\"\\b%\\\"\uDA38\uDD0F\""
+  query: '"\b%\"\uDA38\uDD0F"'
   returns: true
 test103:
   context:
@@ -557,7 +557,7 @@ test110:
   context:
     ? "!\b\n\uDB06\uDE52\"\""
     : true
-  query: "\"!\\b\\n\uDB06\uDE52\\\"\\\"\""
+  query: '"!\b\n\uDB06\uDE52\"\""'
   returns: true
 test111:
   context:

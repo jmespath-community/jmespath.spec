@@ -21,7 +21,7 @@ examples:
     returns: [1, 2]
   test1:
     context:
-    args: [string]
+    args: ["'string'"]
     returns: [string]
   test2:
     context:
@@ -33,7 +33,7 @@ examples:
     returns: [true]
   test4:
     context:
-    args: [foo: bar]
+    args: [foo: "'bar'"]
     returns: [foo: bar]
   test5:
     context: &data
@@ -49,7 +49,7 @@ examples:
       empty_hash: {}
       objects: {foo: bar, bar: baz}
       null_key:
-    args: [foo]
+    args: ["'foo'"]
     returns: [foo]
   test6:
     context: *data
