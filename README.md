@@ -58,7 +58,7 @@ implementation adheres to the JMESPath spec.
 
 ## Test Organization
 
-`grammar/*.yml` contains tests for general grammar functionality. These documents must validate against the `test_schema.yml`.
+`grammar/*.yml` contains tests for general grammar functionality. These documents must validate against the `grammar_schema.yml`.
 
 `functions/*.yml` contains a description of each function accompanied by a suite of tests/examples. These documents must validate against the `function_schema.yml`.
 
