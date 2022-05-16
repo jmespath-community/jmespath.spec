@@ -94,8 +94,9 @@ def main(exe, path, *tests):
                 print(f"""{path}: {name} success""")
         else:
             error = test["error"]
-            if error != stderr:
-                print(f"""{path}: {name} failed. Expected '{error}' got '{stderr}'""")
+            stderrlower = stderr.lower()
+            if not all(word in stderrlower for word in error.lower().replace('-', ' ').split()):
+                print(f"""{path}: {name} failed. Expected error '{error}' got '{stderr}'""")
                 fail_count += 1
             else:
                 print(f"""{path}: {name} success""")
