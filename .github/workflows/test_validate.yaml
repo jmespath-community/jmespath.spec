@@ -33,7 +33,7 @@ jobs:
           cache-dependency-path: .github/workflows/validate_requirements.txt
       - run: pip install -r .github/workflows/validate_requirements.txt
       - name: Validate grammar tests
-        run: "check-jsonschema --schemafile test_schema.yml ${{ matrix.manifest }}"
+        run: "check-jsonschema --schemafile grammar_schema.yml ${{ matrix.manifest }}"
 
   list-functions:
     runs-on: ubuntu-latest
