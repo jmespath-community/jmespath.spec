@@ -4,11 +4,11 @@ on:
     tags: 
       - v*
       - 2015-09-05-9e8d0e3
+      - preview_*
     branches:
       - main
 jobs:
   dispatch:
-    if: github.event.base_ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/github-script@v6
