@@ -1,14 +1,9 @@
 name: Trigger website update
-on:
-  push:
-    tags: 
-      - v*
-      - 2015-09-05-9e8d0e3
-      - preview_*
-    branches:
-      - main
+on: push
+
 jobs:
   dispatch:
+    if: contains(fromJSON('["2015-09-05-9e8d0e3", "main"]'), github.ref_name) || starts_with(github.ref_name, "v") || starts_with(github.ref_name, "preview_")
     runs-on: ubuntu-latest
     steps:
     - uses: actions/github-script@v6
