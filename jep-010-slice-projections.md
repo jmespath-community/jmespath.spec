@@ -20,7 +20,7 @@ to JSON.  Slicing does not produce a projection so expressions such as
 the following will always return `null`:  `myarray[:10].foo.bar`.
 
 Instead if you wanted to access `foo.bar`  for each element in the
-array slice you currently have to write `myarray[:10][\*].foo.bar`.
+array slice you currently have to write `myarray[:10][*].foo.bar`.
 
 This JEP proposes that a slice expression will create a projection.
 
@@ -35,7 +35,7 @@ Instead, the main reason for this JEP is for consistency.  Right now there are
 three types of array projections:
 
 
-* List Projections (`foo[\*].bar`)
+* List Projections (`foo[*].bar`)
 
 
 * Filter Projections (`foo[?a==b].bar`)
