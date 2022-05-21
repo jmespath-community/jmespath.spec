@@ -41,6 +41,7 @@ When proposing new features, keep these tenets in mind. Adhering to these tenets
 * JMESPath is not specific to a particular programming language. Avoid constructs that are difficult to implement in another language.
 * JMESPath strives to have one way to do something.
 * Features are driven from real world use cases.
+* Syntax is generally used to express data structure manipulation while functions are used to express datum manipulation
 
 # JMESPath Compliance Tests
 
