@@ -21,7 +21,7 @@ Please keep PR discussion strictly about the content of the PR and any comments 
 | **[SemVer](https://semver.org/spec/v2.0.0.html#summary)** | MAJOR\|MINOR\|PATCH
 | **[Discussion #](https://github.com/jmespath-community/jmespath.jep/discussions)** | [##](https://github.com/jmespath-community/jmespath.jep/discussions/##)
 
-*Please discuss the merit of the JEP in the linked discussion. PR discussion should be limited to proofing the content of the PR and the PR proposal inital comment*
+*Please discuss the merit of the JEP in the linked discussion. PR discussion should be limited to proofing the content of the PR and the PR proposal initial comment*
 
 ## Abstract
 
