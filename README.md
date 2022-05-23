@@ -1,3 +1,5 @@
+This project exists as the original implementation does not appear to be maintained and has not received any improvements for a long time. After multiple [attempts](https://github.com/jmespath/jmespath.site/issues/65) to [contact](https://github.com/jmespath/jmespath.site/issues/94) the original author, we decided to proceed further with this project.
+
 # JMESPath Specification
 
 Any changes to the JMESPath specification
