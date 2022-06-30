@@ -47,7 +47,7 @@
 ;;
 ;; %%GRAMMAR%%
 
-expression        = sub-expression / index-expression  / comparator-expression / list-filter-expr
+expression        = sub-expression / index-expression  / comparator-expression
 expression        =/ or-expression / identifier
 expression        =/ and-expression / not-expression / paren-expression
 expression        =/ multi-select-list / multi-select-hash / literal
@@ -379,6 +379,7 @@ bracket-specifier =/ "[" "*" "]"
 ;; search('*.foo', {"a": {"foo": 1}, "b": {"foo": 2}, "c": {"bar": 1}}) -> [1, 2]
 ;; ```
 
+bracket-specifier =/ list-filter-expr
 list-filter-expr = "[?" expression "]" ;; # Filter Expressions \
 comparator-expression = expression comparator expression ;; \
 comparator        = "<" / "<=" / "==" / ">=" / ">" / "!="
