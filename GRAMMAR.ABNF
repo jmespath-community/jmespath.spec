@@ -53,7 +53,7 @@ expression        =/ and-expression / not-expression / paren-expression
 expression        =/ multi-select-list / multi-select-hash / literal
 expression        =/ function-expression / pipe-expression / raw-string
 expression        =/ current-node
-sub-expression    = expression "." ( identifier / multi-select-list / multi-select-hash / function-expression / "*" ) ;; # Sub-expressions
+sub-expression    = expression "." ( identifier / index-expression / multi-select-list / multi-select-hash / function-expression / "*" ) ;; # Sub-expressions
 ;; A sub-expression is a combination of two expressions separated by the '.' char. A sub-expression is evaluated as follows:
 ;;
 ;; - Evaluate the expression on the left with the original JSON document.
