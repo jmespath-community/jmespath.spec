@@ -50,7 +50,7 @@
 expression        = sub-expression / index-expression  / comparator-expression / list-filter-expr
 expression        =/ or-expression / identifier
 expression        =/ and-expression / not-expression / paren-expression
-expression        =/ multi-select-list / multi-select-hash / literal
+expression        =/ "*" / multi-select-list / multi-select-hash / literal
 expression        =/ function-expression / pipe-expression / raw-string
 expression        =/ current-node
 sub-expression    = expression "." ( identifier / multi-select-list / multi-select-hash / function-expression / "*" ) ;; # Sub-expressions
