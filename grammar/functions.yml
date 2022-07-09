@@ -34,3 +34,20 @@ test4:
   query: foo[].not_null(f, e, d, c, b, a)
   returns: [b, c, d, e, f]
   comment: function projection on variadic function
+nested_let1:
+  context: &given_nested
+    a: {mylist: [{l1: '1', result: foo}, {l2: '2', result: bar}, {l1: '8', l2: '9'},
+        {l1: '8', l2: '9'}], level2: '2'}
+    level1: '1'
+    nested: {a: {b: {c: {fourth: fourth}, third: third}, second: second}, first: first}
+    precedence: {a: {b: {c: {variable: fourth}, variable: third, other: y}, variable: second,
+        other: x}, variable: first, other: w}
+  comment: "Precedence of lexical vars from scope object"
+  query: "precedence.let({other: other}, &a.let({other: other}, &b.let({other: other}, &c.{other: other})))"
+  returns:
+    other: y
+nested_let2:
+  context: *given_nested
+  comment: "Precedence of lexical vars from current object"
+  query: "precedence.let({variable: variable}, &a.let({variable: variable}, &b.let({variable: variable}, &c.let({variable: `\"override\"`}, &variable))))"
+  returns: "fourth"
