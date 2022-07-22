@@ -265,9 +265,10 @@ slice-expression  = [number] ":" [number] [ ":" [number] ] ;; ## Slices
 ;; - The first element in the extracted array is the index denoted by start.
 ;; - The last element in the extracted array is the index denoted by end - 1.
 ;; - The step value determines how many indices to skip after each element is selected from the array.
-;;   A step value of 1 (the default step) will not skip any indices and will return a contiguous subset of the original array.
-;;   A step value of 2 will skip every other index while extracting elements from an array.
-//   A step value of -1 will extract values in reverse order from the array.
+;;   The default step value of 1 will not skip any indices and will return a contiguous subset of the original array.
+;;   A step value greater than 1 will skip indices while extracting elements from an array. For instance, a step value of 2 will
+;;   skip every other index.
+;;   Negative step values start from the end of the array and extract elements in reverse order.
 ;;
 ;; Slice expressions adhere to the following rules:
 ;;
