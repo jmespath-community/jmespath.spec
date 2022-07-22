@@ -379,8 +379,8 @@ bracket-specifier =/ "[" "*" "]"
 ;; search('*.foo', {"a": {"foo": 1}, "b": {"foo": 2}, "c": {"bar": 1}}) -> [1, 2]
 ;; ```
 
-list-filter-expr = "[?" expression "]" ;; # Filter Expressions \
-bracket-specifier =/ list-filter-expr ;; \
+filter-expression = "[?" expression "]" ;; # Filter Expressions \
+bracket-specifier =/ filter-expression ;; \
 comparator-expression = expression comparator expression ;; \
 comparator        = "<" / "<=" / "==" / ">=" / ">" / "!="
 ;; A filter expression provides a way to select JSON elements based on a comparison to another expression. A filter
