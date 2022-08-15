@@ -20,14 +20,16 @@ desc: |
   and then in the hierarchy of lexical scopes, until a value is found.
   
 examples:
-  - context:
+  filters:
+    context:
       search_for: foo
       people: [name: a, name: b, name: c, name: foo, name: bar, name: baz, name: qux,
         name: x, name: y, name: z]
     args: ['{search_for: search_for}', '&people[?name==search_for].name | [0]']
     returns: foo
     comment: Let function with filters
-  - context: &data
+  from_scope:
+    context: &data
       a: {mylist: [{l1: '1', result: foo}, {l2: '2', result: bar}, {l1: '8', l2: '9'},
           {l1: '8', l2: '9'}], level2: '2'}
       level1: '1'
@@ -37,27 +39,33 @@ examples:
     args: ['{level1: level1}', '&a.[level2', 'level1]']
     returns: ['2', '1']
     comment: Basic let from scope
-  - context: *data
+  current_object_precedence:
+    context: *data
     args: ['{level1: `"other"`}', '&level1']
     returns: '1'
     comment: Current object has precedence
-  - context: *data
+  current_context:
+    context: *data
     args: ['`{}`', '&a.level2']
     returns: '2'
     comment: No scope specified using literal hash
-  - context: *data
+  current_scope:
+    context: *data
     args: ['{foo: `"anything"`}', '&[level1, foo]']
     returns: ['1', anything]
     comment: Arbitrary variable added
-  - context: *data
+  parent_scope:
+    context: *data
     args: ['{other: level1}', '&level1']
     returns: '1'
     comment: Basic let from current object
-  - context: *data
+  nested_filters:
+    context: *data
     args: ['{level1: level1}', '&a.[mylist[?l1==level1].result, let({level2: level2}, &mylist[?l2==level2].result)]']
     returns: [foo, bar]
     comment: Nested let function with filters
-  - context: *data
+  nested_filters_scopes:
+    context: *data
     args: ['`{"level1": "1"}`', '&a.[mylist[?l1==level1].result, let({level2: level2}, &mylist[?l2==level2].result)]']
     returns: [foo, bar]
     comment: Nested let function with filters with literal scope binding
