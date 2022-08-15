@@ -11,8 +11,7 @@ returns:
   desc: ''
 desc: |
   * array - Returns the passed in value.
-
-  * number/string/object/boolean - Returns a one element array containing
+  * number/string/object/boolean/null - Returns a one element array containing
   the passed in argument.
 examples:
   test0:
