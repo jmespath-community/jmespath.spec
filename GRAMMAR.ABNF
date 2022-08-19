@@ -569,7 +569,7 @@ unescaped-literal = %x20-21 /   ; space !
 										%x23-5B /   ; # - [
 										%x5D-5F /   ; ] ^ _
 										%x61-7A /   ; a-z
-										%x7C-10FFFF ; |}~ ...
+										%x7B-10FFFF ; {|}~ ...
 escaped-literal   = escaped-char / (escape "`")
 number            = ["-"] 1*digit
 digit             = %x30-39
