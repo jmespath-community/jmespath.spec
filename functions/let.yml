@@ -69,3 +69,14 @@ examples:
     args: ['`{"level1": "1"}`', '&a.[mylist[?l1==level1].result, let({level2: level2}, &mylist[?l2==level2].result)][]']
     returns: [foo, bar]
     comment: Nested let function with filters with literal scope binding
+  precedence_lexical_vars_scope:
+    context: *data
+    query: "precedence.let({other: other}, &a.let({other: other}, &b.let({other: other}, &c.{other: other})))"
+    returns:
+      other: y
+    comment: Precedence of lexical vars from scope object
+  precedence_lexical_vars_current_object:
+    context: *data
+    query: "precedence.let({variable: variable}, &a.let({variable: variable}, &b.let({variable: variable}, &c.let({variable: `\"override\"`}, &variable))))"
+    returns: fourth
+    comment: Precedence of lexical vars from current object
