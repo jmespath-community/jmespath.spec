@@ -21,23 +21,16 @@ properties:
         description: ""
         items:
           type: object
+          allOf:
+            - $ref: "#/$defs/unnamed_arg"
           description: ""
-          additionalProperties: false
+          unevaluatedProperties: false
           properties:
             name:
               type: string
               description: ""
-            type: &type
-              description: ""
-              oneOf:
-                - enum: &types [any, number, string, boolean, array, object, "null", expression, "array[number]", "array[string]", "array[boolean]", "array[object]", "array[any]", "expression->number", "expression->string"]
-                - type: array
-                  items:
-                    enum: *types
-            desc:
-              type: string
-              description: ""
       optional: *arg
+      variadic: *unnamed_arg
   returns:
     type: object
     description: ""
@@ -91,3 +84,33 @@ properties:
                 type: string
                 description: ""
               comment: *comment
+$defs:
+  unnamed_arg: &unnamed_arg
+    type: object
+    properties:
+      type: &type
+        description: ""
+        oneOf:
+          - enum: &types
+            - any
+            - number
+            - string
+            - boolean
+            - array
+            - object
+            - "null"
+            - expression
+            - "array[number]"
+            - "array[string]"
+            - "array[boolean]"
+            - "array[object]"
+            - "array[any]"
+            - "array[array[any]]"
+            - "expression->number"
+            - "expression->string"
+          - type: array
+            items:
+              enum: *types
+      desc:
+        type: string
+        description: ""
