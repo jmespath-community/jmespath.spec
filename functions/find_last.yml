@@ -1,0 +1,44 @@
+name: find_last
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+  - name: sub
+    type: [string]
+    desc: 'Substring'
+  optional: 
+    - name: pos
+      type: [number]
+      desc: 'Position in the subject string where searching should start.'
+returns:
+  type: number
+  desc: ''
+desc: |
+  Given the `subject` string, `find_last()` returns the index of the last occurence where the `sub` substring appears in `subject` or `null`.
+
+  The `pos` parameter is optional and allow to select where `find_first()` must perform its search within `subject`.
+  If this is parameter omitted, it defaults to `length(subject) - 1` which is is the end of the `subject` string.
+  `find_last()` then searches backwards in the `subject` string for the first occurrence of the `sub` substring.
+examples:
+  find_last:
+    context: &subject subject string
+    args: ['@', 'string']
+    returns: 8.0
+  find_last_pos:
+    context: *subject
+    args: ['@', 'string', '`8`']
+    returns: 8.0
+  find_last_pos_ends_prematurely:
+    context: *subject
+    args: ['@', 'string', '`7`']
+    returns: null
+  find_last_second_occurrence:
+    context: *subject
+    args: ['@', 's', '`8`']
+    returns: 8.0
+  find_last_first_occurrence:
+    context: *subject
+    args: ['@', 's', '`7`']
+    returns: 0.0
