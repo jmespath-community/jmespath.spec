@@ -1,0 +1,49 @@
+name: replace
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+  - name: old
+    type: [string]
+    desc: 'Text that must be replaced in the subject string'
+  - name: new
+    type: [string]
+    desc: 'Text used as a replacement'
+  optional:
+  - name: count
+    type: [number]
+    desc: 'Number of replacements to perform'
+returns:
+  type: string
+  desc: ''
+desc: |
+  Given the `subject` string, `replace()` replaces all ocurrences of the `old` substring with the `new` substring.
+
+  The `count` optional parameter specifies how many occurrences of the `old` substring in `subject` are to be replaced.
+  If this parameter is omitted, all occurrences are replaced. If `count` is negative, an error MUST be raised.
+
+  The `replace()` function has no effect if `count` is `0`.
+examples:
+  replace_noop:
+    context: &subject aabaaabaaaab
+    args: ["@", "'aa'", "'-'", "`0`"]
+    returns: *subject
+    comment: The function has no effect if `count` is `0`.
+  replace_once:
+    context: *subject
+    args: ["@", "'aa'", "'-'", "`1`"]
+    returns: "-baaabaaaab"
+  replace_twice:
+    context: *subject
+    args: ["@", "'aa'", "'-'", "`2`"]
+    returns: "-b-abaaaab"
+  replace_three_times:
+    context: *subject
+    args: ["@", "'aa'", "'-'", "`3`"]
+    returns: "-b-ab-aab"
+  replace_all:
+    context: *subject
+    args: ["@", "'aa'", "'-'"]
+    returns: "-b-ab--b"
