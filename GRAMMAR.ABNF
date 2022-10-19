@@ -19,7 +19,7 @@
 ;; The result of applying a JMESPath expression against a JSON document will always result in valid JSON, provided there
 ;; are no errors during the evaluation process. Structured data in, structured data out.
 ;;
-;; This also means that, with the exception of JMESPath expression types, JMESPath only supports the same types support by JSON:
+;; This also means that, with the exception of JMESPath expression types, JMESPath only supports the same types supported by JSON:
 ;;
 ;; - number (integers and double-precision floating-point format in JSON)
 ;; - string
