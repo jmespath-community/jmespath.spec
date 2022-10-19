@@ -10,7 +10,11 @@ returns:
   type: array
   desc: ''
 desc: |
-  Reverses the order of the `$argument`.
+  Given an array `$argument`, the `reverse()` function inverts the order of the array elements.
+
+  Given a string `$argument`, the `reverse()` function inverts the order of all code points in the string.
+  **Caution**: as this function reverses a string based on code points, use with caution on strings
+  that contain combining characters.
 examples:
   test0:
     context: [0, 1, 2, 3, 4]

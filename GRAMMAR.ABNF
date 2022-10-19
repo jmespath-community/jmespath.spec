@@ -28,6 +28,15 @@
 ;; - object (an unordered collection of key value pairs)
 ;; - null
 ;;
+;; ```note
+;; JSON strings are sequences of Unicode code points wrapped with double quotes.
+;; JMESPath includes a set of functions to process strings, like `length()`,
+;; `reverse()`, `sort()` and `sort_by()` for instance. Please, note that,
+;; as a general rule, string processing functions operate on code points only.
+;; Specifically, those functions are not locale-aware and do not support
+;; grapheme cluster boundaries.
+;; ```
+;;
 ;; Expression types are discussed in the [Function Expressions](#function-expressions) section.
 ;;
 ;; Implementations can map the corresponding JSON types to their language equivalent. For example, a JSON null could map to
