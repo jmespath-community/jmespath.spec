@@ -62,7 +62,8 @@ sub-expression    = expression "." ( identifier / multi-select-list / multi-sele
 ;; In pseudocode:
 ;; ```
 ;; left-evaluation = search(left-expression, original-json-document)
-;; result = search(right-expression, left-evaluation)
+;; if left-evaluation is `null` then result = `null`
+;; else result = search(right-expression, left-evaluation)
 ;; ```
 ;; A sub-expression is itself an expression, so there can be multiple levels of sub-expressions: grandparent.parent.child.
 ;; Examples
