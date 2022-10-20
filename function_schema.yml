@@ -28,6 +28,9 @@ properties:
       optional:
         $ref: '#/definitions/arguments'
         description: optional function arguments
+      variadic:
+        $ref: '#/definitions/signature'
+        description: variadic arguments type
   returns:
     $ref: '#/definitions/returnValue'
     description: function return type
@@ -67,6 +70,7 @@ definitions:
       - 'array[boolean]'
       - 'array[object]'
       - 'array[any]'
+      - expression->any
       - expression->number
       - expression->string
   errors:
