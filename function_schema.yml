@@ -25,8 +25,9 @@ $defs:
             - "array[object]"
             - "array[any]"
             - "array[array[any]]"
-            - "expression->number"
-            - "expression->string"
+            - expression->any
+            - expression->number
+            - expression->string
           - type: array
             items:
               enum: *types
