@@ -1,0 +1,64 @@
+name: find_first
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+  - name: sub
+    type: [string]
+    desc: 'Substring'
+  optional: 
+    - name: start
+      type: [number]
+      desc: 'Position in the subject string where searching should start.'
+    - name: end
+      type: [number]
+      desc: 'Position in the subject string where searching should end.'
+returns:
+  type: number
+  desc: ''
+desc: |
+  Given the `subject` string, `find_first()` returns the index of the first occurence where the `sub` substring appears in `subject` or `null`.
+
+  The `start` and `end` parameters are optional and allow to select where `find_first()` must perform its search within `subject`.
+
+  * If `start` is omitted, it defaults to `0` which is the start of the `subject` string.
+  * If `end` is omitted, it defaults to `length(subject) - 1` which is is the end of the `subject` string.
+examples:
+  find_first:
+    context: &subject subject string
+    args: ['@', 'string']
+    returns: 8.0
+  find_first_start:
+    context: *subject
+    args: ['@', 'string', '`0`']
+    returns: 8.0
+  find_first_start_end:
+    context: *subject
+    args: ['@', 'string', '`0`', '`14`']
+    returns: 8.0
+  find_first_start_before_end_after:
+    context: *subject
+    args: ['@', 'string', '`-99`', '`100`']
+    returns: 8.0
+  find_first_ends_prematurely:
+    context: *subject
+    args: ['@', 'string', '`0`', '`13`']
+    returns: null
+  find_first_start_boundary:
+    context: *subject
+    args: ['@', 'string', '`8`']
+    returns: 8.0
+  find_first_incomplete:
+    context: *subject
+    args: ['@', 'string', '`9`']
+    returns: null
+  find_first_first_occurrence:
+    context: *subject
+    args: ['@', 's', '`0`']
+    returns: 0.0
+  find_first_second_occurrence:
+    context: *subject
+    args: ['@', 's', '`1`']
+    returns: 8.0

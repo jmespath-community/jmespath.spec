@@ -19,7 +19,7 @@
 ;; The result of applying a JMESPath expression against a JSON document will always result in valid JSON, provided there
 ;; are no errors during the evaluation process. Structured data in, structured data out.
 ;;
-;; This also means that, with the exception of JMESPath expression types, JMESPath only supports the same types support by JSON:
+;; This also means that, with the exception of JMESPath expression types, JMESPath only supports the same types supported by JSON:
 ;;
 ;; - number (integers and double-precision floating-point format in JSON)
 ;; - string
@@ -62,7 +62,8 @@ sub-expression    = expression "." ( identifier / multi-select-list / multi-sele
 ;; In pseudocode:
 ;; ```
 ;; left-evaluation = search(left-expression, original-json-document)
-;; result = search(right-expression, left-evaluation)
+;; if left-evaluation is `null` then result = `null`
+;; else result = search(right-expression, left-evaluation)
 ;; ```
 ;; A sub-expression is itself an expression, so there can be multiple levels of sub-expressions: grandparent.parent.child.
 ;; Examples
@@ -252,36 +253,36 @@ bracket-specifier =/ "[]" ;; ## Flatten Operator
 ;; ```
 
 slice-expression  = [number] ":" [number] [ ":" [number] ] ;; ## Slices
-;; A slice expression allows you to select a subset of an array. A slice has a start, stop, and step value. The
-;; general form of a slice is [start:stop:step], but each component is optional and can be omitted.
+;; A slice expression allows you to select a subset of an array or a string. A slice has a `start`, `stop`, and `step` value. The
+;; general form of a slice is `[start:stop:step]`, but each component is optional and can be omitted.
 ;;
 ;; ```note
 ;; Slices in JMESPath have the same semantics as python slices. If you're familiar with python slices, you're familiar with
 ;; JMESPath slices.
 ;; ```
 ;;
-;; Given a start, stop, and step value, the sub elements in an array are extracted as follows:
+;; Given a `start`, `stop`, and `step` value, the sub elements in an array or characters in a string are extracted as follows:
 ;;
-;; - The first element in the extracted array is the index denoted by start.
-;; - The last element in the extracted array is the index denoted by end - 1.
-;; - The step value determines how many indices to skip after each element is selected from the array.
-;;   The default step value of 1 will not skip any indices and will return a contiguous subset of the original array.
-;;   A step value greater than 1 will skip indices while extracting elements from an array. For instance, a step value of 2 will
-;;   skip every other index.
-;;   Negative step values start from the end of the array and extract elements in reverse order.
+;; - The first element in the extracted array or first character in the extracted string is the index denoted by `start`.
+;; - The last element in the extracted array or last character in the extracted string is the index denoted by `end - 1`.
+;; - The `step` value determines how many indices to skip after each element is selected from the array or each character is selected from the string.
+;;   The default `step` value of `1` will not skip any indices and will return a contiguous subset of the original array or a substring of the original string.
+;;   A `step` value greater than `1` will skip indices while extracting elements from an array or characters from a string. For instance, a `step` value of `2` will
+;;   skip every other element or character.
+;;   Negative `step` values start from the end of the array or string and extract elements or characters in reverse order.
 ;;
 ;; Slice expressions adhere to the following rules:
 ;;
-;; - If a negative start position is given, it is calculated as the total length of the array plus the given start position.
-;; - If no start position is given, it is assumed to be 0 if the given step is greater than 0 or the end of the array if
-;;   the given step is less than 0.
-;; - If a negative stop position is given, it is calculated as the total length of the array plus the given stop position.
-;; - If no stop position is given, it is assumed to be the length of the array if the given step is greater than 0 or 0 if
-;;   the given step is less than 0.
-;; - If the given step is omitted, it it assumed to be 1.
-;; - If the given step is 0, an error MUST be raised.
-;; - If the element being sliced is not an array, the result is null.
-;; - If the element being sliced is an array and yields no results, the result MUST be an empty array.
+;; - If a negative `start` position is given, it is calculated as the total length of the array or string plus the given `start` position.
+;; - If no `start` position is given, it is assumed to be `0` if the given `step` is greater than 0 or the end of the array or string if
+;;   the given `step` is less than `0`.
+;; - If a negative `stop` position is given, it is calculated as the total length of the array or string plus the given `stop` position.
+;; - If no `stop` position is given, it is assumed to be the length of the array or string if the given `step` is greater than `0` or `0` if
+;;   the given `step` is less than `0`.
+;; - If the given `step` is omitted, it it assumed to be `1`.
+;; - If the given `step` is `0`, an error MUST be raised.
+;; - If the element being sliced is not an array or a string, the result is `null`.
+;; - If the element being sliced is an array or string and yields no results, the result MUST be an empty array.
 ;;
 ;; ### Examples
 ;; ```
@@ -293,6 +294,12 @@ slice-expression  = [number] ":" [number] [ ":" [number] ] ;; ## Slices
 ;; search([::-1], [0, 1, 2, 3]) -> [3, 2, 1, 0]
 ;; search([-2:], [0, 1, 2, 3]) -> [2, 3]
 ;; ```
+;; Slicing operates on strings exactly as if a string were thought of as an array of characters.
+;; ```
+;; search(foo[0:4], {"foo": "hello, world!"}) -> "hell"
+;; search([::], 'raw-string') -> "raw-string"
+;; search([::2], 'raw-string') -> "rwsrn"
+;; search([::-1], 'raw-string') -> "gnirts-war"
 
 multi-select-list = "[" ( expression *( "," expression ) ) "]" ;; # MultiSelect List
 ;; A multiselect expression is used to extract a subset of elements from a JSON hash. There are two version of multiselect,
@@ -601,7 +608,7 @@ unquoted-string   = (%x41-5A / %x61-7A / %x5F) *(  ; A-Za-z_
                         %x5F    /  ; _
                         %x61-7A)   ; a-z
 quoted-string     = quote 1*(unescaped-char / escaped-char) quote
-unescaped-char    = %x20-21 / %x23-5B / %x5D-10FFFF
+unescaped-char    = %x20-21 / %x23-2E / %30-5B / %x5D-10FFFF
 escape            = "\"
 quote             = %x22   ; Double quote: '"'
 escaped-char      = escape (
@@ -650,3 +657,39 @@ int = zero / ( digit1-9 *digit )
 minus = %x2D               ; -
 plus = %x2B                ; +
 zero = %x30                ; 0
+
+expression =/ root-node ;; ## Root Reference
+
+root-node = "$"
+
+;; ## root-node
+;;
+;; The `root-node` token can be used to represent the original input JSON document.
+;;
+;; As a JMESPath expression is being evaluated, the current scope changes.
+;; Given a simple sub expression such as `foo.bar`, first the `foo` expression is evaluated
+;; with the starting input JSON document, and the result of that expression is then used as
+;; the current scope when the `bar` element is evaluated.
+;; 
+;; Once we’ve drilled down to a specific scope, the `root-node` token can be used
+;; to refer to the original JSON document.
+;;
+;; Example
+;;
+;; Given a JSON document:
+;; 
+;; ```json
+;; {
+;;   "first_choice": "WA",
+;;   "states": [
+;;      {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
+;;      {"name": "CA", "cities": ["Los Angeles", "San Francisco"]},
+;;      {"name": "NY", "cities": ["New York City", "Albany"]}
+;;  ]
+;; }
+;; ```
+;; We can retrieve the list of cities of the state corresponding to the `first_choice` key
+;; using the following expression:
+;;
+;; ` states[? name == $.first_choice ].cities[] `
+;;

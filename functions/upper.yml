@@ -1,0 +1,17 @@
+name: upper
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+returns:
+  type: string
+  desc: ''
+desc: |
+  Returns the uppercase subject string.
+examples:
+  lower:
+    context: string
+    args: ['@']
+    returns: STRING

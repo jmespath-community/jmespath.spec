@@ -51,15 +51,17 @@ properties:
         type: array
         description: ""
         items:
-          type: object
           allOf:
             - $ref: "#/$defs/unnamed_arg"
+            - type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: ""
           description: ""
           unevaluatedProperties: false
-          properties:
-            name:
-              type: string
-              description: ""
       optional: *arg
       variadic: *unnamed_arg
   returns:

@@ -170,3 +170,19 @@ test40:
   context: *data
   query: '[:2].b'
   returns: []
+test41:
+  context: {"foo": "hello, world"}
+  query: 'foo[0:4]'
+  returns: hell
+test42:
+  context:
+  query: 'raw-string[::]'
+  returns: raw-string
+test43:
+  context:
+  query: 'raw-string[::2]'
+  returns: rwsrn
+test44:
+  context:
+  query: 'raw-string[::-1]'
+  returns: gnirts-war
