@@ -34,8 +34,6 @@ examples:
           {l1: '8', l2: '9'}], level2: '2'}
       level1: '1'
       nested: {a: {b: {c: {fourth: fourth}, third: third}, second: second}, first: first}
-      precedence: {a: {b: {c: {variable: fourth}, variable: third, other: y}, variable: second,
-          other: x}, variable: first, other: w}
     args: ['{level1: level1}', '&a.[level2', 'level1]']
     returns: ['2', '1']
     comment: Basic let from scope
@@ -70,13 +68,26 @@ examples:
     returns: [foo, bar]
     comment: Nested let function with filters with literal scope binding
   precedence_lexical_vars_scope:
-    context: *data
-    query: "precedence.let({other: other}, &a.let({other: other}, &b.let({other: other}, &c.{other: other})))"
+    context: &precedence
+      a:
+        b:
+          c: { variable: fourth }
+          other: y
+          variable: third
+        other: x
+        variable: second
+      other: w
+      variable: first
+    args: 
+      - "{other: other}"
+      - "&a.let({other: other}, &b.let({other: other}, &c.{other: other}))"
     returns:
       other: y
     comment: Precedence of lexical vars from scope object
   precedence_lexical_vars_current_object:
-    context: *data
-    query: "precedence.let({variable: variable}, &a.let({variable: variable}, &b.let({variable: variable}, &c.let({variable: `\"override\"`}, &variable))))"
+    context: *precedence
+    args:
+      - "{variable: variable}"
+      - "&a.let({variable: variable}, &b.let({variable: variable}, &c.let({variable: `\"override\"`}, &variable)))"
     returns: fourth
     comment: Precedence of lexical vars from current object
