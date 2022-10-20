@@ -1,0 +1,45 @@
+name: pad_left
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+  - name: width
+    type: [number]
+    desc: 'Total width of the resulting string'
+  optional:
+  - name: pad
+    type: [string]
+    desc: 'Pad character'
+returns:
+  type: string
+  desc: ''
+desc: |
+  Given the `subject` string, `pad_left()` adds `width - length(subject)` characters to the beginning of the string
+  and returns a string of length `width`.
+
+  The `pad` optional string parameter specifies the padding character. If this parameter is omitted, `pad_left()`
+  ad one or more ASCII space characters to the beginning of the string. If present, the `pad` string must have a
+  single character, otherwise an error MUST be raised.
+
+  The `pad_left()` function has no effect if `width` is less than, or equal to the length of the `subject` string.
+examples:
+  pad_left_less_than_length:
+    context: &subject string
+    args: ['@', '`0`']
+    returns: string
+    comment: The function has no effect if `width` is less than the length of the subject string.
+  pad_left_equals_to_length:
+    context: *subject
+    args: ['@', '`6`']
+    returns: string
+    comment: The function has no effect if `width` is equal to the length of the subject string.
+  pad_left:
+    context: *subject
+    args: ['@', '`10`']
+    returns: "    string"
+  pad_left_character:
+    context: *subject
+    args: ['@', '`10`', '-']
+    returns: "----string"

@@ -1,0 +1,42 @@
+name: trim_left
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+  optional:
+  - name: chars
+    type: [string]
+    desc: 'Set of characters to be removed'
+returns:
+  type: string
+  desc: ''
+desc: |
+  Given the `subject` string, `trim_left()` removes the leading characters found in `chars`.
+
+  Like the `trim()` function, the `chars` optional string parameter represents a set of characters to be removed.
+  `trim_left()` defaults to removing whitespace characters if `chars` is not specified or is an empty string.
+examples:
+  trim_whitespaces_by_default:
+    context: &subject " subject string "
+    args: ["@"]
+    returns: "subject string "
+  trim_unmatched_single_letter:
+    context: *subject
+    args: ["@", "'s'"]
+    returns: *subject
+    comment: The trim_left() has no effect if the `subject` string does not have leading characters from the `chars` string.
+  trim_unmatched_leading_prefix:
+    context: *subject
+    args: ["@", "'su'"]
+    returns: *subject
+    comment: The trim_left() has no effect if the `subject` string does not have leading characters from the `chars` string.
+  trim_leading_prefix:
+    context: *subject
+    args: ["@", "'su '"]
+    returns: &trimmed "bject string "
+  trim_leading_prefix_only:
+    context: *subject
+    args: ["@", "'gsu '"]
+    returns: *trimmed

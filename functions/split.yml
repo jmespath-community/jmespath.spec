@@ -1,0 +1,100 @@
+name: split
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+  - name: search
+    type: [string]
+    desc: 'Text separator'
+  optional:
+  - name: count
+    type: [number]
+    desc: 'Number of splits to perform'
+returns:
+  type: ['array[string]']
+  desc: ''
+desc: |
+  Given the `subject` string, `split()` breaks on ocurrences of the string `search` and returns an array.
+
+  The `split()` function returns an array containing each partial string between occurrences of `search`.
+  If `subject` contains no occurrences of the `search` text, an array containing just the original `subject`
+  string will be returned.
+  
+  The `count` optional parameter specifies how many occurrences of the `search` string are split.
+  If this parameter is omitted, all occurrences are split. If `count` is negative, an error MUST be raised.
+
+  If `count` is equal to `0`, `split()` returns an array containing a single element, the `subject` string.
+
+  Otherwise, the `split()` function breaks on occurrences of the `search` string up to `count` times. The
+  last string in the resulting array containing the remaining contents of the `subject` string unmodified.
+examples:
+  split_all_chars:
+    context: 
+    args: ['all chars', '']
+    returns: ["a", "l", "l", " ", "c", "h", "a", "r", "s"]
+  split_slash:
+    context: 
+    args: ['/', '/']
+    returns: ["", ""]
+  split_all:
+    context: &subject 'average|-|min|-|max|-|mean|-|median'
+    args:
+      - *subject
+      - "'|-|'"
+    returns:
+      - average
+      - min
+      - max
+      - mean
+      - median
+  split_three_times:
+    context: *subject
+    args:
+      - *subject
+      - "'|-|'"
+      - "`3`"
+    returns:
+      - average
+      - min
+      - max
+      - mean|-|median
+  split_twice:
+    context: *subject
+    args:
+      - *subject
+      - "'|-|'"
+      - "`2`"
+    returns:
+      - average
+      - min
+      - max|-|mean|-|median
+  split_once:
+    context: *subject
+    args:
+      - *subject
+      - "'|-|'"
+      - "`1`"
+    returns:
+      - average
+      - min|-|max|-|mean|-|median
+  split_none:
+    context: *subject
+    args:
+      - *subject
+      - "'|-|'"
+      - "`0`"
+    returns:
+      - *subject
+  split_hyphen:
+    context: *subject
+    args:
+      - *subject
+      - "'-'"
+    returns:
+      - "average|"
+      - "|min|"
+      - "|max|"
+      - "|mean|"
+      - "|median"

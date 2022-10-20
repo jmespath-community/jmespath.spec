@@ -1,0 +1,25 @@
+name: items
+topic: misc
+args:
+  required:
+  - name: obj
+    type: [object]
+    desc: ''
+  optional: []
+returns:
+  type: ['array[any]']
+  desc: ''
+desc: |2
+  Returns an array of key-value pairs for the provided input object.
+  Each pair is a 2-item array with the first item being the key and
+  the second item being the value.
+  This function is the inversed of the `from_items()` function.
+
+  Note that because JSON hashes are inheritently unordered,
+  the key value pairs of the provided object $obj are inheritently unordered.
+  Implementations are not required to return values in any specific order.
+examples:
+  basic:
+    context: {"a": "first", "b": "second"}
+    args: ['@']
+    returns: [["a", "first"], ["b", "second"]]
