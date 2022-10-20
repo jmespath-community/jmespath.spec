@@ -1,0 +1,32 @@
+test0:
+  context:
+  query: "`1` + `2`"
+  returns: 3.0
+test1:
+  context:
+  query: "`1` − `2`"
+  returns: -1.0
+test2:
+  context:
+  query: "`2` × `4`"
+  returns: 8.0
+test3:
+  context:
+  query: "`2` ÷ `3`"
+  returns: 0.666666666666667
+test4:
+  context:
+  query: "`10` % `3`"
+  returns: 1.0
+test5:
+  context:
+  query: "`10` // `3`"
+  returns: 3.0
+test6:
+  context:
+  query: "-`1` − +`2`"
+  returns: -3.0
+test7:
+  context:
+  query: "`1` ÷ `0`"
+  error: not-a-number

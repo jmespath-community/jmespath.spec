@@ -658,6 +658,62 @@ minus = %x2D               ; -
 plus = %x2B                ; +
 zero = %x30                ; 0
 
+expression =/ arithmetic-expression ;; ## Arithmetic Expressions
+
+arithmetic-expression =/ "+" expression ; + %x43
+arithmetic-expression =/ ( "-" / "–" ) expression ; - %x45 – %x2212
+
+arithmetic-expression = expression "%" expression ; % %x37
+arithmetic-expression =/ expression ( "*" / "×" ) expression ; * %x42 ×  %xD7
+arithmetic-expression =/ expression "+" expression ; + %x43
+arithmetic-expression =/ expression ( "-" / "–" ) expression ; - %x45 – %x2212
+arithmetic-expression =/ expression ( "/" / "÷" ) expression ; / %x47 ÷
+
+;; An `arithmetic-expression` enables simple computations using the four basic operations,
+;; as well as the modulo and integer-division operations.
+;;
+;; To support arithmetic operations, the following operators are available:
+;; 
+;; - `+` addition operator
+;; - `-` subtraction operator
+;; - `*` multiplication operator
+;; - `/` division operator
+;; - `%` modulo operator
+;; - `//` integer division operator
+;; 
+;; Proper mathematical operators are also supported using the following UNICODE characters:
+;; 
+;; - `–` (U+2212 MINUS SIGN)
+;; - `÷` (U+00F7 DIVISION SIGN)
+;; -  `×` (U+00D7 MULTIPLY SIGN)
+;; 
+;; Arithmetic operations adhere to the usual precedence rules, from lowest to highest:
+;; 
+;; - `-` subtraction operator and `+` addition operator
+;; - `/` division,  `*` multiplication, `%` modulo and `//` integer division operators
+;; 
+;; In the absence of parentheses, operators of the same level of precedence are evaluated from left to right.
+;; Arithmetic operators have higher precedence than comparison operators and lower precedence than the `.` "dot" `sub-expression` token separator.
+;; 
+;; ## Examples
+;;
+;; ```
+;; search(a + b, {"a": 1, "b": 2}) -> 3
+;; search(a - b, {"a": 1, "b": 2}) -> -1 
+;; search(a * b, {"a": 2, "b": 4}) -> 8
+;; search(a / b, {"a": 2, "b": 3}) -> 0.666666666666667
+;; search(a % b, {"a": 10, "b": 3} -> 1
+;; search(a // b, {"a": 10, "b": 3} -> -3 
+;; search(a.b + cd, {"a": {"b": 1}, "c": {"d": 2}}) -> 3
+;; ```
+;;
+;; Since `arithmetic-expression` is not valid on the right-hand-side of a `sub-expression`, a `pipe-expression` can be used instead:
+;;
+;; ```
+;; search({ab: a.b, cd: c.d} | ab + cd, {"a": {"b": 1}, "c": {"d": 2}}) -> 3
+;; ```
+;;
+
 expression =/ root-node ;; ## Root Reference
 
 root-node = "$"
