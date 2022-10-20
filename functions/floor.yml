@@ -3,12 +3,9 @@ topic: math
 args:
   required:
   - name: value
-    type: [number]
-    desc: ''
-  optional: []
+    type: number
 returns:
   type: number
-  desc: ''
 desc: |
   Returns the next lowest integer value by rounding down if necessary.
 examples:

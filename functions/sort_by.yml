@@ -3,15 +3,11 @@ topic: collections
 args:
   required:
   - name: elements
-    type: [array]
-    desc: ''
+    type: array
   - name: expr
     type: [expression->number, expression->string]
-    desc: ''
-  optional: []
 returns:
   type: array
-  desc: ''
 desc: |
   Sort an array using an expression `expr` as the sort key.  For each element
   in the array of `elements`, the `expr` expression is applied and the

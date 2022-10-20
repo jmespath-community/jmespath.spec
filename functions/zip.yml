@@ -3,15 +3,11 @@ topic: misc
 args:
   required:
   - name: arg
-    type: ['array[any]']
-    desc: ''
+    type: 'array[any]'
   variadic:
-    type: ['array[any]']
-    desc: ''
-  optional: []
+    type: 'array[any]'
 returns:
   type: ['array[array[any]]']
-  desc: ''
 desc: |2
   Accepts one or more arrays as arguments and returns an array of arrays
   in which the _i-th_ array contains the _i-th_ element from each of the

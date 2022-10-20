@@ -3,12 +3,9 @@ topic: conversion
 args:
   required:
   - name: arg
-    type: [any]
-    desc: ''
-  optional: []
+    type: any
 returns:
   type: string
-  desc: ''
 desc: |2
 
   * string - Returns the passed in value.

@@ -4,11 +4,8 @@ args:
   required:
   - name: argument
     type: [string, array]
-    desc: ''
-  optional: []
 returns:
   type: array
-  desc: ''
 desc: |
   Reverses the order of the `$argument`.
 examples:

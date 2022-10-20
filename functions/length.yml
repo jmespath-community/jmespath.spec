@@ -4,11 +4,8 @@ args:
   required:
   - name: subject
     type: [string, array, object]
-    desc: ''
-  optional: []
 returns:
   type: number
-  desc: ''
 desc: |
   Returns the length of the given argument using the following types rules:
 

@@ -3,12 +3,9 @@ topic: math
 args:
   required:
   - name: value
-    type: [number]
-    desc: ''
-  optional: []
+    type: number
 returns:
   type: number
-  desc: ''
 desc: |
   Returns the next highest integer value by rounding up if necessary.
 examples:

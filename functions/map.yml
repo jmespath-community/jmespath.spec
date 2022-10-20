@@ -3,15 +3,11 @@ topic: collections
 args:
   required:
   - name: expr
-    type: [expression]
-    desc: ''
+    type: expression
   - name: elements
-    type: ['array[any]']
-    desc: ''
-  optional: []
+    type: 'array[any]'
 returns:
   type: array[any]
-  desc: ''
 desc: |
   Apply the `expr` to every element in the `elements` array
   and return the array of results.  An `elements` of length

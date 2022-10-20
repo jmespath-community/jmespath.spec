@@ -3,12 +3,9 @@ topic: conversion
 args:
   required:
   - name: arg
-    type: [any]
-    desc: ''
-  optional: []
+    type: any
 returns:
   type: number
-  desc: ''
 desc: |
   * string - Returns the parsed number.  Any string that conforms to the
   `json-number` production is supported.  Note that the floating number
