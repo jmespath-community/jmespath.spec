@@ -3,6 +3,37 @@ $schema: https://json-schema.org/draft/2020-12/schema
 $id: https://jmespath.site/function_schema.yml
 title: JMESPath function
 description: JMESPath function definition and tests
+$defs:
+  unnamed_arg: &unnamed_arg
+    type: object
+    properties:
+      type: &type
+        description: ""
+        oneOf:
+          - enum: &types
+            - any
+            - number
+            - string
+            - boolean
+            - array
+            - object
+            - "null"
+            - expression
+            - "array[number]"
+            - "array[string]"
+            - "array[boolean]"
+            - "array[object]"
+            - "array[any]"
+            - "array[array[any]]"
+            - expression->any
+            - expression->number
+            - expression->string
+          - type: array
+            items:
+              enum: *types
+      desc:
+        type: string
+        description: ""
 type: object
 required: [name, topic, args, returns, desc, examples]
 properties:
@@ -20,24 +51,19 @@ properties:
         type: array
         description: ""
         items:
-          type: object
+          allOf:
+            - $ref: "#/$defs/unnamed_arg"
+            - type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: ""
           description: ""
-          additionalProperties: false
-          properties:
-            name:
-              type: string
-              description: ""
-            type: &type
-              description: ""
-              oneOf:
-                - enum: &types [any, number, string, boolean, array, object, "null", expression, "array[number]", "array[string]", "array[boolean]", "array[object]", "array[any]", "expression->any", "expression->number", "expression->string"]
-                - type: array
-                  items:
-                    enum: *types
-            desc:
-              type: string
-              description: ""
+          unevaluatedProperties: false
       optional: *arg
+      variadic: *unnamed_arg
   returns:
     type: object
     description: ""

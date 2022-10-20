@@ -1,0 +1,32 @@
+name: zip
+topic: misc
+args:
+  required:
+  - name: arg
+    type: ['array[any]']
+    desc: ''
+  variadic:
+    type: ['array[any]']
+    desc: ''
+  optional: []
+returns:
+  type: ['array[array[any]]']
+  desc: ''
+desc: |2
+  Accepts one or more arrays as arguments and returns an array of arrays
+  in which the _i-th_ array contains the _i-th_ element from each of the
+  argument arrays.
+  The returned array is truncated to the length of the shortest argument array.
+examples:
+  zip:
+    context:
+    args:
+      - ["a", "b"]
+      - [1, 2]
+    returns: [["a", 1], ["b", 2]]
+  zip_sparse:
+    context:
+    args:
+      - ["a", "b", "c"]
+      - [1, 2]
+    returns: [["a", 1], ["b", 2]]
