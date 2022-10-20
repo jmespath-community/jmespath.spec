@@ -52,7 +52,8 @@ expression        =/ or-expression / identifier
 expression        =/ and-expression / not-expression / paren-expression
 expression        =/ multi-select-list / multi-select-hash / literal
 expression        =/ function-expression / pipe-expression / raw-string
-expression        =/ current-node
+expression        =/ root-node / current-node
+expression        =/ arithmetic-expression
 sub-expression    = expression "." ( identifier / multi-select-list / multi-select-hash / function-expression / "*" ) ;; # Sub-expressions
 ;; A sub-expression is a combination of two expressions separated by the '.' char. A sub-expression is evaluated as follows:
 ;;
@@ -199,6 +200,58 @@ not-expression    = "!" expression ;; # Not Expressions
 ;; search(!Number, {"Number": 5}) -> false
 ;; search(!EmptyList, {"EmptyList": []}) -> true
 ;; ```
+
+arithmetic-expression =/ "+" expression ; + %x43 ;; # Arithmetic Expressions \
+arithmetic-expression =/ ( "-" / "–" ) expression ; - %x45 – %x2212 \
+arithmetic-expression = expression "%" expression ; % %x37 \
+arithmetic-expression =/ expression ( "*" / "×" ) expression ; * %x42 ×  %xD7 \
+arithmetic-expression =/ expression "+" expression ; + %x43 \
+arithmetic-expression =/ expression ( "-" / "–" ) expression ; - %x45 – %x2212 \
+arithmetic-expression =/ expression ( "/" / "÷" ) expression ; / %x47 ÷
+;; An `arithmetic-expression` enables simple computations using the four basic operations,
+;; as well as the modulo and integer-division operations.
+;;
+;; To support arithmetic operations, the following operators are available:
+;; 
+;; - `+` addition operator
+;; - `-` subtraction operator
+;; - `*` multiplication operator
+;; - `/` division operator
+;; - `%` modulo operator
+;; - `//` integer division operator
+;; 
+;; Proper mathematical operators are also supported using the following UNICODE characters:
+;; 
+;; - `–` (U+2212 MINUS SIGN)
+;; - `÷` (U+00F7 DIVISION SIGN)
+;; -  `×` (U+00D7 MULTIPLY SIGN)
+;; 
+;; Arithmetic operations adhere to the usual precedence rules, from lowest to highest:
+;; 
+;; - `-` subtraction operator and `+` addition operator
+;; - `/` division,  `*` multiplication, `%` modulo and `//` integer division operators
+;; 
+;; In the absence of parentheses, operators of the same level of precedence are evaluated from left to right.
+;; Arithmetic operators have higher precedence than comparison operators and lower precedence than the `.` "dot" `sub-expression` token separator.
+;; 
+;; ## Examples
+;;
+;; ```
+;; search(a + b, {"a": 1, "b": 2}) -> 3
+;; search(a - b, {"a": 1, "b": 2}) -> -1 
+;; search(a * b, {"a": 2, "b": 4}) -> 8
+;; search(a / b, {"a": 2, "b": 3}) -> 0.666666666666667
+;; search(a % b, {"a": 10, "b": 3} -> 1
+;; search(a // b, {"a": 10, "b": 3} -> -3 
+;; search(a.b + cd, {"a": {"b": 1}, "c": {"d": 2}}) -> 3
+;; ```
+;;
+;; Since `arithmetic-expression` is not valid on the right-hand-side of a `sub-expression`, a `pipe-expression` can be used instead:
+;;
+;; ```
+;; search({ab: a.b, cd: c.d} | ab + cd, {"a": {"b": 1}, "c": {"d": 2}}) -> 3
+;; ```
+;;
 
 paren-expression  = "(" expression ")" ;; # Parenthetical Expressions
 ;; A paren-expression allows a user to override the precedence order of an expression, e.g. (a || b) && c.
@@ -451,6 +504,7 @@ no-args             = "(" ")" ;; \
 one-or-more-args    = "(" ( function-arg *( "," function-arg ) ) ")" ;; \
 function-arg        = expression / expression-type ;; \
 current-node        = "@" ;; \
+root-node           = "$" ;; \
 expression-type     = "&" expression
 ;; Functions allow users to easily transform and filter data in JMESPath expressions.
 ;;
@@ -490,6 +544,39 @@ expression-type     = "&" expression
 ;; being evaluated. When in a projection, the current node value must be changed to the node currently being evaluated
 ;; by the projection.
 ;;
+;;
+;; ## root-node
+;;
+;; The `root-node` token can be used to represent the original input JSON document.
+;;
+;; As a JMESPath expression is being evaluated, the current scope changes.
+;; Given a simple sub expression such as `foo.bar`, first the `foo` expression is evaluated
+;; with the starting input JSON document, and the result of that expression is then used as
+;; the current scope when the `bar` element is evaluated.
+;; 
+;; Once we’ve drilled down to a specific scope, the `root-node` token can be used
+;; to refer to the original JSON document.
+;;
+;; ### Example
+;;
+;; Given a JSON document:
+;; 
+;; ```json
+;; {
+;;   "first_choice": "WA",
+;;   "states": [
+;;      {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
+;;      {"name": "CA", "cities": ["Los Angeles", "San Francisco"]},
+;;      {"name": "NY", "cities": ["New York City", "Albany"]}
+;;  ]
+;; }
+;; ```
+;; We can retrieve the list of cities of the state corresponding to the `first_choice` key
+;; using the following expression:
+;;
+;; ` states[? name == $.first_choice ].cities[] `
+;;
+;;
 ;; # Function Evaluation
 ;;
 ;; Functions are evaluated in applicative order. Each argument must be an expression, each argument expression must be
@@ -521,7 +608,6 @@ expression-type     = "&" expression
 ;; ```
 ;;
 ;; This provides a simple mechanism to explicitly convert types when needed.
-
 
 raw-string        = "'" *raw-string-char "'" ;; # Raw String Literals \
 raw-string-char   = (%x20-26 / %x28-5B / %x5D-10FFFF) / preserved-escape / raw-string-escape ;; \
@@ -657,95 +743,3 @@ int = zero / ( digit1-9 *digit )
 minus = %x2D               ; -
 plus = %x2B                ; +
 zero = %x30                ; 0
-
-expression =/ arithmetic-expression ;; ## Arithmetic Expressions
-
-arithmetic-expression =/ "+" expression ; + %x43
-arithmetic-expression =/ ( "-" / "–" ) expression ; - %x45 – %x2212
-
-arithmetic-expression = expression "%" expression ; % %x37
-arithmetic-expression =/ expression ( "*" / "×" ) expression ; * %x42 ×  %xD7
-arithmetic-expression =/ expression "+" expression ; + %x43
-arithmetic-expression =/ expression ( "-" / "–" ) expression ; - %x45 – %x2212
-arithmetic-expression =/ expression ( "/" / "÷" ) expression ; / %x47 ÷
-
-;; An `arithmetic-expression` enables simple computations using the four basic operations,
-;; as well as the modulo and integer-division operations.
-;;
-;; To support arithmetic operations, the following operators are available:
-;; 
-;; - `+` addition operator
-;; - `-` subtraction operator
-;; - `*` multiplication operator
-;; - `/` division operator
-;; - `%` modulo operator
-;; - `//` integer division operator
-;; 
-;; Proper mathematical operators are also supported using the following UNICODE characters:
-;; 
-;; - `–` (U+2212 MINUS SIGN)
-;; - `÷` (U+00F7 DIVISION SIGN)
-;; -  `×` (U+00D7 MULTIPLY SIGN)
-;; 
-;; Arithmetic operations adhere to the usual precedence rules, from lowest to highest:
-;; 
-;; - `-` subtraction operator and `+` addition operator
-;; - `/` division,  `*` multiplication, `%` modulo and `//` integer division operators
-;; 
-;; In the absence of parentheses, operators of the same level of precedence are evaluated from left to right.
-;; Arithmetic operators have higher precedence than comparison operators and lower precedence than the `.` "dot" `sub-expression` token separator.
-;; 
-;; ## Examples
-;;
-;; ```
-;; search(a + b, {"a": 1, "b": 2}) -> 3
-;; search(a - b, {"a": 1, "b": 2}) -> -1 
-;; search(a * b, {"a": 2, "b": 4}) -> 8
-;; search(a / b, {"a": 2, "b": 3}) -> 0.666666666666667
-;; search(a % b, {"a": 10, "b": 3} -> 1
-;; search(a // b, {"a": 10, "b": 3} -> -3 
-;; search(a.b + cd, {"a": {"b": 1}, "c": {"d": 2}}) -> 3
-;; ```
-;;
-;; Since `arithmetic-expression` is not valid on the right-hand-side of a `sub-expression`, a `pipe-expression` can be used instead:
-;;
-;; ```
-;; search({ab: a.b, cd: c.d} | ab + cd, {"a": {"b": 1}, "c": {"d": 2}}) -> 3
-;; ```
-;;
-
-expression =/ root-node ;; ## Root Reference
-
-root-node = "$"
-
-;; ## root-node
-;;
-;; The `root-node` token can be used to represent the original input JSON document.
-;;
-;; As a JMESPath expression is being evaluated, the current scope changes.
-;; Given a simple sub expression such as `foo.bar`, first the `foo` expression is evaluated
-;; with the starting input JSON document, and the result of that expression is then used as
-;; the current scope when the `bar` element is evaluated.
-;; 
-;; Once we’ve drilled down to a specific scope, the `root-node` token can be used
-;; to refer to the original JSON document.
-;;
-;; Example
-;;
-;; Given a JSON document:
-;; 
-;; ```json
-;; {
-;;   "first_choice": "WA",
-;;   "states": [
-;;      {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
-;;      {"name": "CA", "cities": ["Los Angeles", "San Francisco"]},
-;;      {"name": "NY", "cities": ["New York City", "Albany"]}
-;;  ]
-;; }
-;; ```
-;; We can retrieve the list of cities of the state corresponding to the `first_choice` key
-;; using the following expression:
-;;
-;; ` states[? name == $.first_choice ].cities[] `
-;;
