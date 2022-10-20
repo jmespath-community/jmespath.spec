@@ -70,6 +70,7 @@ definitions:
       - 'array[boolean]'
       - 'array[object]'
       - 'array[any]'
+      - 'array[array[any]]'
       - expression->any
       - expression->number
       - expression->string
