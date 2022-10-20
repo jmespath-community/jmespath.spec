@@ -63,9 +63,7 @@ properties:
         description: ""
         oneOf:
           - type: object
-            anyOf:
-              - required: [context, args, returns]
-              - required: [context, query, returns]
+            required: [context, args, returns]
             additionalProperties: false
             properties:
               context: &context
@@ -77,9 +75,6 @@ properties:
                 items:
                   type: *any
                   description: ""
-              query: &query
-                type: string
-                description: ""
               returns:
                 type: *any
                 description: ""
@@ -87,14 +82,11 @@ properties:
                 type: string
                 description: ""
           - type: object
-            anyOf:
-              - required: [context, args, error]
-              - required: [context, query, error]
+            required: [context, args, error]
             additionalProperties: false
             properties:
               context: *context
               args: *args
-              query: *query
               error:
                 type: string
                 description: ""
