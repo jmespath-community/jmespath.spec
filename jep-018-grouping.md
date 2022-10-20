@@ -17,7 +17,7 @@ This JEP introduces a new `group_by()` function.
 ### group_by
 
 ```
-object group_by(array[object] $elements, expression->expression->string) $expr)
+object group_by(array[object] $elements, expression->string) $expr)
 ```
 
 Groups an array of objects `$elements` using an expression `$expr` as the group key.
