@@ -1,0 +1,17 @@
+name: lower
+topic: strings
+args:
+  required:
+  - name: subject
+    type: [string]
+    desc: 'Subject string'
+returns:
+  type: string
+  desc: ''
+desc: |
+  Returns the lowercase subject string.
+examples:
+  lower:
+    context: STRING
+    args: ['@']
+    returns: string

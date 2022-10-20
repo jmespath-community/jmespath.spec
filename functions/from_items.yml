@@ -1,0 +1,23 @@
+name: from_items
+topic: misc
+args:
+  required:
+  - name: arg
+    type: ['array[any]']
+    desc: ''
+  optional: []
+returns:
+  type: [object]
+  desc: ''
+desc: |2
+  Returns an object from the provided array of key value pairs.
+  This function is the inversed of the `items()` function.
+examples:
+  from_items:
+    context: [["one", 1], ["two", 2]]
+    args: ['@']
+    returns: {"one": 1, "two": 2}
+  from_items_duplicate_entry:
+    context: [["one", 1], ["two", 2], ["one", 3]]
+    args: ['@']
+    returns: {"one": 3, "two": 2}
