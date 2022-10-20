@@ -657,3 +657,39 @@ int = zero / ( digit1-9 *digit )
 minus = %x2D               ; -
 plus = %x2B                ; +
 zero = %x30                ; 0
+
+expression =/ root-node ;; ## Root Reference
+
+root-node = "$"
+
+;; ## root-node
+;;
+;; The `root-node` token can be used to represent the original input JSON document.
+;;
+;; As a JMESPath expression is being evaluated, the current scope changes.
+;; Given a simple sub expression such as `foo.bar`, first the `foo` expression is evaluated
+;; with the starting input JSON document, and the result of that expression is then used as
+;; the current scope when the `bar` element is evaluated.
+;; 
+;; Once we’ve drilled down to a specific scope, the `root-node` token can be used
+;; to refer to the original JSON document.
+;;
+;; Example
+;;
+;; Given a JSON document:
+;; 
+;; ```json
+;; {
+;;   "first_choice": "WA",
+;;   "states": [
+;;      {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
+;;      {"name": "CA", "cities": ["Los Angeles", "San Francisco"]},
+;;      {"name": "NY", "cities": ["New York City", "Albany"]}
+;;  ]
+;; }
+;; ```
+;; We can retrieve the list of cities of the state corresponding to the `first_choice` key
+;; using the following expression:
+;;
+;; ` states[? name == $.first_choice ].cities[] `
+;;
