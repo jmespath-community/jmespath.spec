@@ -4,11 +4,8 @@ args:
   required:
   - name: collection
     type: ['array[number]', 'array[string]']
-    desc: ''
-  optional: []
 returns:
   type: number
-  desc: ''
 desc: |
   Returns the highest found number in the provided array argument.
 

@@ -3,14 +3,11 @@ topic: misc
 args:
   required:
   - name: scope
-    type: [object]
-    desc: ''
+    type: object
   - name: expr
-    type: ['expression->any']
-  optional: []
+    type: 'expression->any'
 returns:
   type: any
-  desc: ''
 desc: |
 
   Captures the current evaluation context in a child lexical scope.

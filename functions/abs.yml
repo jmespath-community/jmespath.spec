@@ -3,9 +3,8 @@ topic: math
 args:
   required:
   - name: value
-    type: [number]
+    type: number
     desc: positive or negative number
-  optional: []
 returns:
   type: number
   desc: positive magnitude of input value

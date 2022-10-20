@@ -3,12 +3,9 @@ topic: misc
 args:
   required:
   - name: subject
-    type: [array, object, string, number, boolean, 'null']
-    desc: ''
-  optional: []
+    type: any
 returns:
   type: string
-  desc: ''
 desc: |
   Returns the JavaScript type of the given `$subject` argument as a string
   value.

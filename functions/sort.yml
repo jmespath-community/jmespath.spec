@@ -4,11 +4,8 @@ args:
   required:
   - name: list
     type: ['array[number]', 'array[string]']
-    desc: ''
-  optional: []
 returns:
   type: array
-  desc: ''
 desc: |
   This function accepts an array `$list` argument and returns the sorted
   elements of the `$list` as an array.

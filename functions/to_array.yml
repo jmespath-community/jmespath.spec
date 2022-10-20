@@ -3,12 +3,9 @@ topic: conversion
 args:
   required:
   - name: arg
-    type: [any]
-    desc: ''
-  optional: []
+    type: any
 returns:
   type: array
-  desc: ''
 desc: |
   * array - Returns the passed in value.
   * number/string/object/boolean/null - Returns a one element array containing

@@ -3,15 +3,11 @@ topic: collections
 args:
   required:
   - name: argument
-    type: [object]
-    desc: ''
-  optional:
-  - name: ..
-    type: [object]
-    desc: ''
+    type: object
+  variadic:
+    type: object
 returns:
   type: object
-  desc: ''
 desc: |
   Accepts 0 or more objects as arguments, and returns a single object
   with subsequent objects merged.  Each subsequent object’s key/value

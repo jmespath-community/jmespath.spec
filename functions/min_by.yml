@@ -3,15 +3,11 @@ topic: math
 args:
   required:
   - name: elements
-    type: [array]
-    desc: ''
+    type: array
   - name: expr
     type: [expression->number, expression->string]
-    desc: ''
-  optional: []
 returns:
   type: any
-  desc: ''
 desc: |
   Return the minimum element in an array using the expression `expr` as the
   comparison key.  The entire maximum element is returned.

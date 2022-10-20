@@ -3,15 +3,11 @@ topic: misc
 args:
   required:
   - name: argument
-    type: [any]
-    desc: ''
-  optional:
-  - name: ..
-    type: [any]
-    desc: ''
+    type: any
+  variadic:
+    type: any
 returns:
   type: any
-  desc: ''
 desc: |
   Returns the first argument that does not resolve to `null`.  This function
   accepts one or more arguments, and will evaluate them in order until a
