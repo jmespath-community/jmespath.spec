@@ -602,7 +602,7 @@ unquoted-string   = (%x41-5A / %x61-7A / %x5F) *(  ; A-Za-z_
                         %x5F    /  ; _
                         %x61-7A)   ; a-z
 quoted-string     = quote 1*(unescaped-char / escaped-char) quote
-unescaped-char    = %x20-21 / %x23-5B / %x5D-10FFFF
+unescaped-char    = %x20-21 / %x23-2E / %30-5B / %x5D-10FFFF
 escape            = "\"
 quote             = %x22   ; Double quote: '"'
 escaped-char      = escape (
