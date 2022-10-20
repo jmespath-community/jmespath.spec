@@ -1,6 +1,6 @@
 ---
-$schema: https://json-schema.org/draft/2020-12/schema
-$id: https://jmespath.site/function_schema.yml
+$schema: 'https://json-schema.org/draft/2020-12/schema'
+$id: 'https://jmespath.site/function_schema.yml'
 title: JMESPath function
 description: JMESPath function definition and tests
 $defs:
@@ -35,85 +35,150 @@ $defs:
         type: string
         description: ""
 type: object
-required: [name, topic, args, returns, desc, examples]
+required:
+  - name
+  - topic
+  - args
+  - returns
+  - desc
+  - examples
 properties:
   name:
     type: string
     description: function identifier
   topic:
-    enum: [math, strings, collections, conversion, misc]
+    $ref: '#/definitions/topics'
     description: related function topic
   args:
     type: object
     additionalProperties: false
     properties:
-      required: &arg
-        type: array
-        description: ""
-        items:
-          allOf:
-            - $ref: "#/$defs/unnamed_arg"
-            - type: object
-              required:
-              - name
-              properties:
-                name:
-                  type: string
-                  description: ""
-          description: ""
-          unevaluatedProperties: false
-      optional: *arg
-      variadic: *unnamed_arg
+      required:
+        $ref: '#/definitions/arguments'
+        description: required function arguments
+      optional:
+        $ref: '#/definitions/arguments'
+        description: optional function arguments
+      variadic:
+        $ref: '#/definitions/signature'
+        description: variadic arguments type
   returns:
-    type: object
-    description: ""
-    required: [type, desc]
-    additionalProperties: false
-    properties:
-      type:
-        <<: *type
-        description: ""
-      desc:
-        type: string
-        description: ""
+    $ref: '#/definitions/returnValue'
+    description: function return type
   desc:
     type: string
-    description: ""
+    description: description
   examples:
+    $ref: '#/definitions/example'
+definitions:
+  argument:
+    allOf:
+      - $ref: '#/definitions/signature'
+      - type: object
+        required:
+          - name
+        properties:
+          name:
+            type: string
+    unevaluatedProperties: false
+  arguments:
+    type: array
+    items:
+      $ref: '#/definitions/argument'
+  dataTypes:
+    type: string
+    enum:
+      - any
+      - number
+      - string
+      - boolean
+      - array
+      - object
+      - 'null'
+      - expression
+      - 'array[number]'
+      - 'array[string]'
+      - 'array[boolean]'
+      - 'array[object]'
+      - 'array[any]'
+      - 'array[array[any]]'
+      - expression->any
+      - expression->number
+      - expression->string
+  errors:
+    type: string
+    enum:
+      - invalid-arity
+      - invalid-type
+      - not-a-number
+      - syntax
+      - unknown-function
+  example:
     type: object
-    description: ""
-    additionalProperties: false
+    description: example
     minProperties: 1
     patternProperties:
-      "^\\w.*$":
-        description: ""
+      ^\w.*$:
+        description: example
         oneOf:
-          - type: object
-            required: [context, args, returns]
-            additionalProperties: false
-            properties:
-              context: &context
-                type: &any ["number","string","boolean","object","array","null"]
-                description: ""
-              args: &args
-                type: array
-                description: ""
-                items:
-                  type: *any
-                  description: ""
-              returns:
-                type: *any
-                description: ""
-              comment: &comment
-                type: string
-                description: ""
-          - type: object
-            required: [context, args, error]
-            additionalProperties: false
-            properties:
-              context: *context
-              args: *args
-              error:
-                type: string
-                description: ""
-              comment: *comment
+          - $ref: '#/definitions/exampleFailure'
+          - $ref: '#/definitions/exampleSuccess'
+        unevaluatedProperties: false
+  exampleInput:
+    type: object
+    required:
+      - args
+      - context
+    properties:
+      context:
+        description: given input JSON document
+      args:
+        type: array
+        description: function arguments
+        items:
+          description: ''
+      comment:
+        description: comment
+  exampleFailure:
+    allOf:
+      - $ref: '#/definitions/exampleInput'
+      - type: object
+        required:
+          - error
+        properties:
+          error:
+            $ref: '#/definitions/errors'
+  exampleSuccess:
+    allOf:
+      - $ref: '#/definitions/exampleInput'
+      - type: object
+        required:
+          - returns
+        properties:
+          returns: {}
+  returnValue:
+    $ref: '#/definitions/signature'
+    unevaluatedProperties: false
+  signature:
+    type: object
+    required:
+      - type
+    properties:
+      type:
+        description: ''
+        oneOf:
+          - $ref: '#/definitions/dataTypes'
+          - type: array
+            items:
+              $ref: '#/definitions/dataTypes'
+      desc:
+        type: string
+        description: ''
+  topics:
+    type: string
+    enum:
+      - math
+      - strings
+      - collections
+      - conversion
+      - misc
