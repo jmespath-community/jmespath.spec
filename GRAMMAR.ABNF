@@ -85,13 +85,20 @@ sub-expression    = expression "." ( identifier / multi-select-list / multi-sele
 ;; ```
 
 pipe-expression   = expression "|" expression ;; # Pipe Expressions
-;; A pipe expression combines two expressions, separated by the `|` character. It is similar to a sub-expression with two
-;; important distinctions:
+;; A pipe expression combines two expressions, separated by the `|` character.
+;; It is similar to a sub-expression with a few important distinctions:
 ;;
 ;; 1. Any expression can be used on the right hand side. A sub-expression restricts the type of expression that can be
 ;;    used on the right hand side.
 ;; 1. A pipe-expression stops projections on the left hand side for propagating to the right hand side. If the left
 ;;    expression creates a projection, it does not apply to the right hand side.
+;; 1. Contrary to a sub-expression, a pipe-expression **does not stop evaluation** if the left-hand-side evaluates to `null`.
+;;
+;; In pseudocode:
+;; ```
+;; left-evaluation = search(left-expression, original-json-document)
+;; result = search(right-expression, left-evaluation)
+;; ```
 ;;
 ;; For example, given the following data:
 ;;
