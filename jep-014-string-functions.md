@@ -126,7 +126,7 @@ If the `$subject` string has length greater than or equal to `$width`, it is ret
 ```
 string replace(string $subject, string $old, string $new[, number $count])
 ```
-Given the `$subject` string, `replace()` replaces all occurrences of the `$old` substring with the `$new` substring.
+Given the `$subject` string, `replace()` replaces occurrences of the `$old` substring with the `$new` substring.
 
 The `$count` optional parameter specifies how many occurrences of the `$old` substring in `$subject` are replaced. If this parameter is omitted, all occurrences are replaced. If `$count` is negative, an error MUST be raised.
 
