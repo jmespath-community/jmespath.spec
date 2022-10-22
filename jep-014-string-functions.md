@@ -82,11 +82,13 @@ Returns the lowercase `$subject` string.
 string pad_left(string $subject, number $width[, string $pad])
 ```
 
-Given the `$subject` string, `pad_left()` adds `$width - length($subject)` characters to the beginning of the string and returns a string of length `$width`.
+Given the `$subject` string, `pad_left()` adds characters to the beginning and returns a string of length at least `$width`.
 
-The `$pad` optional string parameter specifies the padding character to use. If this parameter is omitted, `pad_left()` adds one or more ASCII space characters to the beginning of the string. If present, the `$pad` string must have a single character, otherwise, an error MUST be raised.
+The `$pad` optional string parameter specifies the padding character.
+If omitted, it defaults to an ASCII space (U+0020).
+If present, it MUST have length 1, otherwise an error MUST be raised.
 
-The `pad_left()` function has no effect if `$width` is less than, or equal to the length of the ` $subject` string.
+If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
 
 ### Examples
 
@@ -103,11 +105,13 @@ The `pad_left()` function has no effect if `$width` is less than, or equal to th
 string pad_right(string $subject, number $width[, string $pad])
 ```
 
-Given the `$subject` string, `pad_right()` adds `$width - length($subject)` characters to the end of the string and returns a string of length `$width`.
+Given the `$subject` string, `pad_right()` adds characters to the end and returns a string of length at least `$width`.
 
-The `$pad` optional string parameter specifies the padding character to use. If this parameter is omitted, `pad_right()` adds ASCII space characters to the end of the string. If present, the `$pad` string must have a single character, otherwise, an error MUST be raised.
+The `$pad` optional string parameter specifies the padding character.
+If omitted, it defaults to an ASCII space (U+0020).
+If present, it MUST have length 1, otherwise an error MUST be raised.
 
-The `pad_right()` function has no effect if `$width` is less than, or equal to the length of the ` $subject` string.
+If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
 
 ### Examples
 
