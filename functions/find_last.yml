@@ -16,11 +16,12 @@ returns:
   type: number
   desc: ''
 desc: |
-  Given the `subject` string, `find_last()` returns the index of the last occurence where the `sub` substring appears in `subject` or `null`.
+  Given the `subject` string, `find_last()` returns the zero-based index of the last occurence where the `sub` substring appears in `subject` or `null` if it does not appear.
 
-  The `pos` parameter is optional and allow to select where `find_first()` must perform its search within `subject`.
-  If this is parameter omitted, it defaults to `length(subject) - 1` which is is the end of the `subject` string.
-  `find_last()` then searches backwards in the `subject` string for the first occurrence of the `sub` substring.
+  The `pos` parameter is optional and allows restricting the maximum index within `subject` at which to search for `sub`.
+  If this is parameter omitted, it defaults to `length(subject) - 1` (which is is the end of the `subject` string).
+
+  Contrary to similar functions found in most popular programming languages, the `find_last()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 examples:
   find_last:
     context: &subject subject string
