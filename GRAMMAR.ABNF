@@ -207,7 +207,7 @@ arithmetic-expression = expression "%" expression ; % %x37 \
 arithmetic-expression =/ expression ( "*" / "×" ) expression ; * %x42 ×  %xD7 \
 arithmetic-expression =/ expression "+" expression ; + %x43 \
 arithmetic-expression =/ expression ( "-" / "–" ) expression ; - %x45 – %x2212 \
-arithmetic-expression =/ expression ( "/" / "÷" ) expression ; / %x47 ÷ \
+arithmetic-expression =/ expression ( "/" / "÷" ) expression ; / %x47 ÷ %F7 \
 arithmetic-expression = expression "//" expression ; // %47 %47
 ;; An `arithmetic-expression` enables simple computations using the four basic operations,
 ;; as well as the modulo and integer-division operations.
