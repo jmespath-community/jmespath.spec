@@ -148,11 +148,12 @@ The `replace()` function has no effect if `$count` is `0`.
 array[string] split(string $subject, string $search[, number $count])
 ```
 
-Given string `$subject`, `split()` breaks on occurrences of the string `$search` and returns an array.
+Given the `$subject` string, `split()` breaks on ocurrences of the string `$search` and returns an array.
 
 The `split()` function returns an array containing each partial string between occurrences of `$search`. If  `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
 
-The `$count` optional parameter specifies how many occurrences of the `$search` string are split. If this parameter is omitted, all occurrences are split. If `$count` is negative, and error MUST be raised.
+The `$count` optional parameter specifies the maximum number of split points within the `$search` string.
+If this parameter is omitted, all occurrences are split. If `$count` is negative, an error MUST be raised.
 
 If `$count` is equal to `0`, `split()` returns an array containing a single element, the `$subject` string.
 
