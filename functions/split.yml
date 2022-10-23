@@ -22,7 +22,7 @@ desc: |
   If `subject` contains no occurrences of the `search` text, an array containing just the original `subject`
   string will be returned.
   
-  The `count` optional parameter specifies how many occurrences of the `search` string are split.
+  The `count` optional parameter specifies the maximum number of split points within the `search` string.
   If this parameter is omitted, all occurrences are split. If `count` is negative, an error MUST be raised.
 
   If `count` is equal to `0`, `split()` returns an array containing a single element, the `subject` string.

@@ -19,14 +19,14 @@ This JEP introduces a core set of useful string manipulation functions. Those fu
 ```
 int find_first(string $subject, string $sub[, int $start[, int $end]])
 ```
-Given the `$subject` string, `find_first()` returns the index of the first occurence where the `$sub` substring appears in `$subject` or `null`.
+Given the `$subject` string, `find_first()` returns the zero-based index of the first occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear.
 
-The `$start` and `$end` parameters are optional and allow to select where `find_first()` must perform its search within `$subject`.
+The `$start` and `$end` parameters are optional and allow restricting the range within `$subject` in which `$sub` must be found.
 
-- If `$start` is omitted, it defaults to `0` which is the start of the `$subject` string.
-- If `$end` is omitted, it defaults to `length($subject) -1` which is the end of the string.
+- If `$start` is omitted, it defaults to `0` (which is the start of the `$subject` string).
+- If `$end` is omitted, it defaults to `length(subject) - 1` (which is is the end of the `$subject` string).
 
-Contrary to similar functions found in most popular programming languages, the `find_first()` function does not return `-1` if the occurrence of the `$sub` substring cannot be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves. 
+Contrary to similar functions found in most popular programming languages, the `find_first()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 
 ### Examples
 
@@ -47,13 +47,12 @@ Contrary to similar functions found in most popular programming languages, the `
 ```
 int find_last(string $subject, string $sub[, int $pos])
 ```
-Given the `$subject` string, `find_last()` returns the index of the last occurence where the `$sub` substring appears in `$subject` or `null`.
+Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear.
 
-The `$pos` optional parameter allow to select where `find_last()` must perform its search within `$subject`.
+The `$pos` parameter is optional and allows restricting the maximum index within `$subject` at which to search for `$sub`.
+If this is parameter omitted, it defaults to `length(subject) - 1` (which is is the end of the `$subject` string).
 
-If this parameter is omitted, It defaults to `length($subject) - 1` which is the end of the `$subject` string. `find_last()` then searches backwards in the `$subject` string for the first occurrence of `$sub`.
-
-Likewise, the `find_last()` function does not return `-1` if the occurrence of the `$sub` substring cannot be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves. 
+Contrary to similar functions found in most popular programming languages, the `find_last()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 
 | Given | Expression | Result
 |---|---|---
@@ -82,11 +81,13 @@ Returns the lowercase `$subject` string.
 string pad_left(string $subject, number $width[, string $pad])
 ```
 
-Given the `$subject` string, `pad_left()` adds `$width - length($subject)` characters to the beginning of the string and returns a string of length `$width`.
+Given the `$subject` string, `pad_left()` adds characters to the beginning and returns a string of length at least `$width`.
 
-The `$pad` optional string parameter specifies the padding character to use. If this parameter is omitted, `pad_left()` adds one of more ASCII space characters to the beginning of the string. If present, the `$pad` string must have a single character, otherwise, an error MUST be raised.
+The `$pad` optional string parameter specifies the padding character.
+If omitted, it defaults to an ASCII space (U+0020).
+If present, it MUST have length 1, otherwise an error MUST be raised.
 
-The `pad_left()` function has no effect if `$width` is less than, or equal to the length of the ` $subject` string.
+If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
 
 ### Examples
 
@@ -103,11 +104,13 @@ The `pad_left()` function has no effect if `$width` is less than, or equal to th
 string pad_right(string $subject, number $width[, string $pad])
 ```
 
-Given the `$subject` string, `pad_right()` adds `$width - length($subject)` characters to the end of the string and returns a string of length `$width`.
+Given the `$subject` string, `pad_right()` adds characters to the end and returns a string of length at least `$width`.
 
-The `$pad` optional string parameter specifies the padding character to use. If this parameter is omitted, `pad_right()` adds ASCII space characters to the end of the string. If present, the `$pad` string must have a single character, otherwise, an error MUST be raised.
+The `$pad` optional string parameter specifies the padding character.
+If omitted, it defaults to an ASCII space (U+0020).
+If present, it MUST have length 1, otherwise an error MUST be raised.
 
-The `pad_right()` function has no effect if `$width` is less than, or equal to the length of the ` $subject` string.
+If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
 
 ### Examples
 
@@ -123,7 +126,7 @@ The `pad_right()` function has no effect if `$width` is less than, or equal to t
 ```
 string replace(string $subject, string $old, string $new[, number $count])
 ```
-Given the `$subject` string, `replace()` replaces all occurrences of the `$old` substring with the `$new` substring.
+Given the `$subject` string, `replace()` replaces occurrences of the `$old` substring with the `$new` substring.
 
 The `$count` optional parameter specifies how many occurrences of the `$old` substring in `$subject` are replaced. If this parameter is omitted, all occurrences are replaced. If `$count` is negative, an error MUST be raised.
 
@@ -145,11 +148,12 @@ The `replace()` function has no effect if `$count` is `0`.
 array[string] split(string $subject, string $search[, number $count])
 ```
 
-Given string `$subject`, `split()` breaks on occurrences of the string `$search` and returns an array.
+Given the `$subject` string, `split()` breaks on ocurrences of the string `$search` and returns an array.
 
 The `split()` function returns an array containing each partial string between occurrences of `$search`. If  `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
 
-The `$count` optional parameter specifies how many occurrences of the `$search` string are split. If this parameter is omitted, all occurrences are split. If `$count` is negative, and error MUST be raised.
+The `$count` optional parameter specifies the maximum number of split points within the `$search` string.
+If this parameter is omitted, all occurrences are split. If `$count` is negative, an error MUST be raised.
 
 If `$count` is equal to `0`, `split()` returns an array containing a single element, the `$subject` string.
 
