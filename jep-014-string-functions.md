@@ -68,7 +68,7 @@ Contrary to similar functions found in most popular programming languages, the `
 ```
 string lower(string $subject)
 ```
-Returns the lowercase `$subject` string.
+Returns the lowercase `$subject` string using Unicode default casing conversion specification.
 
 ### Examples
 
@@ -184,7 +184,7 @@ string trim(string $subject[, string $chars])
 ```
 Given the `$subject` string, `trim()` removes the leading and trailing characters found in `$chars`.
 
-The `$chars` optional string parameter represents a set of characters to be removed. If this parameter is not specified, or is an empty string, whitespace characters are removed from the `$subject` string.
+The `$chars` optional string parameter represents a set of characters to be removed. If this parameter is not specified, or is an empty string, whitespace characters are removed from the `$subject` string. Whitespace characters are defined by Unicode as having property.
 
 ### Examples
 
@@ -241,7 +241,7 @@ Like for the `trim()` and `trim_left()` functions, the `$chars` optional string 
 ```
 string upper(string $subject)
 ```
-Returns the uppercase `$subject` string.
+Returns the uppercase `$subject` string using Unicode default casing conversion specification.
 
 | Given | Expression | Result
 |---|---|---
