@@ -41,6 +41,7 @@ Contrary to similar functions found in most popular programming languages, the `
 | `"subject string"` | `` find_first(@, 'string', `9`) `` |  `null`
 | `"subject string"` | `` find_first(@, 's') `` |  `0`
 | `"subject string"` | `` find_first(@, 's', 1) `` |  `8`
+| `"subject string"` | `` find_first(@, '') `` |  `null`
 
 ### find_last
 
