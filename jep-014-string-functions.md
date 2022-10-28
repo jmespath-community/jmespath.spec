@@ -128,7 +128,7 @@ string replace(string $subject, string $old, string $new[, number $count])
 ```
 Given the `$subject` string, `replace()` replaces occurrences of the `$old` substring with the `$new` substring.
 
-The `$count` optional parameter specifies how many occurrences of the `$old` substring in `$subject` are replaced. If this parameter is omitted, all occurrences are replaced. If `$count` is negative, an error MUST be raised.
+The `$count` optional integer specifies how many occurrences of the `$old` substring in `$subject` are replaced. If this parameter is omitted, all occurrences are replaced. If `$count` is not an integer or is negative, an error MUST be raised.
 
 The `replace()` function has no effect if `$count` is `0`.
 
@@ -152,8 +152,8 @@ Given the `$subject` string, `split()` breaks on ocurrences of the string `$sear
 
 The `split()` function returns an array containing each partial string between occurrences of `$search`. If  `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
 
-The `$count` optional parameter specifies the maximum number of split points within the `$search` string.
-If this parameter is omitted, all occurrences are split. If `$count` is negative, an error MUST be raised.
+The `$count` optional integer specifies the maximum number of split points within the `$search` string.
+If this parameter is omitted, all occurrences are split. If `$count` is not an integer or is negative, an error MUST be raised.
 
 If `$count` is equal to `0`, `split()` returns an array containing a single element, the `$subject` string.
 
