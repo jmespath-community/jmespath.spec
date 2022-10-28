@@ -24,7 +24,7 @@ Given the `$subject` string, `find_first()` returns the zero-based index of the 
 The `$start` and `$end` parameters are optional and allow restricting the range within `$subject` in which `$sub` must be found.
 
 - If `$start` is omitted, it defaults to `0` (which is the start of the `$subject` string).
-- If `$end` is omitted, it defaults to `length(subject) - 1` (which is is the end of the `$subject` string).
+- If `$end` is omitted, it defaults to `length(subject)` (which is past the end of the `$subject` string).
 
 Contrary to similar functions found in most popular programming languages, the `find_first()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 
