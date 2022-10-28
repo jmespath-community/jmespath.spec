@@ -55,6 +55,8 @@ If this is parameter omitted, it defaults to `length(subject) - 1` (which is is 
 
 Contrary to similar functions found in most popular programming languages, the `find_last()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 
+### Examples
+
 | Given | Expression | Result
 |---|---|---
 | `"subject string"` | `` find_last(@, 'string') `` |  `8`
