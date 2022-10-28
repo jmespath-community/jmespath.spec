@@ -587,11 +587,11 @@ expression-type     = "&" expression
 ;; occurred. How and when this error is raised is implementation specific, but implementations should indicate to the caller
 ;; that this specific error occurred.
 ;;
-;; Functions can either have a specific arity or be variadic with a minimum number of arguments. If a `function-expression`
-;; is encountered where the arity does not match or the minimum number of arguments for a variadic function is not provided,
-;; then implementations must indicate to the caller than an `invalid-arity` error occurred. How and when this error is raised
-;; is implementation specific.
-;;
+;; Functions can have a specific arity, a range of valid – minimum and maximum – number of arguments or be variadic with a
+;; minimum number of arguments. If a function-expression is encountered where the arity does not match or the minimum number
+;; of arguments for a variadic function is not provided, then implementations must indicate to the caller that an `invalid-arity`
+;; error occurred. How and when this error is raised is implementation specific.
+
 ;; Each function signature declares the types of its input parameters. If any type constraints are not met, implementations
 ;; must indicate that an `invalid-type` error occurred.
 ;;
