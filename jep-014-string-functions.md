@@ -67,7 +67,7 @@ Contrary to similar functions found in most popular programming languages, the `
 | `"subject string"` | `` find_last(@, 'string', `9`) `` |  `null`
 | `"subject string"` | `` find_last(@, 's') `` |  `0`
 | `"subject string"` | `` find_last(@, 's', `1`) `` |  `8`
-| `"subject string"` | `` find_last(@, 's', `0`, `7`) `` |  `8`
+| `"subject string"` | `` find_last(@, 's', `0`, `7`) `` |  `0`
 
 ### lower
 
