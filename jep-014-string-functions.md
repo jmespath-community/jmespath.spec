@@ -192,7 +192,7 @@ string trim(string $subject[, string $chars])
 ```
 Given the `$subject` string, `trim()` removes the leading and trailing characters found in `$chars`.
 
-The `$chars` optional string parameter represents a set of characters to be removed. If this parameter is not specified, or is an empty string, whitespace characters are removed from the `$subject` string. Whitespaces are defined by Unicode as odepoints having the `White_Space` property set to `Yes`.
+The `$chars` optional string parameter represents a set of characters to be removed. If this parameter is not specified, or is an empty string, whitespace characters are removed from the `$subject` string. Whitespaces are defined by the Unicode standard as codepoints having the `White_Space` property set to `Yes`.
 
 ### Examples
 
