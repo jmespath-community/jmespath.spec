@@ -16,7 +16,7 @@ This JEP introduces a core set of useful string manipulation functions. Those fu
 
 Some string manipulation functions bring the new concept of _optional arguments_ to JMESPath functions. The specification paragraph on function evaluation must thus be changed accordingly – highlighted in **bold** in the text below:
 
-_Functions can ~~either~~ have a specific arity, **a range of valid – minimum and maximum – number of arguments** or be variadic with a minimum number of arguments. If a function-expression is encountered where the arity does not match or the minimum number of arguments for a variadic function is not provided, then implementations must indicate to the caller that an invalid-arity error occurred. How and when this error is raised is implementation specific. How and when this error is raised is implementation specific._
+_Functions can ~~either~~ have a specific arity, **a range of valid – minimum and maximum – number of arguments** or be variadic with a minimum number of arguments. If a function-expression is encountered where the arity does not match or the minimum number of arguments for a variadic function is not provided, then implementations must indicate to the caller that an invalid-arity error occurred. How and when this error is raised is implementation specific._
 
 
 
