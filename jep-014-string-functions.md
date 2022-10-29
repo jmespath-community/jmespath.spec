@@ -3,7 +3,7 @@
 |||
 |---|---
 | **JEP**    |  14
-| **Author** | Maxime Labelle, Chris Armstrong (GorillaStack)
+| **Author** | Maxime Labelle, Chris Armstrong (GorillaStack), Richard Gibson
 | **Created**| 13-October-2022
 | **SemVer** | MINOR
 | **Status**| Draft
@@ -13,6 +13,12 @@
 This JEP introduces a core set of useful string manipulation functions. Those functions are modeled from functions found in popular programming languages such as JavaScript and Python.
 
 ## Specification
+
+Some string manipulation functions bring the new concept of _optional arguments_ to JMESPath functions. The specification paragraph on function evaluation must thus be changed accordingly – highlighted in **bold** in the text below:
+
+_Functions can ~~either~~ have a specific arity, **a range of valid – minimum and maximum – number of arguments** or be variadic with a minimum number of arguments. If a function-expression is encountered where the arity does not match or the minimum number of arguments for a variadic function is not provided, then implementations must indicate to the caller tha~~n~~**t** an invalid-arity error occurred. How and when this error is raised is implementation specific. How and when this error is raised is implementation specific._
+
+
 
 ### find_first
 
@@ -186,7 +192,7 @@ string trim(string $subject[, string $chars])
 ```
 Given the `$subject` string, `trim()` removes the leading and trailing characters found in `$chars`.
 
-The `$chars` optional string parameter represents a set of characters to be removed. If this parameter is not specified, or is an empty string, whitespace characters are removed from the `$subject` string. Whitespace characters are defined by Unicode as having property.
+The `$chars` optional string parameter represents a set of characters to be removed. If this parameter is not specified, or is an empty string, whitespace characters are removed from the `$subject` string. Whitespaces are defined by Unicode as odepoints having the `White_Space` property set to `Yes`.
 
 ### Examples
 
