@@ -155,6 +155,9 @@ Given the `$subject` string, `split()` breaks on ocurrences of the string `$sear
 
 The `split()` function returns an array containing each partial string between occurrences of `$search`. If  `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
 
+If the `$search` argument is an empty string, `split()` breaks on every character and returns an array containing each character from the `$subject` string. Thus, if `$subject` is _also_ an empty string, `split()` returns
+an empty array.
+
 The `$count` optional integer specifies the maximum number of split points within the `$search` string.
 If this parameter is omitted, all occurrences are split. If `$count` is not an integer or is negative, an error MUST be raised.
 
@@ -168,6 +171,7 @@ Otherwise, the `split()` function breaks on occurrences of the `$search` string 
 
 | Expression | Result
 |---|---
+| `split('', '')` | `[]`
 | `split('all chars', '')` | `[ "a", "l", "l", " ", "c", "h", "a", "r", "s" ]`
 | `split('/', '/')` | `[ "", "" ]` |
 |`` split('average\|-\|min\|-\|max\|-\|mean\|-\|median', '\|-\|') `` | `[ "average", "min", "max", "mean", "median" ]` 
