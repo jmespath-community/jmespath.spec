@@ -19,7 +19,7 @@ This JEP introduces a core set of useful string manipulation functions. Those fu
 ```
 int find_first(string $subject, string $sub[, int $start[, int $end]])
 ```
-Given the `$subject` string, `find_first()` returns the zero-based index of the first occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear.
+Given the `$subject` string, `find_first()` returns the zero-based index of the first occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` return `null`.
 
 The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
 
@@ -48,7 +48,7 @@ Contrary to similar functions found in most popular programming languages, the `
 ```
 int find_last(string $subject, string $sub[, int $start[, $end]])
 ```
-Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear.
+Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` return `null`.
 
 The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
 
