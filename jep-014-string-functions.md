@@ -32,6 +32,8 @@ The `$start` and `$end` parameters are optional and allow restricting the range 
 - If `$start` is omitted, it defaults to `0` (which is the start of the `$subject` string).
 - If `$end` is omitted, it defaults to `length(subject)` (which is past the end of the `$subject` string).
 
+If not omitted, the `$start` or `$end` arguments are expected to be integers. Otherwise, an error MUST be raised.
+
 Contrary to similar functions found in most popular programming languages, the `find_first()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 
 ### Examples
@@ -98,6 +100,8 @@ If present, it MUST have length 1, otherwise an error MUST be raised.
 
 If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
 
+If `$width` is not an integer, an error MUST be raised.
+
 ### Examples
 
 | Given | Expression | Result
@@ -120,6 +124,8 @@ If omitted, it defaults to an ASCII space (U+0020).
 If present, it MUST have length 1, otherwise an error MUST be raised.
 
 If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
+
+If `$width` is not an integer, an error MUST be raised.
 
 ### Examples
 
