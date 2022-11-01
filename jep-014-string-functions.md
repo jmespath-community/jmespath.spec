@@ -36,8 +36,10 @@ Contrary to similar functions found in most popular programming languages, the `
 | `"subject string"` | `` find_first(@, 'string', `0`) `` |  `8`
 | `"subject string"` | `` find_first(@, 'string', `0`, `14`) `` |  `8`
 | `"subject string"` | `` find_first(@, 'string', `-99`, `100`) `` |  `8`
+| `"subject string"` | `` find_first(@, 'string', `-6`) `` |  `8`
 | `"subject string"` | `` find_first(@, 'string', `0`, `13`) `` |  `null`
 | `"subject string"` | `` find_first(@, 'string', `8`) `` |  `8`
+| `"subject string"` | `` find_first(@, 'string', `8`, `11`) `` |  `null`
 | `"subject string"` | `` find_first(@, 'string', `9`) `` |  `null`
 | `"subject string"` | `` find_first(@, 's') `` |  `0`
 | `"subject string"` | `` find_first(@, 's', `1`) `` |  `8`
@@ -68,6 +70,7 @@ Contrary to similar functions found in most popular programming languages, the `
 | `"subject string"` | `` find_last(@, 's') `` |  `0`
 | `"subject string"` | `` find_last(@, 's', `1`) `` |  `8`
 | `"subject string"` | `` find_last(@, 's', `0`, `7`) `` |  `0`
+| `"subject string"` | `` find_last(@, '') `` |  `null`
 
 ### lower
 
