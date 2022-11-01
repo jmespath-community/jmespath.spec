@@ -48,7 +48,7 @@ Contrary to similar functions found in most popular programming languages, the `
 ### find_last
 
 ```
-int find_last(string $subject, string $sub[, int $start[, $end]])
+int find_last(string $subject, string $sub[, int $start[, int $end]])
 ```
 Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` return `null`.
 
