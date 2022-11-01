@@ -58,7 +58,7 @@ Contrary to similar functions found in most popular programming languages, the `
 ```
 int find_last(string $subject, string $sub[, int $start[, int $end]])
 ```
-Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` returns `null`.
+Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_last()` returns `null`.
 
 The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
 
@@ -67,7 +67,7 @@ The `$start` and `$end` parameters are optional and allow restricting to the sli
 
 If not omitted, the `$start` or `$end` arguments are expected to be integers. Otherwise, an error MUST be raised.
 
-Contrary to similar functions found in most popular programming languages, the `find_first()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
+Contrary to similar functions found in most popular programming languages, the `find_last()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 
 ### Examples
 

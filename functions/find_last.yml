@@ -9,17 +9,24 @@ args:
     type: [string]
     desc: 'Substring'
   optional: 
-    - name: pos
+    - name: start
       type: [number]
       desc: 'Position in the subject string where searching should start.'
+    - name: end
+      type: [number]
+      desc: 'Position in the subject string where searching should end.'
 returns:
   type: number
   desc: ''
 desc: |
-  Given the `subject` string, `find_last()` returns the zero-based index of the last occurence where the `sub` substring appears in `subject` or `null` if it does not appear.
+  Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_last()` returns `null`.
 
-  The `pos` parameter is optional and allows restricting the maximum index within `subject` at which to search for `sub`.
-  If this is parameter omitted, it defaults to `length(subject) - 1` (which is is the end of the `subject` string).
+  The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
+
+  - If `$start` is omitted, it defaults to `0` (which is the start of the `$subject` string).
+  - If `$end` is omitted, it defaults to `length(subject)` (which is past the end of the `$subject` string).
+
+  If not omitted, the `$start` or `$end` arguments are expected to be integers. Otherwise, an error MUST be raised.
 
   Contrary to similar functions found in most popular programming languages, the `find_last()` function does not return `-1` if no occurrence of the substring can be found. Instead, it returns `null` for consistency reasons with how JMESPath behaves.
 examples:
@@ -27,19 +34,23 @@ examples:
     context: &subject subject string
     args: ['@', 'string']
     returns: 8.0
-  find_last_pos:
+  find_last_start:
     context: *subject
     args: ['@', 'string', '`8`']
     returns: 8.0
-  find_last_pos_ends_prematurely:
+  find_last_start_ends_prematurely:
     context: *subject
-    args: ['@', 'string', '`7`']
+    args: ['@', 'string', '`8`', '`9`']
+    returns: null
+  find_last_start_after_occurrence:
+    context: *subject
+    args: ['@', 'string', '`9`']
     returns: null
   find_last_second_occurrence:
     context: *subject
-    args: ['@', 's', '`8`']
+    args: ['@', 's', '`1`']
     returns: 8.0
   find_last_first_occurrence:
     context: *subject
-    args: ['@', 's', '`7`']
+    args: ['@', 's', '`0`', '`7`']
     returns: 0.0

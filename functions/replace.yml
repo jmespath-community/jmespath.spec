@@ -22,7 +22,7 @@ desc: |
   Given the `subject` string, `replace()` replaces ocurrences of the `old` substring with the `new` substring.
 
   The `count` optional parameter specifies how many occurrences of the `old` substring in `subject` are to be replaced.
-  If this parameter is omitted, all occurrences are replaced. If `count` is negative, an error MUST be raised.
+  If this parameter is omitted, all occurrences are replaced. If `count` is not an integer or is negative,
 
   The `replace()` function has no effect if `count` is `0`.
 examples:
