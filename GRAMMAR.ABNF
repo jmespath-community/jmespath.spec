@@ -684,7 +684,7 @@ identifier        = unquoted-string / quoted-string ;; # Identifiers
 ;; ```
 
 unquoted-string   = (%x41-5A / %x61-7A / %x5F) *(  ; A-Za-z_
-                    %x30-39  /  ; 0-9
+                        %x30-39  /  ; 0-9
                         %x41-5A /  ; A-Z
                         %x5F    /  ; _
                         %x61-7A)   ; a-z
