@@ -659,14 +659,8 @@ literal           = "`" json-value "`" ;; # Literal Expressions
 ;; search({first: a, type: `"mytype"`}, {"a": "b", "c": "d"}) -> {"first": "b", "type": "mytype"}
 ;; ```
 
-unescaped-literal = %x20-21 /   ; space !
-										%x23-5B /   ; # - [
-										%x5D-5F /   ; ] ^ _
-										%x61-7A /   ; a-z
-										%x7B-10FFFF ; {|}~ ...
-escaped-literal   = escaped-char / (escape "`")
 number            = ["-"] 1*digit
-digit             = %x30-39
+digit             = %x30-39 ; 0-9
 identifier        = unquoted-string / quoted-string ;; # Identifiers
 ;; An identifier is the most basic expression and can be used to extract a single element from a JSON document.
 ;; The return value for an identifier is the value associated with the identifier. If the identifier does not exist in the
@@ -690,14 +684,14 @@ identifier        = unquoted-string / quoted-string ;; # Identifiers
 ;; ```
 
 unquoted-string   = (%x41-5A / %x61-7A / %x5F) *(  ; A-Za-z_
-                        %x30-39  /  ; 0-9
+                    %x30-39  /  ; 0-9
                         %x41-5A /  ; A-Z
                         %x5F    /  ; _
                         %x61-7A)   ; a-z
-quoted-string     = quote 1*(unescaped-char / escaped-char) quote
+quoted-string     = quotation-mark 1*(unescaped-char / escaped-char) quotation-mark
 unescaped-char    = %x20-21 / %x23-5B / %x5D-10FFFF
-escape            = "\"
-quote             = %x22   ; Double quote: '"'
+escape            = %x5C   ; \
+quotation-mark    = %x22   ; "
 escaped-char      = escape (
                         %x22 /          ; "    quotation mark  U+0022
                         %x5C /          ; \    reverse solidus U+005C
@@ -709,38 +703,48 @@ escaped-char      = escape (
                         %x74 /          ; t    tab             U+0009
                         %x75 4HEXDIG )  ; uXXXX                U+XXXX
 
-; The ``json-value`` is any valid JSON value with the one exception that the
-; ``%x60`` character must be escaped.  While it's encouraged that implementations
-; use any existing JSON parser for this grammar rule (after handling the escaped
-; literal characters), the grammar rule is shown below for completeness::
-
+; `json-value` is any valid JSON value with the one exception that each
+; U+0060 GRAVE ACCENT '`' must be escaped with a preceding backslash.
+; While implementations are encouraged to use any existing JSON parser for this
+; section of the grammar (after handling the escaped characters), a complete
+; set of rules derived from RFC 8259 is included below:
 json-value = false / null / true / json-object / json-array /
-             json-number / json-quoted-string
+             json-number / json-string
+ws         = *(
+                %x20 /              ; Space
+                %x09 /              ; Horizontal tab
+                %x0A /              ; Line feed or New line
+                %x0D )              ; Carriage return
+; JSON literals
 false = %x66.61.6c.73.65   ; false
 null  = %x6e.75.6c.6c      ; null
 true  = %x74.72.75.65      ; true
-json-quoted-string = %x22 *( unescaped-literal / escaped-literal ) %x22
+; JSON strings
+json-string    = quotation-mark *( json-unescaped / json-escaped ) quotation-mark
+json-unescaped = %x20-21     / ; space or '!' (precedes U+0022 '"')
+                 %x23-5B     / ; '#' through '[' (precedes U+005C '\')
+                 %x5D-5F     / ; ']' through '_' (precedes U+0060 '`')
+                 %x61-10FFFF   ; 'a' and all following code points
+json-escaped   = escaped-char / (escape "`")
+; JSON arrays
+json-array      = begin-array [ json-value *( value-separator json-value ) ] end-array
 begin-array     = ws %x5B ws  ; [ left square bracket
-begin-object    = ws %x7B ws  ; { left curly bracket
 end-array       = ws %x5D ws  ; ] right square bracket
-end-object      = ws %x7D ws  ; } right curly bracket
-name-separator  = ws %x3A ws  ; : colon
 value-separator = ws %x2C ws  ; , comma
-ws              = *(%x20 /              ; Space
-                    %x09 /              ; Horizontal tab
-                    %x0A /              ; Line feed or New line
-                    %x0D                ; Carriage return
-                   )
-json-object = begin-object [ member *( value-separator member ) ] end-object
-member = json-quoted-string name-separator json-value
-json-array = begin-array [ json-value *( value-separator json-value ) ] end-array
-json-number = [ minus ] int [ frac ] [ exp ]
-decimal-point = %x2E       ; .
-digit1-9 = %x31-39         ; 1-9
-e = %x65 / %x45            ; e E
-exp = e [ minus / plus ] 1*digit
-frac = decimal-point 1*digit
-int = zero / ( digit1-9 *digit )
-minus = %x2D               ; -
-plus = %x2B                ; +
-zero = %x30                ; 0
+; JSON objects
+json-object    = begin-object [ member *( value-separator member ) ] end-object
+begin-object   = ws %x7B ws  ; { left curly bracket
+end-object     = ws %x7D ws  ; } right curly bracket
+member         = json-string name-separator json-value
+name-separator = ws %x3A ws  ; : colon
+; JSON numbers
+json-number   = [ minus ] int [ frac ] [ exp ]
+decimal-point = %x2E                 ; .
+digit1-9      = %x31-39              ; 1-9
+e             = %x65 / %x45          ; e E
+exp           = e [ minus / plus ] 1*digit
+frac          = decimal-point 1*digit
+int           = zero / ( digit1-9 *digit )
+minus         = %x2D                 ; -
+plus          = %x2B                 ; +
+zero          = %x30                 ; 0
