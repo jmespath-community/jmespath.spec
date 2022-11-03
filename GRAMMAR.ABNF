@@ -695,7 +695,7 @@ unquoted-string   = (%x41-5A / %x61-7A / %x5F) *(  ; A-Za-z_
                         %x5F    /  ; _
                         %x61-7A)   ; a-z
 quoted-string     = quote 1*(unescaped-char / escaped-char) quote
-unescaped-char    = %x20-21 / %x23-2E / %30-5B / %x5D-10FFFF
+unescaped-char    = %x20-21 / %x23-5B / %x5D-10FFFF
 escape            = "\"
 quote             = %x22   ; Double quote: '"'
 escaped-char      = escape (
@@ -732,7 +732,7 @@ ws              = *(%x20 /              ; Space
                     %x0D                ; Carriage return
                    )
 json-object = begin-object [ member *( value-separator member ) ] end-object
-member = quoted-string name-separator json-value
+member = json-quoted-string name-separator json-value
 json-array = begin-array [ json-value *( value-separator json-value ) ] end-array
 json-number = [ minus ] int [ frac ] [ exp ]
 decimal-point = %x2E       ; .
