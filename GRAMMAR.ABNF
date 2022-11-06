@@ -688,7 +688,7 @@ unquoted-string   = (%x41-5A / %x61-7A / %x5F) *(  ; A-Za-z_
                         %x41-5A /  ; A-Z
                         %x5F    /  ; _
                         %x61-7A)   ; a-z
-quoted-string     = quotation-mark 1*(unescaped-char / escaped-char) quotation-mark
+quoted-string     = quotation-mark *(unescaped-char / escaped-char) quotation-mark
 unescaped-char    = %x20-21 / %x23-5B / %x5D-10FFFF
 escape            = %x5C   ; \
 quotation-mark    = %x22   ; "
