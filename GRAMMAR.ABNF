@@ -642,7 +642,7 @@ raw-string-escape = escape ("'" / escape)
 ;; search('\\', "") -> "\\"
 ;; ```
 
-literal           = "`" json-value "`" ;; # Literal Expressions
+literal           = "`" json-text "`" ;; # Literal Expressions
 ;; A literal expression is an expression that allows arbitrary JSON objects to be specified. This is useful in filter
 ;; expressions as well as multi select hashes (to create arbitrary key value pairs), but is allowed anywhere an expression
 ;; is allowed. The specification includes the ABNF for JSON, implementations should use an existing JSON parser to parse
@@ -703,6 +703,12 @@ escaped-char      = escape (
                         %x74 /          ; t    tab             U+0009
                         %x75 4HEXDIG )  ; uXXXX                U+XXXX
 
+json-text  = ws json-value ws
+ws         = *(
+                %x20 /              ; Space
+                %x09 /              ; Horizontal tab
+                %x0A /              ; Line feed or New line
+                %x0D )              ; Carriage return
 ; `json-value` is any valid JSON value with the one exception that each
 ; U+0060 GRAVE ACCENT '`' must be escaped with a preceding backslash.
 ; While implementations are encouraged to use any existing JSON parser for this
@@ -710,11 +716,6 @@ escaped-char      = escape (
 ; set of rules derived from RFC 8259 is included below:
 json-value = false / null / true / json-object / json-array /
              json-number / json-string
-ws         = *(
-                %x20 /              ; Space
-                %x09 /              ; Horizontal tab
-                %x0A /              ; Line feed or New line
-                %x0D )              ; Carriage return
 ; JSON literals
 false = %x66.61.6c.73.65   ; false
 null  = %x6e.75.6c.6c      ; null
