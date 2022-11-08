@@ -637,8 +637,7 @@ raw-string-escape = escape ("'" / escape)
 ;; search('foo', "") -> "foo"
 ;; search(' bar ', "") -> " bar "
 ;; search('[baz]', "") -> "[baz]"
-;; search('[baz]', "") -> "[baz]"
-;; search('\u03a6', "") -> "\u03a6"
+;; search('\u03bB', "") -> "\\u03bB"
 ;; search('\\', "") -> "\\"
 ;; ```
 
