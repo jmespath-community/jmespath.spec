@@ -18,7 +18,10 @@ Some string manipulation functions bring the new concept of _optional arguments_
 
 _Functions can ~~either~~ have a specific arity, **a range of valid – minimum and maximum – number of arguments** or be variadic with a minimum number of arguments. If a function-expression is encountered where the arity does not match or the minimum number of arguments for a variadic function is not provided, then implementations must indicate to the caller that an invalid-arity error occurred. How and when this error is raised is implementation specific._
 
+Some functions accept number arguments which are further constrained to integers or even non-negative integers. This JEP specifies a new error
+type `invalid-value` by updating the paragraph on type constraints from the specification like so:
 
+_Each function signature declares the types of its input parameters. If any type constraints are not met, implementations must indicate that an `invalid-type` error occurred. **If a function parameter accepts values constrained to a specific subset of a type and those constraints are not met, implementations must report that an `invalid-value` error occurred. How and when those errors are raised is implementation specific.**_
 
 ### find_first
 
@@ -276,3 +279,8 @@ Returns the uppercase `$subject` string using Unicode default casing conversion 
 ## Compliance
 
 A new `string_functions.json` file will be added to the compliance tests.
+The test suite will introduce the following new error type:
+
+- invalid-value
+
+This error type would be raised by `split()` for instance, if its `$count` parameter is negative or not an integer.
