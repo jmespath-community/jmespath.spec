@@ -9,6 +9,11 @@
 
 ## Abstract
 
+> **Note**: This JEP has been updated to better reflect changes in the official grammar
+> that occurred after its acceptance. Updates to the original text are
+> outlined using this
+> paragraph
+
 This JEP proposes the following modifications to JMESPath in order to improve
 the usability of the language and ease the implementation of parsers:
 
@@ -241,18 +246,30 @@ foo\nbar
 
 ### ABNF
 
+> **Note** The `raw-string-char` grammar rule has been updated to support
+> C0 control characters in a raw string literal. The `raw-string-escape`
+> rule has been updated to support ` \\ ` as a valid escape sequence for
+> a single backslash character in the resulting string.
+>
+> Allowing C0 control characters align with the example above that allows
+> `` 'foo␊bar␊baz!' `` as a valid `raw-string` literal.
+>
+> Adding ` \\ ` as a valid escape sequence is
+
 The following ABNF grammar rules will be added, and is allowed anywhere an
 expression is allowed:
 
-```
+```abnf
 raw-string        = "'" *raw-string-char "'"
-; The first grouping matches any character other than "\"
-raw-string-char   = (%x20-26 / %x28-5B / %x5D-10FFFF) / raw-string-escape
-raw-string-escape = escape ["'"]
+; The first grouping matches any character other than "'" and "\"
+raw-string-char   = (%x00-26 / %x28-5B / %x5D-10FFFF) / preserved-escape /raw-string-escape
+; The second grouping matches any character other than "'"
+preserved-escape  = escape (%x20-26 / %28-10FFFF)
+raw-string-escape = escape "'"
 ```
 
 This rule allows any character inside of a raw string, including an escaped
-single quote.
+single quote. Note that backslash character
 
 In addition to adding a `raw-string` rule, the `literal` rule in the ABNF
 will be updated to become:

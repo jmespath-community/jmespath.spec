@@ -58,12 +58,27 @@ object from_items(array[array[any]] $arg)
 ```
 Returns an object from the provided array of key value pairs. This function is the inverse of the `items()`.
 
+The `from_items()` function accepts a sequence of arrays as its only input argument.
+The set of valid values for this argument is further restricted to a specific shape that consists in a sequence of arrays, each of which must contain two entries, the first of which is expected to be a string.
+
+If `$arg` is an empty array, an error MUST be raised.
+
+If one of the arrays in `$arg` does not have exactly two elements, or if the first element is not a string, an error MUST be raised.
+
 ### Examples
 
 |Given|Expression|Result
 |---|---|---
 |``[["one", 1], ["two", 2]]``|``from_items(@)``|``{"one": 1, "two": 2}``
 |``[["one", 1], ["two", 2], ["one", 3]]``|``from_items(@)``|``{"one": 3, "two": 2}``
+
+
+|Expression|Error|Comment
+|---|---|---
+|`` from_items([]) ``|``invalid-type ``| Input argument must be non empty sequence of arrays
+|`` from_items([[42, "value"]]) ``|``invalid-type ``| The first element from each array must be a string
+|`` from_items([["keyWithNoValue"]]) ``|``invalid-value ``| Each array must have exactly two elements
+|`` from_items([["key", "value", "extra"]]) ``|``invalid-value ``| Each array must have exactly two elements
 
 ### zip
 
