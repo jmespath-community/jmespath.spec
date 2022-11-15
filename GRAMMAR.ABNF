@@ -611,7 +611,7 @@ expression-type     = "&" expression
 ;; This provides a simple mechanism to explicitly convert types when needed.
 
 raw-string        = "'" *raw-string-char "'" ;; # Raw String Literals \
-raw-string-char   = (%x20-26 / %x28-5B / %x5D-10FFFF) / preserved-escape / raw-string-escape ;; \
+raw-string-char   = (%x00-26 / %x28-5B / %x5D-10FFFF) / preserved-escape / raw-string-escape  ;; \
 preserved-escape  = escape (%x20-26 / %x28-5B / %x5D-10FFFF) ;; \
 raw-string-escape = escape ("'" / escape)
 ;; A raw string is an expression that allows for a literal string value to be specified. The result of evaluating the raw
