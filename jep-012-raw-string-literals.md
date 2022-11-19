@@ -36,7 +36,7 @@ Raw string literals are provided in [various programming languages](https://en.w
 language specific interpretation (i.e., JSON parsing) and remove the need for
 escaping, avoiding a common problem called [leaning toothpick syndrome (LTS)](https://en.wikipedia.org/wiki/Leaning_toothpick_syndrome). Leaning toothpick
 syndrome is an issue in which strings become unreadable due to excessive use of
-escape characters in order to avoid delimiter collision (e.g., `\\\\\\\\\\\\`).
+escape characters in order to avoid delimiter collision (e.g., `\\\\\\`).
 
 When evaluating a JMESPath expression, it is often necessary to utilize string
 literals that are not extracted from the data being evaluated, but rather
@@ -64,7 +64,7 @@ These string literals are parsed using a JSON parser according to
 escape sequences, newline characters, and several other escape sequences
 documented in RFC 4627 section 2.5.
 
-For example, the use of an escaped unicode value `\\u002B` is expanded into
+For example, the use of an escaped unicode value `\u002B` is expanded into
 `+` in the following JMESPath expression:
 
 ```
@@ -89,7 +89,7 @@ problems:
 2. Requires the cognitive overhead of escaping escape characters if you
 actually want the data to be represented as it was literally provided
 (which can lead to LTS). If the data being escaped was meant to be used
-along with another language that uses `\\` as an escape character, then the
+along with another language that uses `\` as an escape character, then the
 number of backslash characters doubles.
 
 
@@ -233,7 +233,7 @@ bar!
 
 
 * A raw string literal that contains escape characters,
-parsed as `foo\\nbar`:
+parsed as `foo\nbar`:
 
 ```
 foo\nbar

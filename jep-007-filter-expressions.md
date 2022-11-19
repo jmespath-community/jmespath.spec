@@ -174,7 +174,7 @@ Using the previous example, given the following data:
          {"state": "CA", "value": 4}]}
 ```
 
-The expression `foo[?state == \`WA\`]` will return the following value:
+The expression ``foo[?state == `WA`]`` will return the following value:
 
 ```
 [{"state": "WA", "value": 1}]
@@ -184,7 +184,7 @@ The expression `foo[?state == \`WA\`]` will return the following value:
 
 Literal expressions are also added in the JEP, which is essentially a JSON
 value surrounded by the “\`” character.  You can escape the “\`” character via
-“\`”, and if the character “\`” appears in the JSON value, it must also be
+“\\`”, and if the character “\`” appears in the JSON value, it must also be
 escaped.  A simple two pass algorithm in the lexer could first process any
 escaped “\`” characters before handing the resulting string to a JSON parser.
 
@@ -262,7 +262,7 @@ list with a single integer value of 2:  `[foo == [2]]`.
 
 * Adding literal expressions makes them useful even outside of a filter
 expression.  For example, in a `multi-select-hash`, you can create
-arbitrary key value pairs:  `{a: foo.bar, b: \`some string\`}`.
+arbitrary key value pairs:  ``{a: foo.bar, b: `some string`}``.
 
 This JEP is purposefully minimal.  There are several extensions that can be
 added in future:

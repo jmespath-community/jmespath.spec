@@ -59,7 +59,7 @@ Given:
 }
 ```
 
-With: `foo.[baz[\*].bar, qux[0]]`
+With: `foo.[baz[*].bar, qux[0]]`
 
 Result:
 
@@ -96,7 +96,7 @@ Given:
 }
 ```
 
-With: `foo.[baz[\*].[bar, boo], qux[0]]`
+With: `foo.[baz[*].[bar, boo], qux[0]]`
 
 Result:
 
@@ -139,7 +139,7 @@ Given:
 }
 ```
 
-With: `foo.[baz[\*].not_there || baz[\*].bar, qux[0]]`
+With: `foo.[baz[*].not_there || baz[*].bar, qux[0]]`
 
 Result:
 

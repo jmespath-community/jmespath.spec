@@ -174,7 +174,7 @@ Here we have nested let calls, and the expression we are trying to
 evaluate is the multiselect hash `{a: a, b: b, c: c}`.  The
 `c` identifier comes from the evaluation context `{"c": "z"}`.
 The `b` identifier comes from the scope object in the second `let`
-call: `{b: \`y\`}`.  And finally, here’s the lookup process for the
+call: ``{b: `y`}``.  And finally, here’s the lookup process for the
 `a` identifier:
 
 
@@ -187,7 +187,7 @@ call: `{b: \`y\`}`.  And finally, here’s the lookup process for the
 * Is there a parent scope?  Yes
 
 
-* Does the parent scope, `{a: \`x\`}`, define `a`?  Yes, `a` has
+* Does the parent scope, ``{a: `x`}``, define `a`?  Yes, `a` has
 the value of `"x"`, so `a` is resolved as the string `"x"`.
 
 ### Current Node Evaluation

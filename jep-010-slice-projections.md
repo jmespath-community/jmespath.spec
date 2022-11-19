@@ -28,7 +28,7 @@ This JEP proposes that a slice expression will create a projection.
 
 A reasonable objection to this JEP is that this is unnecessary because, as
 shown in the example above, you can take any slice and create a projection via
-`[\*]`.  This is entirely true, unlike other JEPs, this JEP does not enable
+`[*]`.  This is entirely true, unlike other JEPs, this JEP does not enable
 any behavior that was previously not possible.
 
 Instead, the main reason for this JEP is for consistency.  Right now there are
