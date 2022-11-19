@@ -2,11 +2,11 @@
 
 |||
 |---|---
-| **JEP**    | 12
-| **Author** | Michael Downling
+| **JEP**    | 12-01
+| **Author** | Michael Downling, Maxime Labelle
 | **Status** | accepted
-| **Created**| 09-Apr-2015
-| **Obsoleted By**| [JEP-12-01](./jep-012-01-raw-string-literals.md)
+| **Created**| 19-Nov-2022
+| **Obsoletes**| [JEP-12](./jep-012-raw-string-literals.md)
 
 ## Abstract
 
@@ -99,7 +99,7 @@ based specification to resolve the ambiguity in parser implementations.
 
 The relevant literal grammar rules are currently defined as follows:
 
-```
+```abnf
 literal = "`" json-value "`"
 literal =/ "`" 1*(unescaped-literal / escaped-literal) "`"
 unescaped-literal = %x20-21 /       ; space !
@@ -216,6 +216,13 @@ parsed:
 ```
 
 
+* An escaped backslash character, parsed as `foo\bar`:
+
+```
+'foo\\bar'
+```
+
+
 * A raw string literal that contains new lines:
 
 ```
@@ -245,18 +252,27 @@ foo\nbar
 The following ABNF grammar rules will be added, and is allowed anywhere an
 expression is allowed:
 
-```
-raw-string        = "'" *raw-string-char "'"
-; The first grouping matches any character other than "\"
-raw-string-char   = (%x20-26 / %x28-5B / %x5D-10FFFF) / raw-string-escape
-raw-string-escape = escape ["'"]
+```abnf
+raw-string = "'" *raw-string-char "'"
+raw-string-char = (%x00-26 /            ; ␀ - & precedes U+0027 "'" apostrophe
+                    %x28-5B /           ; ( - [ precedes U+005C "\" reverse solidus
+                    %x5D-10FFFF) /      ; ] - ... "]" and all following code points
+                    preserved-escape /
+                    raw-string-escape
+preserved-escape = escape (
+                    %x00-26 /           ;  ␀ - & precedes U+0027 "'" apostrophe
+                    %x28-5B /           ; ( -[ precedes U+005C "\" reverse solidus
+                    %x5D-10FFFF)        ; ] - ... "]" and all following code points
+raw-string-escape = escape (
+                    "'" /               ; \ apostrophe U+0027
+                    escape)             ; \ reverse solidus U+005C
+
 ```
 
-This rule allows any character inside of a raw string, including an escaped
-single quote.
+This rule allows any character inside of a raw string, including an escaped single quote or backslash.
 
 In addition to adding a `raw-string` rule, the `literal` rule in the ABNF
-will be updated to become:
+will be simplified to become:
 
 ```
 literal = "`" json-value "`"
