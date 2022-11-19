@@ -3,7 +3,7 @@
 |||
 |---|---
 | **JEP**    | 12
-| **Author** | Michael Downling
+| **Author** | Michael Dowling
 | **Status** | accepted
 | **Created**| 09-Apr-2015
 
