@@ -98,14 +98,14 @@ in certain environments.  For example, in python, this is not a problem:
 >>> jmespath_expression = "foo\nbar"
 ```
 
-Python will interpret the sequence `"\n"` (`%x5C %x6E`) as the newline
+Python will interpret the sequence `\n` (`%x5C %x6E`) as the newline
 character `%x0A`.  However, consider Bash:
 
 ```
 $ foo --jmespath-expression "foo\nbar"
 ```
 
-In this situation, bash will not interpret the `"\n"` (`%x5C %x6E`)
+In this situation, bash will not interpret the `\n` (`%x5C %x6E`)
 sequence.
 
 ## Specification
@@ -240,10 +240,10 @@ JSON string must be `\\n` (`%x5C %x5C %x6E`).
 ```
 
 The above example is a more pathological case of escaping.  In this example, we
-have a string that represents a windows path “c:\\windowpath”.  There are two
+have a string that represents a windows path “c:\\\\windows\\path”.  There are two
 levels of escaping happening here, one at the JSON parser, and one at the
 JMESPath parser.  The JSON parser will take the sequence
-`"\"c:\\\\\\\\windows\\\\path\""` and create the string
-`"\"c:\\\\windows\\path\""`.  The JMESPath parser will take the string
-`"\"c:\\\\windows\\path\"'` and, applying its own escaping rules, will
+`"\"c:\\\\\\\\windows\\\\path\""` and create a string with contents
+`"c:\\\\windows\\path"` (in which the first and last character are both `"`).
+The JMESPath parser will take that and, applying its own unescaping, will
 look for a key named `c:\\windows\path`.
