@@ -138,7 +138,7 @@ data of `["1", "2", "3", "notanumber", true]`, the following expression can
 be used to convert (and filter) all elements to numbers:
 
 ```
-search([].to_number(@), ``["1", "2", "3", "notanumber", true]``) -> [1, 2, 3]
+search([].to_number(@), ["1", "2", "3", "notanumber", true]) -> [1, 2, 3]
 ```
 
 This provides a simple mechanism to explicitly convert types when needed.
@@ -270,13 +270,14 @@ abs(2) -> 2
 5. The value of `2` is the resolved value of the function expression
 `abs(to_number(bar))`.
 
-### Examples
+#### Examples
 
 |Expression|Result
 |---|---
 | `abs(1)` |1
 | `abs(-1)`|1
 | ``abs(`abc`)``| |`<error: invalid-type>`
+
 ### avg
 
 ```
@@ -287,7 +288,7 @@ Returns the average of the elements in the provided array.
 
 An empty array will produce a return value of null.
 
-### Examples
+#### Examples
 
 |Given|Expression|Result
 |---|---|---
@@ -304,7 +305,7 @@ number ceil(number $value)
 
 Returns the next highest integer value by rounding up if necessary.
 
-### Examples
+#### Examples
 
 |Expression|Result
 |---|---|
@@ -313,7 +314,7 @@ Returns the next highest integer value by rounding up if necessary.
 | ``ceil(`1`)`` | 1
 | ``ceil(`abc`)`` | `null`
 
-| ### contains
+### contains
 
 ```
 boolean contains(array|string $subject, array|object|string|number|boolean $search)
@@ -328,7 +329,7 @@ in the array is equal to the provided `$search` value.
 If the provided `$subject` is a string, this function returns true if
 the string contains the provided `$search` argument.
 
-### Examples
+#### Examples
 
 |Given|Expression|Result
 |---|---|---
@@ -349,7 +350,7 @@ number floor(number $value)
 
 Returns the next lowest integer value by rounding down if necessary.
 
-### Examples
+#### Examples
 
 | Expression | Result
 |---|---
@@ -366,7 +367,7 @@ string join(string $glue, array[string] $stringsarray)
 Returns all of the elements from the provided `$stringsarray` array joined
 together using the `$glue` argument as a separator between each.
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
@@ -383,7 +384,7 @@ array keys(object $obj)
 
 Returns an array containing the keys of the provided object.
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
@@ -409,7 +410,7 @@ Returns the length of the given argument using the following types rules:
 
 3. object: returns the number of key-value pairs in the object
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
@@ -431,7 +432,7 @@ Returns the highest found number in the provided array argument.
 
 An empty array will produce a return value of null.
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
@@ -446,12 +447,13 @@ number min(array[number] $collection)
 
 Returns the lowest found number in the provided `$collection` argument.
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|--|--
 | `[10, 15]` | `min(@)` | 10
 | `[10, false, 20]` | `min(@)` | `<error: invalid-type>`
+
 ### sort
 
 ```
@@ -464,7 +466,7 @@ elements of the `$list` as an array.
 The array must be a list of strings or numbers.  Sorting strings is based on
 code points.  Locale is not taken into account.
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
@@ -489,7 +491,7 @@ string to_string(string|number|array|object|boolean $arg)
 JSON encoder should emit the encoded JSON value without adding any additional
 new lines.
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
@@ -527,7 +529,7 @@ The return value MUST be one of the following:
 * object
 * null
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
@@ -548,13 +550,14 @@ array values(object $obj)
 
 Returns the values of the provided object.
 
-### Examples
+#### Examples
 
 | Given | Expression | Result
 |---|---|---
 | `{"foo": "baz", "bar": "bam"}` | `values(@)` | `["baz", "bam"]` 
 | `["a", "b"]` | `values(@)` | `<error: invalid-type>`
 | `false` | `values(@)` | `<error: invalid-type>`
+
 ## Compliance Tests
 
 A `functions.json` will be added to the compliance test suite.

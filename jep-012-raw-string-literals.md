@@ -236,7 +236,7 @@ bar!
 parsed as `foo\nbar`:
 
 ```
-foo\nbar
+'foo\nbar'
 ```
 
 ### ABNF
