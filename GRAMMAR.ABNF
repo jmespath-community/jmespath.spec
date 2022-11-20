@@ -650,6 +650,16 @@ literal           = "`" json-text "`" ;; # Literal Expressions
 ;; literal values. Note that the \` character must now be escaped in a json-value which means implementations need to
 ;; handle this case before passing the resulting string to a JSON parser.
 ;;
+;; ```note
+;; When [JEP-12](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md)
+;; introduced raw string literals, a legacy behavior in which backtick literals
+;; containing invalid JSON text would be interpreted as if their contents were wrapped
+;; in double quotes (e.g., `` `foo` == `"foo"` ``) was deprecated but implementations
+;; were allowed to continue supporting it.
+;;
+;; In this version of the specification, that behavior has been fully removed.
+;; ```
+;;
 ;; ## Examples
 ;; ```
 ;; search(`"foo"`, "anything") -> "foo"
