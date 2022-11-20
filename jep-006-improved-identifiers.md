@@ -79,7 +79,7 @@ in XML (`&#nnnn`), JMESPath should support the same escape sequences
 used in JSON.  JSON also supports a 12 character escape sequence for
 characters outside of the BMP, by encoding the UTF-16 surrogate pair.
 For example, the code point `U+1D11E` can be represented
-as `"\\uD834\\uDD1E"`.
+as `"\uD834\uDD1E"`.
 
 ### Escape Sequences
 
@@ -98,14 +98,14 @@ in certain environments.  For example, in python, this is not a problem:
 >>> jmespath_expression = "foo\nbar"
 ```
 
-Python will interpret the sequence `"\\n"` (`%x5C %x6E`) as the newline
+Python will interpret the sequence `"\n"` (`%x5C %x6E`) as the newline
 character `%x0A`.  However, consider Bash:
 
 ```
 $ foo --jmespath-expression "foo\nbar"
 ```
 
-In this situation, bash will not interpret the `"\\n"` (`%x5C %x6E`)
+In this situation, bash will not interpret the `"\n"` (`%x5C %x6E`)
 sequence.
 
 ## Specification
@@ -226,11 +226,11 @@ This has to do with the updated escaping rules.  Each one will be explained.
           },
 ```
 
-This has to be updated because a JSON parser will interpret the `\\n` sequence
+This has to be updated because a JSON parser will interpret the `\n` sequence
 as the newline character.  The newline character is **not** allowed in a
 JMESPath identifier (note that the newline character `%0A` is not in any
 rule).  In order for a JSON parser to create a sequence of `%x5C %x6E`, the
-JSON string must be `\\\\n` (`%x5C %x5C %x6E`).
+JSON string must be `\\n` (`%x5C %x5C %x6E`).
 
 ```
 -            "expression": "\"c:\\\\windows\\path\"",
@@ -243,7 +243,7 @@ The above example is a more pathological case of escaping.  In this example, we
 have a string that represents a windows path “c:\\windowpath”.  There are two
 levels of escaping happening here, one at the JSON parser, and one at the
 JMESPath parser.  The JSON parser will take the sequence
-`"\\"c:\\\\\\\\\\\\\\\\windows\\\\\\\\path\\""` and create the string
-`"\\"c:\\\\\\\\windows\\\\path\\""`.  The JMESPath parser will take the string
-`"\\"c:\\\\\\\\windows\\\\path\\"'` and, applying its own escaping rules, will
-look for a key named `c:\\\\windows\\path`.
+`"\"c:\\\\\\\\windows\\\\path\""` and create the string
+`"\"c:\\\\windows\\path\""`.  The JMESPath parser will take the string
+`"\"c:\\\\windows\\path\"'` and, applying its own escaping rules, will
+look for a key named `c:\\windows\path`.

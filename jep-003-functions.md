@@ -338,8 +338,8 @@ the string contains the provided `$search` argument.
 | n/a | ``contains(`false`, `bar`)`` | `<error: invalid-type>`
 | n/a | ``contains(`foobar`, 123)`` | `false`
 | `["a", "b"]` | ``contains(@, `a`)`` | `true`
-| `["a"]` | ``contains(@, `a\`)`` | `true`
-| `["a"]` | ``contains(@, `b\`)`` | `false`
+| `["a"]` | ``contains(@, `a`)`` | `true`
+| `["a"]` | ``contains(@, `b`)`` | `false`
 
 ### floor
 
@@ -353,9 +353,9 @@ Returns the next lowest integer value by rounding down if necessary.
 
 | Expression | Result
 |---|---
-| ``floor(`1.001\`)`` | 1
-| ``floor(`1.9\`)`` | 1 
-| ``floor(`1\`)`` | 1
+| ``floor(`1.001`)`` | 1
+| ``floor(`1.9`)`` | 1
+| ``floor(`1`)`` | 1
 
 ### join
 
