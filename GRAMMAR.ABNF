@@ -651,12 +651,13 @@ literal           = "`" json-text "`" ;; # Literal Expressions
 ;; handle this case before passing the resulting string to a JSON parser.
 ;;
 ;; ```note
-;; When [JEP-12](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md) was introduced,
-;; the `literal` rule has been changed to more strictly follow the JSON specification.
-;; As a result, the _legacy_ syntax using strings with elided quotes `` `foo` `` was being deprecated and users
-;; were encouraged to either use `raw-string` literals or use the more compliant `` `"foo"` `` syntax instead.
+;; When [JEP-12](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md)
+;; introduced raw string literals, a legacy behavior in which backtick literals
+;; containing invalid JSON text would be interpreted as if their contents were wrapped
+;; in double quotes (e.g., `` `foo` == `"foo"` ``) was deprecated but implementations
+;; were allowed to continue supporting it.
 ;;
-;; In this version of the specification, _legacy_ syntax is now fully deprecated.
+;; In this version of the specification, that behavior has been fully removed.
 ;; ```
 ;;
 ;; ## Examples
