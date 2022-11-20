@@ -6,7 +6,7 @@
 | **Author** | Maxime Labelle, Chris Armstrong (GorillaStack), Richard Gibson
 | **Created**| 13-October-2022
 | **SemVer** | MINOR
-| **Status**| Draft
+| **Status**| accepted
 
 ## Abstract
 

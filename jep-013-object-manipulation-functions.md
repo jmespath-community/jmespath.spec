@@ -6,7 +6,7 @@
 | **Author** | Jonathan Stewmon
 | **Created**| 21-March-2016
 | **SemVer** | MINOR
-| **Status**| Draft
+| **Status**| accepted
 
 ## Abstract
 
