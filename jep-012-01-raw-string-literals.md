@@ -97,7 +97,7 @@ number of backslash characters doubles.
 3. Introduces an ambiguous rule to the JMESPath grammar that requires a prose
 based specification to resolve the ambiguity in parser implementations.
 
-The relevant literal grammar rules are currently defined as follows:
+At the time of authoring the original version of this JEP, the relevant literal grammar rules were [then defined](https://github.com/jmespath-community/jmespath.py/commit/95a393e32e5aeb5f984cf2d7811fad75d4e0df95) as follows:
 
 ```abnf
 literal = "`" json-value "`"
