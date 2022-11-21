@@ -36,6 +36,13 @@ Then open a [discussion](https://github.com/jmespath-community/jmespath.spec/dis
 alternatives. Once the discussion has reached a mature level of feedback it will be assigned a JEP#. At this point it is safe to begin composing a
 JEP, along with all the required changes and documentation.
 
+In rare circumstances, JEPs will be superceded by newer versions of a JEP. Those
+updated JEPs will have a sequence number appended as a suffix to the original JEP#.
+
+For instance, [JEP-12](./jep-012-raw-string-literals.md) introduced `raw-string`
+literals but the grammar defined there did not match that which was eventually specified. An update has been published as
+[JEP-12-01](./jep-012-01-raw-string-literals.md).
+
 ### Tenets of JMESPath
 
 When proposing new features, keep these tenets in mind. Adhering to these tenets gives your proposal a higher likelihood of being accepted:
