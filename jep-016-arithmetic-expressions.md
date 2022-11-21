@@ -6,7 +6,7 @@
 | **Author** | Maxime Labelle
 | **Created**| 01-August-2022
 | **SemVer** | MINOR
-| **Status** | Draft
+| **Status** | accepted
 
 ## Abstract
 

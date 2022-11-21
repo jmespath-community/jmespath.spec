@@ -4,7 +4,7 @@
 |---|---
 | **JEP**    | 17
 | **Author** | Maxime Labelle
-| **Status** | draft
+| **Status** | accepted
 | **Created**| 25-02-2022
 
 ## Abstract
