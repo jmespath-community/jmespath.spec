@@ -10,7 +10,7 @@
 
 ## Abstract
 
-The original [JEP 5](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-005-array-slices.md) introduced `slice-expression` in the grammar to slice specific portions of an array. While the syntax was specifically designed to operate on arrays, the syntactic grammar allows it after any expression.
+The original [JEP-5](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-005-array-slices.md) introduced `slice-expression` in the grammar to slice specific portions of an array. While the syntax was specifically designed to operate on arrays, the syntactic grammar allows it after any expression.
 
 This JEP introduces changes to allow `slice-expression` to operate on string types and act like a more powerful `substring()` function.
 

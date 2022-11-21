@@ -32,9 +32,9 @@ proposal should be considered despite similar proposals not being accepted.
 Writing a JEP can be a lot of work, so it can help to get initial guidance before getting too far. You can chat on the JMESPath gitter channel
 (https://gitter.im/jmespath/chat) to get an initial pulse of a new feature.
 
-Then open a [discussion](https://github.com/jmespath-community/jmespath.spec/discussions) to discuss the feature, its merit, and any possible
-alternatives. Once the discussion has reached a mature level of feedback it will be assigned a JEP#. At this point it is safe to begin composing a
-JEP, along with all the required changes and documentation.
+Then open a [discussion](https://github.com/jmespath-community/jmespath.spec/discussions) to discuss the feature, its merit, and any possible alternatives.
+Once the discussion has reached a mature level of feedback, it will be assigned a JEP number _N_.
+At that point it is safe to begin composing JEP-_N_ along with all the required changes and documentation.
 
 ### Tenets of JMESPath
 
