@@ -93,5 +93,5 @@ Some alternatives to this JEP are considered. Most notably, the [Lexical Scoping
 let({root: @}, &states[?name==root.first_choice].cities[])
 ```
 
-Although the [Lexical Scoping](./jep-011-let-function.mdj) proposal covers this case in a more generic way,
+Although the [Lexical Scoping](./jep-011-let-function.md) proposal covers this case in a more generic way,
 using the `$` root node reference provides a more succinct way to express a common case.
