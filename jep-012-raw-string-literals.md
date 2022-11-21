@@ -277,9 +277,9 @@ implementations.
 In order to support this type of variance in JMESPath implementations, all of
 the JSON literal compliance test cases that involve elided quotes MUST be
 removed, and test cases regarding failing on invalid unquoted JSON values MUST
-not be allowed in the compliance test unless placed in a JEP 12 specific
+not be allowed in the compliance test unless placed in a JEP-12 specific
 test suite, allowing implementations that support elided quotes in JSON
-literals to filter out the JEP 12 specific test cases.
+literals to filter out the JEP-12 specific test cases.
 
 ## Alternative approaches
 

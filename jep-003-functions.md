@@ -577,7 +577,7 @@ JMESPath expression.
 
 
 * This JEP originally proposed the literal syntax. The literal portion of this
-JEP was removed and added instead to JEP 7.
+JEP was removed and added instead to JEP-7.
 
 
 * This JEP originally specified that types matches should return null.  This

@@ -15,7 +15,7 @@ flattening, and filtering projections.
 
 ## Motivation
 
-JEP 5 introduced slice expressions.  This added python slice semantics
+JEP-5 introduced slice expressions.  This added python slice semantics
 to JSON.  Slicing does not produce a projection so expressions such as
 the following will always return `null`:  `myarray[:10].foo.bar`.
 

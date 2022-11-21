@@ -12,7 +12,7 @@
 This JEP proposes grammar modifications to JMESPath to allow for filter
 expressions.  A filtered expression allows list elements to be selected
 based on matching expressions.  A literal expression
-is also introduced (from JEP 3) so that it is possible to match elements
+is also introduced (from JEP-3) so that it is possible to match elements
 against literal values.
 
 ## Motivation

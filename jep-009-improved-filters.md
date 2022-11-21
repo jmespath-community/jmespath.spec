@@ -9,7 +9,7 @@
 
 ## Abstract
 
-JEP 7 introduced filter expressions, which is a mechanism to allow
+JEP-7 introduced filter expressions, which is a mechanism to allow
 list elements to be selected based on matching an expression against
 each list element.  While this concept is useful, the actual comparator
 expressions were not sufficiently capable to accomodate a number of common
@@ -21,7 +21,7 @@ of queries.
 
 ## Motivation
 
-JEP 7 introduced filter queries, that essentially look like this:
+JEP-7 introduced filter queries, that essentially look like this:
 
 ```
 foo[?lhs omparator rhs]
@@ -34,7 +34,7 @@ are both an `expression`, and comparator is one of
 This added a useful feature to JMESPath: the ability to filter
 a list based on evaluating an expression against each element in a list.
 
-In the time since JEP 7 has been part of JMESPath, a number of cases have been
+In the time since JEP-7 has been part of JMESPath, a number of cases have been
 pointed out in which filter expressions cannot solve.  Below are examples of
 each type of missing features.
 
@@ -366,8 +366,8 @@ expressions, but is now allowed as a general `expression`.
 which again is just a general `expression`.
 
 There are several reasons the previous grammar rules were minimally scoped.
-One of the main reasons, as stated in JEP 7 which introduced filter
+One of the main reasons, as stated in JEP-7 which introduced filter
 expressions, was to keep the spec “purposefully minimal.”  In fact the end
-of JEP 7 states that there “are several extensions that can be added in
+of JEP-7 states that there “are several extensions that can be added in
 future.” This is in fact exactly what this JEP proposes, the recommendations
-from JEP 7.
+from JEP-7.
