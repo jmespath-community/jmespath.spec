@@ -230,22 +230,24 @@ As a final example, here is the steps for evaluating `abs(to_number(bar))`:
    ```
    search(to_number(bar), {"foo": -1, "bar": "2"})
    ```
+   This requires following the same process for `to_number(bar)`:
+   1. Evaluate the input argument against the current data:
+      ```
+      search(bar, {"foo": -1, "bar": "2"}) -> "2"
+      ```
+   2. Validate the type of the resolved argument.
+      In this case `"2"` is of type `string` so it passes the type check.
+   3. Call the function with the resolved argument:
+      ```
+      to_number("2") -> 2
+      ```
+   4. The value of `2` is the resolved value of the function expression
+      `to_number(bar)`.
 
-2. In order to evaluate the above expression, we need to evaluate
-   `to_number(bar)`:
-   ```
-   search(bar, {"foo": -1, "bar": "2"}) -> "2"
-   # Validate "2" passes the type check for to_number, which it does.
-   to_number("2") -> 2
-   ```
+2. Validate the type of the resolved argument.
+   In this case `2` is of type `number` so it passes the type check.
 
-3. Now we can evaluate the original expression:
-   ```
-   search(to_number(bar), {"foo": -1, "bar": "2"}) -> 2
-   ```
-
-4. Call the function with the final resolved value:
-
+3. Call the function with the final resolved argument:
    ```
    abs(2) -> 2
    ```
