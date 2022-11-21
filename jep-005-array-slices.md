@@ -32,7 +32,7 @@ etc)
 3. Extracting only elements before a given stop position: `[:5]`
 
 
-4. Extracting elements between a given start and end position: `[2::5]`
+4. Extracting elements between a given start and end position: `[2:5]`
 
 
 5. Only the last 5 elements: `[-5:]`
