@@ -200,7 +200,7 @@ Evaluating `abs(foo)` works as follows:
 1. Evaluate the input argument against the current data:
 
 ```
-search(foo, {"foo": -11, "bar": 2"}) -> -1
+search(foo, {"foo": -1, "bar": 2"}) -> -1
 ```
 
 
@@ -225,12 +225,12 @@ Below is the same steps for evaluating `abs(bar)`:
 1. Evaluate the input argument against the current data:
 
 ```
-search(foo, {"foo": -1, "bar": 2"}) -> "2"
+search(bar, {"foo": -1, "bar": 2"}) -> "2"
 ```
 
 
 2. Validate the type of the resolved argument.  In this case
-`"2` is of type `string` so the immediate indicate that
+`"2"` is of type `string` so immediately indicate that
 an `invalid-type` error occurred.
 
 As a final example, here is the steps for evaluating `abs(to_number(bar))`:
