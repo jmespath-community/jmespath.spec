@@ -17,6 +17,8 @@ JMESPath to introduce scoping, but provides useful functionality such as being
 able to refer to elements defined outside of the current scope used to evaluate
 an expression.
 
+> **Note**: this document uses [JEP-12 JSON Literals](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md#abnf) such as strings like `` `"foo"` `` and numbers like `` `-1` ``.
+
 ## Motivation
 
 As a JMESPath expression is being evaluated, the current element, which can be
@@ -34,7 +36,7 @@ to a parent element.
 
 For example, suppose we had this data:
 
-```
+```json
 {"first_choice": "WA",
  "states": [
    {"name": "WA", "cities": ["Seattle", "Bellevue", "Olympia"]},
@@ -50,7 +52,7 @@ unique in the `states` list.  This is currently not possible with JMESPath.
 In this example we can hard code the state `WA`:
 
 ```
-states[?name==`WA`].cities[]
+states[?name==`"WA"`].cities[]
 ```
 
 but it is not possible to base this on a value of `first_choice`, which
@@ -136,7 +138,7 @@ examine the case where the identifier can be resolved from the
 current evaluation context:
 
 ```
-search(let({a: `x`}, &b), {"b": "y"}) -> "y"
+search(let({a: `"x"`}, &b), {"b": "y"}) -> "y"
 ```
 
 In this scenario, we are evaluating the expression `b`, with the
@@ -147,7 +149,7 @@ Now let’s look at an example where an identifier is resolved from
 a scope object provided via `let()`:
 
 ```
-search(let({a: `x`}, &a), {"b": "y"}) -> "x"
+search(let({a: `"x"`}, &a), {"b": "y"}) -> "x"
 ```
 
 Here, we’re trying to resolve the `a` identifier.  The current
@@ -167,7 +169,7 @@ Finally, let’s look at an example of parent scopes.  Consider the
 following expression:
 
 ```
-search(let({a: `x`}, &let({b: `y`}, &{a: a, b: b, c: c})),
+search(let({a: `"x"`}, &let({b: `"y"`}, &{a: a, b: b, c: c})),
        {"c": "z"}) -> {"a": "x", "b": "y", "c": "z"}
 ```
 
@@ -175,7 +177,7 @@ Here we have nested let calls, and the expression we are trying to
 evaluate is the multiselect hash `{a: a, b: b, c: c}`.  The
 `c` identifier comes from the evaluation context `{"c": "z"}`.
 The `b` identifier comes from the scope object in the second `let`
-call: ``{b: `y`}``.  And finally, here’s the lookup process for the
+call: ``{b: `"y"`}``.  And finally, here’s the lookup process for the
 `a` identifier:
 
 
@@ -188,7 +190,7 @@ call: ``{b: `y`}``.  And finally, here’s the lookup process for the
 * Is there a parent scope?  Yes
 
 
-* Does the parent scope, ``{a: `x`}``, define `a`?  Yes, `a` has
+* Does the parent scope, ``{a: `"x"`}``, define `a`?  Yes, `a` has
 the value of `"x"`, so `a` is resolved as the string `"x"`.
 
 ### Current Node Evaluation
@@ -198,7 +200,7 @@ it is worth explicitly calling out how this works with the `let()` function
 and expression references.  Consider the following expression:
 
 ```
-a.let({x: `x`}, &b.let({y: `y`}, &c))
+a.let({x: `"x"`}, &b.let({y: `"y"`}, &c))
 ```
 
 Given the input data:

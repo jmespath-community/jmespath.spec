@@ -14,6 +14,8 @@ This document proposes modifying the
 [JMESPath grammar](https://jmespath.org/specification.html#grammar)
 to support function expressions.
 
+> **Note**: this document uses [JEP-12 JSON Literals](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md#abnf) such as strings like `` `"foo"` `` and numbers like `` `-1` ``.
+
 ## Motivation
 
 Functions allow users to easily transform and filter data in JMESPath
@@ -259,9 +261,9 @@ As a final example, here is the steps for evaluating `abs(to_number(bar))`:
 
 |Expression|Result
 |---|---
-| `abs(1)` |1
-| `abs(-1)`|1
-| ``abs(`abc`)``| |`<error: invalid-type>`
+| `` abs(`1`) `` | `1`
+| `` abs(`-1`) ``| `1`
+| `` abs(`"abc"`) ``| |`<error: invalid-type>`
 
 ### avg
 
@@ -297,7 +299,7 @@ Returns the next highest integer value by rounding up if necessary.
 | ``ceil(`1.001`)`` | 2
 | ``ceil(`1.9`)`` | 2
 | ``ceil(`1`)`` | 1
-| ``ceil(`abc`)`` | `null`
+| ``ceil(`"abc"`)`` | `null`
 
 ### contains
 
@@ -318,14 +320,14 @@ the string contains the provided `$search` argument.
 
 |Given|Expression|Result
 |---|---|---
-| n/a | ``contains(`foobar`, `foo`)`` | `true`
-| n/a | ``contains(`foobar`, `not`)`` | `false`
-| n/a | ``contains(`foobar`, `bar`)`` | `true`
-| n/a | ``contains(`false`, `bar`)`` | `<error: invalid-type>`
-| n/a | ``contains(`foobar`, 123)`` | `false`
-| `["a", "b"]` | ``contains(@, `a`)`` | `true`
-| `["a"]` | ``contains(@, `a`)`` | `true`
-| `["a"]` | ``contains(@, `b`)`` | `false`
+| n/a | ``contains(`"foobar"`, `"foo"`)`` | `true`
+| n/a | ``contains(`"foobar"`, `"not"`)`` | `false`
+| n/a | ``contains(`"foobar"`, `"bar"`)`` | `true`
+| n/a | ``contains(`false`, `"bar"`)`` | `<error: invalid-type>`
+| n/a | ``contains(`"foobar"`, `123`)`` | `false`
+| `["a", "b"]` | ``contains(@, `"a"`)`` | `true`
+| `["a"]` | ``contains(@, `"a"`)`` | `true`
+| `["a"]` | ``contains(@, `"b"`)`` | `false`
 
 ### floor
 
@@ -356,10 +358,10 @@ together using the `$glue` argument as a separator between each.
 
 | Given | Expression | Result
 |---|---|---
-| `["a", "b"]` | ``join(`, `, @)`` | "a, b"
-| `["a", "b"]` | ```join(``, @) ``` | "ab"
-| `["a", false, "b"]` | ``join(`, `, @)`` | `<error: invalid-type>`
-| `[false]` | ``join(`, `, @)`` | `<error: invalid-type>`
+| `["a", "b"]` | ``join(`", "`, @)`` | "a, b"
+| `["a", "b"]` | ```join(`""`, @) ``` | "ab"
+| `["a", false, "b"]` | ``join(`", "`, @)`` | `<error: invalid-type>`
+| `[false]` | ``join(`", "`, @)`` | `<error: invalid-type>`
 
 ### keys
 
@@ -399,7 +401,7 @@ Returns the length of the given argument using the following types rules:
 
 | Given | Expression | Result
 |---|---|---
-| n/a | ``length(`abc`)`` | 3
+| n/a | ``length(`"abc"`)`` | 3
 | "current" | `length(@)` | 7
 | "current" | `length(not_there)` | `<error: invalid-type>`
 | `["a", "b", "c"]` | `length(@)` | 3
