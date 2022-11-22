@@ -17,7 +17,7 @@ JMESPath to introduce scoping, but provides useful functionality such as being
 able to refer to elements defined outside of the current scope used to evaluate
 an expression.
 
-> **Note**: this document uses [JEP-12 JSON Literals](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md#abnf) such as strings like `` `"foo"` `` and numbers like `` `-1` ``.
+**Note**: this document uses [JEP-12 JSON Literals](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md#abnf) such as strings like `` `"foo"` `` and numbers like `` `-1` ``.
 
 ## Motivation
 

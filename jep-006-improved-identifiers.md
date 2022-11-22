@@ -16,7 +16,7 @@ identifier grammar rules will be fixed, along with an improved grammar for
 specifying unicode identifiers in a way that is consistent with JSON
 strings.
 
-> **Note**: this document uses [JEP-12 JSON Literals](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md#abnf) such as strings like `` `"foo"` `` and numbers like `` `-1` ``.
+**Note**: this document uses [JEP-12 JSON Literals](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md#abnf) such as strings like `` `"foo"` `` and numbers like `` `-1` ``.
 
 ## Motivation
 
