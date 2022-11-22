@@ -16,6 +16,8 @@ identifier grammar rules will be fixed, along with an improved grammar for
 specifying unicode identifiers in a way that is consistent with JSON
 strings.
 
+**Note**: this document uses [JEP-12 JSON Literals](https://github.com/jmespath-community/jmespath.spec/blob/main/jep-012-raw-string-literals.md#abnf) such as strings like `` `"foo"` `` and numbers like `` `-1` ``.
+
 ## Motivation
 
 There are two ways to currently specify an identifier, the unquoted rule:
@@ -172,8 +174,8 @@ this is just a suggested syntax, not a formal proposal), given the data:
 You can now have the following JMESPath expressions:
 
 ```
-foo[?"✓" = `✓`]
-foo[?"\u2713" = `\u2713`]
+foo[?"✓" = `"✓"`]
+foo[?"\u2713" = `"\u2713"`]
 ```
 
 As a general property, any supported JSON string is now a supported quoted
