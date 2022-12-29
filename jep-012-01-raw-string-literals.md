@@ -199,21 +199,21 @@ Here are several examples of valid raw string literals and how they are
 parsed:
 
 
-* A basic raw string literal, representing the seven-character string `"foo bar"`:
+* A basic raw string literal, representing the seven-character string “foo bar”:
 
 ```
 'foo bar'
 ```
 
 
-* An escaped single quote, parsed as `foo'bar`:
+* An escaped single quote, representing the seven-character string “foo'bar”`:
 
 ```
 'foo\'bar'
 ```
 
 
-* An escaped backslash character, parsed as `foo\bar`:
+* An escaped backslash character, representing the seven-character string “foo\bar”:
 
 ```
 'foo\\bar'
@@ -228,7 +228,7 @@ bar
 baz!'
 ```
 
-The above expression would be parsed as a string that contains new lines:
+The above expression represents the multi-line string:
 
 ```
 foo
@@ -237,11 +237,10 @@ bar!
 ```
 
 
-* A raw string literal that contains escape characters,
-parsed as `foo\nbar`:
+* A raw string literal that contains escape characters, representing the eight-character string “foo\nbar”:
 
 ```
-foo\nbar
+'foo\nbar'
 ```
 
 ### ABNF
