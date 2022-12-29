@@ -273,7 +273,7 @@ In addition to adding a `raw-string` rule, the `literal` rule in the ABNF
 will be simplified to become:
 
 ```
-literal = "`" json-value "`"
+literal = "`" json-text "`"
 ```
 
 ## Impact
