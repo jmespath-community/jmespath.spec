@@ -2,8 +2,8 @@
 
 |||
 |---|---
-| **JEP**    | 12-01
-| **Author** | Michael Downling, Maxime Labelle
+| **JEP**    | 12a
+| **Author** | Michael Downling, Maxime Labelle, Richard Gibson
 | **Status** | accepted
 | **Created**| 19-Nov-2022
 | **Obsoletes**| [JEP-12](./jep-012-raw-string-literals.md)
