@@ -279,9 +279,8 @@ literal = "`" json-text "`"
 ## Impact
 
 The impact to existing users of JMESPath is that the use of a JSON literal
-in which the quotes are elided SHOULD be converted to use the string-literal
-rule of the grammar. Whether or not this conversion is absolutely necessary
-will depend on the specific JMESPath implementation.
+in which the quotes are elided MUST be quoted or converted to use the
+raw-string rule of the grammar.
 
 Implementations MAY choose to support the old syntax of allowing elided quotes
 in JSON literal expressions. If an implementation chooses this approach, the
