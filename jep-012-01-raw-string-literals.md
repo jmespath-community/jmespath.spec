@@ -250,18 +250,16 @@ expression is allowed:
 
 ```abnf
 raw-string = "'" *raw-string-char "'"
-raw-string-char = (%x00-26 /            ; ␀ - & precedes U+0027 "'" apostrophe
-                    %x28-5B /           ; ( - [ precedes U+005C "\" reverse solidus
-                    %x5D-10FFFF) /      ; ] - ... "]" and all following code points
+raw-string-char = (%x00-26 /            ; ␀ through '&' (precedes U+0027 APOSTROPHE "'")
+                    %x28-5B /           ; '(' through '[' (precedes U+005C REVERSE SOLIDUS '\')
+                    %x5D-10FFFF) /      ; ']' and all following code points
                     preserved-escape /
                     raw-string-escape
 preserved-escape = escape (
-                    %x00-26 /           ;  ␀ - & precedes U+0027 "'" apostrophe
-                    %x28-5B /           ; ( -[ precedes U+005C "\" reverse solidus
-                    %x5D-10FFFF)        ; ] - ... "]" and all following code points
-raw-string-escape = escape (
-                    "'" /               ; \ apostrophe U+0027
-                    escape)             ; \ reverse solidus U+005C
+                    %x00-26 /           ;  ␀ through '&' (precedes U+0027 APOSTROPHE "'")
+                    %x28-5B /           ; '(' through '[' (precedes U+005C REVERSE SOLIDUS '\')
+                    %x5D-10FFFF)        ; ']' and all following code points
+raw-string-escape = escape ("'" / escape)
 
 ```
 
