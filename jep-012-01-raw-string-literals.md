@@ -16,7 +16,7 @@ the usability of the language and ease the implementation of parsers:
 
 * Addition of a **raw string literal** to JMESPath that will allow expressions
 to contain raw strings that are not mutated by JSON escape sequences (e.g.,
-“\\n”, “\\r”, “\\u005C”).
+`"\\n"`, `"\\r"`, `"\\u005C"`).
 
 
 * Deprecation of  the current literal parsing behavior that allows for unquoted
@@ -45,9 +45,7 @@ statically part of the compiled JMESPath expression. String literals are useful
 in many areas, but most notably when invoking functions or building up
 multi-select lists and hashes.
 
-The following expression returns the number of characters found in the string
-`"foo"`. When parsing this expression, `` `"foo"` `` is parsed as a JSON value
-which produces the string literal value of `foo`:
+The following expression produces the three-character string `"foo"` using a `` `…` `` JSON text literal:
 
 ```
 `"foo"`
