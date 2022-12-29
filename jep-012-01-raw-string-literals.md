@@ -282,12 +282,6 @@ The impact to existing users of JMESPath is that the use of a JSON literal
 in which the quotes are elided MUST be quoted or converted to use the
 raw-string rule of the grammar.
 
-Implementations MAY choose to support the old syntax of allowing elided quotes
-in JSON literal expressions. If an implementation chooses this approach, the
-implementation SHOULD raise some kind of warning to the user to let them know
-of the deprecation and possible incompatibility with other JMESPath
-implementations.
-
 In order to support this type of variance in JMESPath implementations, all of
 the JSON literal compliance test cases that involve elided quotes MUST be
 removed, and test cases regarding failing on invalid unquoted JSON values MUST
