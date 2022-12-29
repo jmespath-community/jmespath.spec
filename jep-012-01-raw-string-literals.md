@@ -190,9 +190,9 @@ to JMESPath.
 
 ## Specification
 
-A raw string literal is value that begins and ends with a single quote, does
-not interpret escape characters, and may contain escaped single quotes to
-avoid delimiter collision.
+A raw string literal is value that begins and ends with a single quote
+and preserves embedded backslashes except those used to escape
+backslash or single quote characters.
 
 ### Examples
 
