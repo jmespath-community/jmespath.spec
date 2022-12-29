@@ -185,8 +185,7 @@ multi-select hash. In order to make providing string values easier, it was
 decided that JMESPath should allow the quotes around the string to be elided.
 
 This proposal posits that allowing quotes to be elided when parsing JSON
-literals should be deprecated in favor of adding a proper string literal rule
-to JMESPath.
+literals should be prohibited in favor of the proper string literal syntax.
 
 ## Specification
 
