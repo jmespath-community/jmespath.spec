@@ -199,7 +199,7 @@ Here are several examples of valid raw string literals and how they are
 parsed:
 
 
-* A basic raw string literal, parsed as `foo bar`:
+* A basic raw string literal, representing the seven-character string `"foo bar"`:
 
 ```
 'foo bar'
