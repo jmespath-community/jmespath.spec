@@ -250,16 +250,18 @@ expression is allowed:
 
 ```abnf
 raw-string = "'" *raw-string-char "'"
-raw-string-char = (%x00-26 /            ; ␀ through '&' (precedes U+0027 APOSTROPHE "'")
-                    %x28-5B /           ; '(' through '[' (precedes U+005C REVERSE SOLIDUS '\')
-                    %x5D-10FFFF) /      ; ']' and all following code points
+raw-string-char = (%x00-26 /            ; ␀ - & precedes U+0027 "'" apostrophe
+                    %x28-5B /           ; ( - [ precedes U+005C "\" reverse solidus
+                    %x5D-10FFFF) /      ; ] - ... "]" and all following code points
                     preserved-escape /
                     raw-string-escape
 preserved-escape = escape (
-                    %x00-26 /           ;  ␀ through '&' (precedes U+0027 APOSTROPHE "'")
-                    %x28-5B /           ; '(' through '[' (precedes U+005C REVERSE SOLIDUS '\')
-                    %x5D-10FFFF)        ; ']' and all following code points
-raw-string-escape = escape ("'" / escape)
+                    %x00-26 /           ;  ␀ - & precedes U+0027 "'" apostrophe
+                    %x28-5B /           ; ( -[ precedes U+005C "\" reverse solidus
+                    %x5D-10FFFF)        ; ] - ... "]" and all following code points
+raw-string-escape = escape (
+                    "'" /               ; \ apostrophe U+0027
+                    escape)             ; \ reverse solidus U+005C
 
 ```
 
@@ -279,11 +281,12 @@ The impact to existing users of JMESPath is that the use of a JSON literal
 in which the quotes are elided MUST be quoted or converted to use the
 raw-string rule of the grammar.
 
-To accommodate legacy JMESPath implementations, all of
+In order to support this type of variance in JMESPath implementations, all of
 the JSON literal compliance test cases that involve elided quotes MUST be
 removed, and test cases regarding failing on invalid unquoted JSON values MUST
 not be allowed in the compliance test unless placed in a JEP 12 specific
-test suite, allowing such implementations to filter them out.
+test suite, allowing implementations that support elided quotes in JSON
+literals to filter out the JEP 12 specific test cases.
 
 ## Alternative approaches
 

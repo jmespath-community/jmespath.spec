@@ -6,7 +6,7 @@
 | **Author** | Michael Downling
 | **Status** | accepted
 | **Created**| 09-Apr-2015
-| **Obsoleted By**| [JEP-12-01](./jep-012-01-raw-string-literals.md)
+| **Obsoleted By**| [JEP-12a](./jep-012a-raw-string-literals.md)
 
 ## Abstract
 
