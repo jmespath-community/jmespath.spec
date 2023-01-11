@@ -53,8 +53,7 @@ which produces the string literal value of `foo`:
 `"foo"`
 ```
 
-The following expression is functionally equivalent. Notice that the quotes are
-elided from the JSON literal:
+The following expression is functionally equivalent. Notice that the quotes are elided from the JSON literal:
 
 ```
 `foo`

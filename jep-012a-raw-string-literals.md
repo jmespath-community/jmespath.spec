@@ -51,9 +51,12 @@ The following expression produces the three-character string `"foo"` using a `` 
 `"foo"`
 ```
 
+### Obsolete alternative
+
+_This section recapitulates content from the original version of JEP-12 that is no longer accurate as of this replacement._
+
 The following expression is functionally equivalent. Notice that the quotes are
 elided from the JSON literal:
-
 ```
 `foo`
 ```
@@ -95,7 +98,7 @@ number of backslash characters doubles.
 3. Introduces an ambiguous rule to the JMESPath grammar that requires a prose
 based specification to resolve the ambiguity in parser implementations.
 
-At the time of authoring the original version of this JEP, the relevant literal grammar rules were [then defined](https://github.com/jmespath-community/jmespath.py/commit/95a393e32e5aeb5f984cf2d7811fad75d4e0df95) as follows:
+The relevant literal grammar rules are currently defined as follows:
 
 ```abnf
 literal = "`" json-value "`"
