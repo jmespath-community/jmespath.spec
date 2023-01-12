@@ -209,7 +209,7 @@ parsed:
 ```
 
 
-* A raw string literal with an escaped single quote, representing the seven-character string “foo'bar”`:
+* A raw string literal with an escaped single quote, representing the seven-character string “foo'bar”:
 
 ```
 'foo\'bar'
