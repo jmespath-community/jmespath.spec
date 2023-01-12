@@ -28,7 +28,7 @@ This proposal seeks to add the following syntax to JMESPath:
 ```
 'foobar'
 'foo\'bar'
-`bar` -> Parse error/warning (implementation specific)
+`bar` -> Parse error
 ```
 
 ## Motivation
