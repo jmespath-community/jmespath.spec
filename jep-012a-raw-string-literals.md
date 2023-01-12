@@ -268,7 +268,7 @@ raw-string-escape = escape (
 
 ```
 
-This rule allows any character inside of a raw string,
+These rules allow any character inside of a raw string,
 including control characters and escaped single quotes or backslashes.
 
 In addition to adding a `raw-string` rule, the `literal` rule in the ABNF
