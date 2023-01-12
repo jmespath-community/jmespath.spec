@@ -45,7 +45,7 @@ statically part of the compiled JMESPath expression. String literals are useful
 in many areas, but most notably when invoking functions or building up
 multi-select lists and hashes.
 
-The following expression produces the three-character string `"foo"` using a `` `…` `` JSON text literal:
+The following expression produces the three-character string “foo” using a `` `…` `` JSON text literal:
 
 ```
 `"foo"`
