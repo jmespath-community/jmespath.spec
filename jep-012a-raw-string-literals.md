@@ -235,8 +235,8 @@ The above expression represents the multi-line string:
 
 ```
 foo
-baz
-bar!
+bar
+baz!
 ```
 
 
