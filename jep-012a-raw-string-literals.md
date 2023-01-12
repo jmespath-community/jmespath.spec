@@ -263,8 +263,8 @@ preserved-escape = escape (
                     %x28-5B /           ; '(' through '[' (precedes U+005C REVERSE SOLIDUS '\')
                     %x5D-10FFFF)        ; ']' and all following code points
 raw-string-escape = escape (
-                    "'" /               ; \ apostrophe U+0027
-                    escape)             ; \ reverse solidus U+005C
+                    "'" /               ; U+0027 APOSTROPHE "'"
+                    escape)             ; U+005C REVERSE SOLIDUS '\'
 
 ```
 
