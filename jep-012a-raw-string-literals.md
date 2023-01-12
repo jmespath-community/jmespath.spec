@@ -240,7 +240,7 @@ baz!
 ```
 
 
-* A raw string literal that contains escape characters, representing the eight-character string “foo\nbar”:
+* A raw string literal that contains a preserved backslash character, representing the eight-character string “foo\nbar”:
 
 ```
 'foo\nbar'
