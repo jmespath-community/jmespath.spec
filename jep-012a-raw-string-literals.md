@@ -248,10 +248,10 @@ baz!
 
 ### ABNF
 
-The following ABNF grammar rules will be added, and is allowed anywhere an
-expression is allowed:
+The following ABNF grammar rules will be added:
 
 ```abnf
+expression =/ raw-string
 raw-string = "'" *raw-string-char "'"
 raw-string-char = (%x00-26 /            ; ␀ - & precedes U+0027 "'" apostrophe
                     %x28-5B /           ; ( - [ precedes U+005C "\" reverse solidus
