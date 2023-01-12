@@ -14,9 +14,9 @@ This JEP proposes the following modifications to JMESPath in order to improve
 the usability of the language and ease the implementation of parsers:
 
 
-* Addition of a **raw string literal** to JMESPath that will allow expressions
-to contain raw strings that are not mutated by JSON escape sequences (e.g.,
-`"\\n"`, `"\\r"`, `"\\u005C"`).
+* Addition of a **raw string literal** to JMESPath that will allow direct
+expression of string contents that would otherwise be modified by
+interpretation as JSON (e.g., `'\n'`, `'\r'`, `'\u005C'`).
 
 
 * Deprecation of  the current literal parsing behavior that allows for unquoted
