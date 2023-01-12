@@ -37,7 +37,7 @@ Raw string literals are provided in [various programming languages](https://en.w
 language specific interpretation (i.e., JSON parsing) and remove the need for
 escaping, avoiding a common problem called [leaning toothpick syndrome (LTS)](https://en.wikipedia.org/wiki/Leaning_toothpick_syndrome). Leaning toothpick
 syndrome is an issue in which strings become unreadable due to excessive use of
-escape characters in order to avoid delimiter collision (e.g., `\\\\\\`).
+escape characters in order to avoid delimiter collision (e.g., `"\\\\\\"`).
 
 When evaluating a JMESPath expression, it is often necessary to utilize string
 literals that are not extracted from the data being evaluated, but rather
