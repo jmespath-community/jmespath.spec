@@ -36,6 +36,15 @@ Then open a [discussion](https://github.com/jmespath-community/jmespath.spec/dis
 Once the discussion has reached a mature level of feedback, it will be assigned a JEP number _N_.
 At that point it is safe to begin composing JEP-_N_ along with all the required changes and documentation.
 
+In rare circumstances, JEPs will be superceded by newer versions of a JEP. Those
+updated JEPs will have an amended letter sequence added as a suffix to the original JEP#.
+The sequence follows the 26 US-ASCII alphabetical order 'a', 'b', to 'z'. It then follows with
+'aa', 'ab', to 'az' and so on.
+
+For instance, [JEP-12](./jep-012-raw-string-literals.md) introduced `raw-string`
+literals but the grammar defined there did not match that which was eventually specified. An update has been published as
+[JEP-12a](./jep-012a-raw-string-literals.md).
+
 ### Tenets of JMESPath
 
 When proposing new features, keep these tenets in mind. Adhering to these tenets gives your proposal a higher likelihood of being accepted:

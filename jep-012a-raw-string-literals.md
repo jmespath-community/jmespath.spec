@@ -2,11 +2,11 @@
 
 |||
 |---|---
-| **JEP**    | 12
-| **Author** | Michael Dowling
+| **JEP**    | 12a
+| **Author** | Michael Downling, Maxime Labelle, Richard Gibson
 | **Status** | accepted
-| **Created**| 09-Apr-2015
-| **Obsoleted By**| [JEP-12a](./jep-012a-raw-string-literals.md)
+| **Created**| 19-Nov-2022
+| **Obsoletes**| [JEP-12](./jep-012-raw-string-literals.md)
 
 ## Abstract
 
@@ -14,9 +14,9 @@ This JEP proposes the following modifications to JMESPath in order to improve
 the usability of the language and ease the implementation of parsers:
 
 
-* Addition of a **raw string literal** to JMESPath that will allow expressions
-to contain raw strings that are not mutated by JSON escape sequences (e.g.,
-“\\n”, “\\r”, “\\u005C”).
+* Addition of a **raw string literal** to JMESPath that will allow direct
+expression of string contents that would otherwise be modified by
+interpretation as JSON (e.g., `'\n'`, `'\r'`, `'\u005C'`).
 
 
 * Deprecation of  the current literal parsing behavior that allows for unquoted
@@ -28,7 +28,7 @@ This proposal seeks to add the following syntax to JMESPath:
 ```
 'foobar'
 'foo\'bar'
-`bar` -> Parse error/warning (implementation specific)
+`bar` -> Parse error
 ```
 
 ## Motivation
@@ -37,7 +37,7 @@ Raw string literals are provided in [various programming languages](https://en.w
 language specific interpretation (i.e., JSON parsing) and remove the need for
 escaping, avoiding a common problem called [leaning toothpick syndrome (LTS)](https://en.wikipedia.org/wiki/Leaning_toothpick_syndrome). Leaning toothpick
 syndrome is an issue in which strings become unreadable due to excessive use of
-escape characters in order to avoid delimiter collision (e.g., `\\\\\\`).
+escape characters in order to avoid delimiter collision (e.g., `"\\\\\\"`).
 
 When evaluating a JMESPath expression, it is often necessary to utilize string
 literals that are not extracted from the data being evaluated, but rather
@@ -45,16 +45,18 @@ statically part of the compiled JMESPath expression. String literals are useful
 in many areas, but most notably when invoking functions or building up
 multi-select lists and hashes.
 
-The following expression returns the number of characters found in the string
-`"foo"`. When parsing this expression, `` `"foo"` `` is parsed as a JSON value
-which produces the string literal value of `foo`:
+The following expression produces the three-character string “foo” using a `` `…` `` JSON text literal:
 
 ```
 `"foo"`
 ```
 
-The following expression is functionally equivalent. Notice that the quotes are elided from the JSON literal:
+### Obsolete alternative
 
+_This section recapitulates content from the original version of JEP-12 that is no longer accurate as of this replacement._
+
+The following expression is functionally equivalent. Notice that the quotes are
+elided from the JSON literal:
 ```
 `foo`
 ```
@@ -98,7 +100,7 @@ based specification to resolve the ambiguity in parser implementations.
 
 The relevant literal grammar rules are currently defined as follows:
 
-```
+```abnf
 literal = "`" json-value "`"
 literal =/ "`" 1*(unescaped-literal / escaped-literal) "`"
 unescaped-literal = %x20-21 /       ; space !
@@ -186,14 +188,13 @@ multi-select hash. In order to make providing string values easier, it was
 decided that JMESPath should allow the quotes around the string to be elided.
 
 This proposal posits that allowing quotes to be elided when parsing JSON
-literals should be deprecated in favor of adding a proper string literal rule
-to JMESPath.
+literals should be prohibited in favor of the proper string literal syntax.
 
 ## Specification
 
-A raw string literal is value that begins and ends with a single quote, does
-not interpret escape characters, and may contain escaped single quotes to
-avoid delimiter collision.
+A raw string literal is value that begins and ends with a single quote
+and preserves embedded backslashes except those used to escape
+backslash or single quote characters.
 
 ### Examples
 
@@ -201,17 +202,24 @@ Here are several examples of valid raw string literals and how they are
 parsed:
 
 
-* A basic raw string literal, parsed as `foo bar`:
+* A basic raw string literal, representing the seven-character string “foo bar”:
 
 ```
 'foo bar'
 ```
 
 
-* An escaped single quote, parsed as `foo'bar`:
+* A raw string literal with an escaped single quote, representing the seven-character string “foo'bar”:
 
 ```
 'foo\'bar'
+```
+
+
+* A raw string literal with an escaped backslash character, representing the seven-character string “foo\bar”:
+
+```
+'foo\\bar'
 ```
 
 
@@ -223,17 +231,16 @@ bar
 baz!'
 ```
 
-The above expression would be parsed as a string that contains new lines:
+The above expression represents the multi-line string:
 
 ```
 foo
-baz
-bar!
+bar
+baz!
 ```
 
 
-* A raw string literal that contains escape characters,
-parsed as `foo\nbar`:
+* A raw string literal that contains a preserved backslash character, representing the eight-character string “foo\nbar”:
 
 ```
 'foo\nbar'
@@ -241,45 +248,47 @@ parsed as `foo\nbar`:
 
 ### ABNF
 
-The following ABNF grammar rules will be added, and is allowed anywhere an
-expression is allowed:
+The following ABNF grammar rules will be added:
+
+```abnf
+expression =/ raw-string
+raw-string = "'" *raw-string-char "'"
+raw-string-char = (%x00-26 /            ; ␀ through '&' (precedes U+0027 APOSTROPHE "'")
+                    %x28-5B /           ; '(' through '[' (precedes U+005C REVERSE SOLIDUS '\')
+                    %x5D-10FFFF) /      ; ']' and all following code points
+                    preserved-escape /
+                    raw-string-escape
+preserved-escape = escape (
+                    %x00-26 /           ;  ␀ through '&' (precedes U+0027 APOSTROPHE "'")
+                    %x28-5B /           ; '(' through '[' (precedes U+005C REVERSE SOLIDUS '\')
+                    %x5D-10FFFF)        ; ']' and all following code points
+raw-string-escape = escape (
+                    "'" /               ; U+0027 APOSTROPHE "'"
+                    escape)             ; U+005C REVERSE SOLIDUS '\'
 
 ```
-raw-string        = "'" *raw-string-char "'"
-; The first grouping matches any character other than "\"
-raw-string-char   = (%x20-26 / %x28-5B / %x5D-10FFFF) / raw-string-escape
-raw-string-escape = escape ["'"]
-```
 
-This rule allows any character inside of a raw string, including an escaped
-single quote.
+These rules allow any character inside of a raw string,
+including control characters and escaped single quotes or backslashes.
 
 In addition to adding a `raw-string` rule, the `literal` rule in the ABNF
-will be updated to become:
+will be simplified to become:
 
 ```
-literal = "`" json-value "`"
+literal = "`" json-text "`"
 ```
 
 ## Impact
 
 The impact to existing users of JMESPath is that the use of a JSON literal
-in which the quotes are elided SHOULD be converted to use the string-literal
-rule of the grammar. Whether or not this conversion is absolutely necessary
-will depend on the specific JMESPath implementation.
+in which the quotes are elided MUST be quoted or converted to use the
+raw-string rule of the grammar.
 
-Implementations MAY choose to support the old syntax of allowing elided quotes
-in JSON literal expressions. If an implementation chooses this approach, the
-implementation SHOULD raise some kind of warning to the user to let them know
-of the deprecation and possible incompatibility with other JMESPath
-implementations.
-
-In order to support this type of variance in JMESPath implementations, all of
+To accommodate legacy JMESPath implementations, all of
 the JSON literal compliance test cases that involve elided quotes MUST be
-removed, and test cases regarding failing on invalid unquoted JSON values MUST
-not be allowed in the compliance test unless placed in a JEP-12 specific
-test suite, allowing implementations that support elided quotes in JSON
-literals to filter out the JEP-12 specific test cases.
+removed, and test cases regarding failing on invalid unquoted JSON values
+MUST NOT be allowed in the compliance test unless placed in a JEP 12 specific
+test suite, allowing such implementations to filter them out.
 
 ## Alternative approaches
 
