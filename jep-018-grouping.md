@@ -20,11 +20,11 @@ This JEP introduces a new `group_by()` function.
 object group_by(array[object] $elements, expression->string $expr)
 ```
 
-Groups an array of objects `$elements` using an expression `$expr` as the group key.
+Groups an array `$elements`of objects using an expression `$expr` as the group key.
 The `$expr` expression is applied to each element in the array `$elements` and the 
 resulting value is used as a group key.
 
-The result is an object whose keys are the unique set of string keys and whose respective values are an array of objects array matching the group criteria.
+The result is an object whose keys are the unique set of string keys and whose respective values are an array of objects matching the group criteria.
 
 Objects that do not match the group criteria are discarded from the output.
 This includes objects for which applying the `$expr` expression evaluates to `null`.
