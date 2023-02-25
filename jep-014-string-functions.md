@@ -112,7 +112,7 @@ If present, it MUST have length 1, otherwise an error MUST be raised.
 
 If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
 
-If `$width` is not an integer, an error MUST be raised.
+If `$width` is not an integer or is negative, an error MUST be raised.
 
 ### Examples
 
@@ -137,7 +137,7 @@ If present, it MUST have length 1, otherwise an error MUST be raised.
 
 If the `$subject` string has length greater than or equal to `$width`, it is returned unmodified.
 
-If `$width` is not an integer, an error MUST be raised.
+If `$width` is not an integer or is negative, an error MUST be raised.
 
 ### Examples
 
