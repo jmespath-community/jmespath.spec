@@ -4,9 +4,9 @@
 |---|---
 | **JEP**    | 17
 | **Author** | Maxime Labelle
-| **Status** | accepted
-| **SemVer** | MINOR
 | **Created**| 25-02-2022
+| **SemVer** | MINOR
+| **Status** | accepted
 
 ## Abstract
 
