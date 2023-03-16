@@ -84,7 +84,7 @@ result = search(right-expression, left-evaluation)
 | Expression | Result
 |---|----
 | `` `null` . [@] `` | `null`
-| `` `null` `| [@] `` | `[ null ]`
+| `` `null` \| [@] `` | `[ null ]`
 
 ## Compliance
 
