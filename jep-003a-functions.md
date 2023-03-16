@@ -3,8 +3,8 @@
 
 |||
 |---|---
-| **JEP**       | 3
-| **Author**    | Michael Dowling, James Saryerwinnie
+| **JEP**       | 3a
+| **Author**    | Michael Dowling, James Saryerwinnie, Maxime Labelle
 | **Status**    | accepted
 | **Created**   | 27-Nov-2013
 | **Obsoletes** | [JEP-003](./jep-003-functions.md)
