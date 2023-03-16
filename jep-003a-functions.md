@@ -3,11 +3,11 @@
 
 |||
 |---|---
-| **JEP**       | 3
-| **Author**    | Michael Dowling, James Saryerwinnie
+| **JEP**       | 3a
+| **Author**    | Michael Dowling, James Saryerwinnie, Maxime Labelle
 | **Status**    | accepted
 | **Created**   | 27-Nov-2013
-| **Obsoleted by** | [JEP-003a](./jep-003a-functions.md)
+| **Obsoletes** | [JEP-003](./jep-003-functions.md)
 
 ## Abstract
 
@@ -36,7 +36,7 @@ used:
 * number (integers and double-precision floating-point format in JSON)
 
 
-* string (a sequence of Unicode [code points](https://unicode.org/glossary/#code_point). Note that a code point is distinct to a [code unit](https://unicode.org/glossary/#code_unit))
+* string
 
 
 * boolean (`true` or `false`)
@@ -305,19 +305,17 @@ Returns the next highest integer value by rounding up if necessary.
 ### contains
 
 ```
-boolean contains(array|string $subject, any $search)
+boolean contains(array|string $subject, array|object|string|number|boolean $search)
 ```
 
 Returns `true` if the given `$subject` contains the provided `$search`
-value.
+string.
 
 If `$subject` is an array, this function returns true if one of the elements
 in the array is equal to the provided `$search` value.
 
 If the provided `$subject` is a string, this function returns true if
-there exists within the `$subject` string at least one _equal_ occurrence
-of the `$search` string. If the `$search` value is not a string, the
-function MUST return `false`.
+the string contains the provided `$search` argument.
 
 #### Examples
 
