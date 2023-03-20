@@ -3,7 +3,7 @@ This project exists as the original implementation does not appear to be maintai
 # JMESPath Specification
 
 Any changes to the JMESPath specification
-(https://jmespath.site/specification.html) must have a JEP (JMESPath Enhancement Proposal) which is tracked in this repo. There are implementations of
+(https://jmespath.site/main/#specification) must have a JEP (JMESPath Enhancement Proposal) which is tracked in this repo. There are implementations of
 JMESPath in over 9 different languages, and we want to make sure that any modifications to the spec make sense for all JMESPath libraries. A JEP helps
 to work through the design process for new additions and ensures that the JMESPath community has a chance to give feedback before it's officially part
 of the specification.
