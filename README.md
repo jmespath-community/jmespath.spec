@@ -11,7 +11,7 @@ of the specification.
 ## Things that need a JEP
 
 Any functionality change that would require an update to the specification
-(http://jmespath.site/specification.html) requires a JEP.
+(https://jmespath.site/main/#specification) requires a JEP.
 
 This includes, but is not limited to:
 
