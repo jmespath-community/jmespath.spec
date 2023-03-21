@@ -22,7 +22,7 @@
 ;; This also means that, with the exception of JMESPath expression types, JMESPath only supports the same types supported by JSON:
 ;;
 ;; - number (integers and double-precision floating-point format in JSON)
-;; - string
+;; - string (a sequence of Unicode [code points](https://unicode.org/glossary/#code_point). Note that a code point is distinct to a [code unit](https://unicode.org/glossary/#code_unit))
 ;; - boolean (true or false)
 ;; - array (an ordered, sequence of values)
 ;; - object (an unordered collection of key value pairs)
