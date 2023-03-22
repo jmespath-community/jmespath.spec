@@ -30,7 +30,7 @@ Objects that do not match the group criteria are discarded from the output.
 This includes objects for which applying the `$expr` expression evaluates to `null`.
 
 If the result of applying the `$expr` expression against the current array element
-results in type other than `string` or `null`, a type error MUST be raised.
+results in type other than `string` or `null`, an `invalid-type` error MUST be raised.
 
 ### Examples
 

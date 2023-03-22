@@ -109,6 +109,7 @@ definitions:
     type: string
     enum:
       - invalid-arity
+      - invalid-value
       - invalid-type
       - not-a-number
       - syntax
