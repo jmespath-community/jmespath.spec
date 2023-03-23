@@ -37,7 +37,7 @@ Suppose the JMESpath author wants to:
 1. Raise an error when an expected `status` value is encountered. For example, when the value of `status` is set to `degraded`.
 
 ```
-((status == 'up') && `1`) || ((status == 'down') && `0`) || 0
+((status == 'up') && `1`) || ((status == 'down') && `0`) || error(join(" ", ["invalid value", status]))
 ```
 
 Since there is no built-in function to raise error, one may rely on the fact that some JMESpath expressions are invalid, e.g., `to_number('bad')` would raise an error, but this is kludgy.
