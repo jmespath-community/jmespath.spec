@@ -195,7 +195,7 @@ number abs(number $value)
 
 Returns the absolute value of the provided argument.  The signature indicates
 that a number is returned, and that the input argument `$value` **must**
-resolve to a number, otherwise a `invalid-type` error is triggered.
+resolve to a number, otherwise an `invalid-type` error is triggered.
 
 Below is a worked example.  Given:
 

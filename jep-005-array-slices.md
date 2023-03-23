@@ -86,7 +86,7 @@ the given step is greater than 0 or 0 if the given step is less than 0.
 5. If the given step is omitted, it it assumed to be 1.
 
 
-6. If the given step is 0, an error must be raised.
+6. If the given step is 0, an `invalid-value` error must be raised.
 
 
 7. If the element being sliced is not an array, the result must be `null`.
