@@ -32,15 +32,12 @@ Suppose we have the following JSON documents:
 ```
 
 In this example, the values of `status` are either `up` or `down`.
-The values need to be mapped to `1` and `0`, which can be done using a JMESpath expression:
+Suppose the JMESpath author wants to:
+1. Map the values of `status` to `0` and `1`.
+1. Raise an error when an expected `status` value is encountered. For example, when the value of `status` is set to `degraded`.
 
 ```
 ((status == 'up') && `1`) || ((status == 'down') && `0`) || 0
-```
-
-The user might want to raise an error when unexpected input is encountered, such as when the value of `status` is set to `degraded`:
-```json
-{ "id": "eth2", "status": "degraded" }
 ```
 
 Since there is no built-in function to raise error, one may rely on the fact that some JMESpath expressions are invalid, e.g., `to_number('bad')` would raise an error, but this is kludgy.
