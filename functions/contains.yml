@@ -4,14 +4,11 @@ args:
   required:
   - name: subject
     type: [array, string]
-    desc: ''
   - name: search
-    type: [any]
-    desc: ''
-  optional: []
+    type: any
+
 returns:
   type: boolean
-  desc: ''
 desc: |
   Returns `true` if the given `$subject` contains the provided `$search`
   value.

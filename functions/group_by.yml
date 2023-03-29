@@ -3,15 +3,11 @@ topic: collections
 args:
   required:
   - name: elements
-    type: ['array[object]']
-    desc: ''
+    type: 'array[object]'
   - name: expr
-    type: [expression->string]
-    desc: ''
-  optional: []
+    type: expression->string
 returns:
   type: object
-  desc: ''
 desc: |
   Groups an array of objects `$elements` using an expression `$expr` as the group key.
   The `$expr` expression is applied to each element in the array `$elements` and the 

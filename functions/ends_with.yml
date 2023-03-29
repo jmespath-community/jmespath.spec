@@ -3,15 +3,11 @@ topic: strings
 args:
   required:
   - name: subject
-    type: [string]
-    desc: ''
+    type: string
   - name: prefix
-    type: [string]
-    desc: ''
-  optional: []
+    type: string
 returns:
   type: boolean
-  desc: ''
 desc: |
   Returns `true` if the `$subject` ends with the `$prefix`, otherwise this
   function returns `false`.

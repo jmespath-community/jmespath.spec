@@ -3,12 +3,9 @@ topic: misc
 args:
   required:
   - name: obj
-    type: [object]
-    desc: ''
-  optional: []
+    type: object
 returns:
-  type: ['array[any]']
-  desc: ''
+  type: 'array[any]'
 desc: |2
   Returns an array of key-value pairs for the provided input object.
   Each pair is a 2-item array with the first item being the key and

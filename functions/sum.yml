@@ -3,12 +3,9 @@ topic: math
 args:
   required:
   - name: collection
-    type: ['array[number]']
-    desc: ''
-  optional: []
+    type: 'array[number]'
 returns:
   type: number
-  desc: ''
 desc: |
   Returns the sum of the provided array argument.
 

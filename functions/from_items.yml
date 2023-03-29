@@ -5,7 +5,6 @@ args:
   - name: arg
     type: ['array[any]']
     desc: ''
-  optional: []
 returns:
   type: [object]
   desc: ''

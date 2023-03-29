@@ -3,15 +3,11 @@ topic: collections
 args:
   required:
   - name: glue
-    type: [string]
-    desc: ''
+    type: string
   - name: stringsarray
-    type: ['array[string]']
-    desc: ''
-  optional: []
+    type: 'array[string]'
 returns:
   type: string
-  desc: ''
 desc: |
   Returns all of the elements from the provided `$stringsarray` array joined
   together using the `$glue` argument as a separator between each.

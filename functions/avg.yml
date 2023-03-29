@@ -3,9 +3,8 @@ topic: math
 args:
   required:
   - name: elements
-    type: ['array[number]']
+    type: 'array[number]'
     desc: array of numbers to calculate average from
-  optional: []
 returns:
   type: [number, 'null']
   desc: average value of passed elements
