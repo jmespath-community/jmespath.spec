@@ -10,8 +10,7 @@ A JEP helps to work through the design process for new additions and ensures tha
 
 ## Things that need a JEP
 
-Any functionality change that would require an update to the specification
-(https://jmespath.site/main/#specification) requires a JEP.
+Any functionality change that would require an update to the [specification](https://jmespath.site/main/#specification) requires a JEP.
 
 This includes, but is not limited to:
 
@@ -53,11 +52,3 @@ When proposing new features, keep these tenets in mind. Adhering to these tenets
 * JMESPath strives to have one way to do something.
 * Features are driven from real world use cases.
 * Syntax is generally used to express data structure manipulation while functions are used to express datum manipulation
-
-# JMESPath Compliance Tests
-
-This repo contains a suite of JMESPath compliance tests. JMESPath's implementations can use these tests in order to verify their implementation
-adheres to the JMESPath spec. Every implementation of JMESPath should provide a basic command line executable that allows execution of compliance
-tests. This eases third-party validation of the implementation, without needing any specific testing suite.
-
-See [bin/README.md](bin/README.md) for more information on running compliance tests.
