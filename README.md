@@ -4,10 +4,9 @@ This project supports an ecosystem of high quality, fast paced implementations i
 
 # JMESPath Specification
 
-Any changes to the JMESPath specification
-(https://jmespath.site/main/#specification) must have a JEP (JMESPath Enhancement Proposal) which is tracked in this repo. While there are implementations of JMESPath in over 9 different languages, we currently track implementations of 4 implementations of the JMESPath Community specification. We want to make sure that any modifications to the spec make sense for all JMESPath and JMESPath Community libraries.
+Any changes to the [JMESPath specification](https://jmespath.site/main/#specification) must have a JEP (JMESPath Enhancement Proposal) which is tracked in this repo. While there are implementations of JMESPath in over 9 different languages, we currently track implementations of 4 implementations of the JMESPath Community specification. We want to make sure that any modifications to the spec make sense for all JMESPath and JMESPath Community libraries.
 
-A JEP helpsto work through the design process for new additions and ensures that the JMESPath community has a chance to give feedback before it's officially part of the specification.
+A JEP helps to work through the design process for new additions and ensures that the JMESPath community has a chance to give feedback before it's officially part of the specification.
 
 ## Things that need a JEP
 
