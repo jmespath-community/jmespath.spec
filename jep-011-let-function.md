@@ -2,11 +2,12 @@
 
 |||
 |---|---
-| **JEP**    | 11
-| **Author** | James Sayerwinnie
-| **Created**| 24-Feb-2015
-| **SemVer** | MINOR
-| **Status**| accepted
+| **JEP**         | 11
+| **Author**      | James Sayerwinnie
+| **Created**     | 24-Feb-2015
+| **SemVer**      | MINOR
+| **Status**      | accepted
+| **Obsoleted By**| [JEP-11a](./jep-011a-lexical-scope.md)
 
 ## Abstract
 
