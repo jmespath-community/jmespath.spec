@@ -67,6 +67,8 @@ expression        =/ multi-select-list / multi-select-hash / literal
 expression        =/ function-expression / pipe-expression / raw-string
 expression        =/ root-node / current-node
 expression        =/ arithmetic-expression
+expression        =/ let-expression / variable-ref
+
 sub-expression    = expression "." ( identifier / multi-select-list / multi-select-hash / function-expression / "*" ) ;; # Sub-expressions
 ;; A sub-expression is a combination of two expressions separated by the '.' char. A sub-expression is evaluated as follows:
 ;;
@@ -598,6 +600,21 @@ expression-type     = "&" expression
 ;; ` states[? name == $.first_choice ].cities[] `
 ;;
 ;;
+let-expression = "let" bindings "in" expression ;; # Let Expressions \
+bindings = variable-binding *( "," variable-binding ) \
+variable-binding = variable-ref "=" expression \
+variable-ref = "$" unquoted-string
+;;
+;; A `let-expression` introduces lexical scoping and lets you bind variables that are evaluated In
+;; the context of a given lexical scope. This enables queries that can refer to elements defined
+;; outside of their current element 
+;;
+;; ## Examples of this new syntax:
+;; 
+;; - `` let $foo = bar in {a: myvar, b: $foo} ``
+;; - `` let $foo = baz[0] in bar[? baz == $foo ] | [0] ``
+;; - `` let $a = b, $c = d in bar[*].[$a, $c, foo, bar] ``
+;; 
 ;; # Function Evaluation
 ;;
 ;; Functions are evaluated in applicative order. Each argument must be an expression, each argument expression must be
