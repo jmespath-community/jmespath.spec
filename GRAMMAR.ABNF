@@ -22,7 +22,7 @@
 ;; This also means that, with the exception of JMESPath expression types, JMESPath only supports the same types supported by JSON:
 ;;
 ;; - number (integers and double-precision floating-point format in JSON)
-;; - string
+;; - string (a sequence of Unicode [code points](https://unicode.org/glossary/#code_point). Note that a code point is distinct to a [code unit](https://unicode.org/glossary/#code_unit))
 ;; - boolean (true or false)
 ;; - array (an ordered, sequence of values)
 ;; - object (an unordered collection of key value pairs)
@@ -32,6 +32,19 @@
 ;;
 ;; Implementations can map the corresponding JSON types to their language equivalent. For example, a JSON null could map to
 ;; None in python, and nil in ruby and go.
+;;
+;; # Errors
+;;
+;; Errors may be raised during the JMEspath evaluation process. How and when errors are raised is implementation specific,
+;; but implementations should indicate to the caller when errors have occurred.
+;;
+;; The following errors are defined:
+;;
+;; - `invalid-arity` is raised when an invalid number of function arguments is encountered during the evaluation process.
+;; - `invalid-type` is raised when an invalid type is encountered during the evaluation process.
+;; - `invalid-value` is raised when an invalid value is encountered during the evaluation process.
+;; - `not-a-number` is raised when arithmetic expressions overflow.
+;; - `unknown-function` is raised when an unknown function is encountered during the evaluation process.
 ;;
 ;; # Grammar
 ;;
@@ -341,7 +354,7 @@ slice-expression  = [number] ":" [number] [ ":" [number] ] ;; ## Slices
 ;; - If no `stop` position is given, it is assumed to be the length of the array or string if the given `step` is greater than `0` or `0` if
 ;;   the given `step` is less than `0`.
 ;; - If the given `step` is omitted, it it assumed to be `1`.
-;; - If the given `step` is `0`, an error MUST be raised.
+;; - If the given `step` is `0`, an `invalid-value` error MUST be raised.
 ;; - If the element being sliced is not an array or a string, the result is `null`.
 ;; - If the element being sliced is an array or string and yields no results, the result MUST be an empty array.
 ;;
@@ -521,7 +534,7 @@ expression-type     = "&" expression
 ;; In order to support functions, a type system is needed. The JSON types are used:
 ;;
 ;; - number (integers and double-precision floating-point format in JSON)
-;; - string
+;; - string (a sequence of Unicode [code points](https://unicode.org/glossary/#code_point). Note that a code point is distinct to a [code unit](https://unicode.org/glossary/#code_unit))
 ;; - boolean (true or false)
 ;; - array (an ordered, sequence of values)
 ;; - object (an unordered collection of key value pairs)

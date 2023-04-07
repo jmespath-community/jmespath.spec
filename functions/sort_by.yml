@@ -18,7 +18,7 @@ desc: |
   resulting value is used as the key used when sorting the `elements`.
 
   If the result of evaluating the `expr` against the current array element
-  results in type other than a `number` or a `string`, a type error will
+  results in type other than a `number` or a `string`, an `invalid-type` error will
   occur.
 
   Below are several examples using the `people` array (defined above) as the
