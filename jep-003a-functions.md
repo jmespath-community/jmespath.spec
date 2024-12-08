@@ -108,7 +108,7 @@ current node is only allowed as a bare expression.
 
 At the start of an expression, the value of the current node is the data
 being evaluated by the JMESPath expression. As an expression is evaluated, the
-value the the current node represents MUST change to reflect the node currently
+value the current node represents MUST change to reflect the node currently
 being evaluated. When in a projection, the current node value MUST be changed
 to the node currently being evaluated by the projection.
 
@@ -135,7 +135,7 @@ Each function signature declares the types of its input parameters.  If any
 type constraints are not met, implementations must indicate that an
 `invalid-type` error occurred.
 
-In order to accommodate type contraints, functions are provided to convert
+In order to accommodate type constraints, functions are provided to convert
 types to other types (`to_string`, `to_number`) which are defined below.
 No explicit type conversion happens unless a user specifically uses one of
 these type conversion functions.
@@ -306,7 +306,7 @@ Returns the next highest integer value by rounding up if necessary.
 | ``ceil(`1.001`)`` | 2
 | ``ceil(`1.9`)`` | 2
 | ``ceil(`1`)`` | 1
-| ``ceil(`"abc"`)`` | `null`
+| ``ceil(`"abc"`)`` | `<error: invalid-type>`
 
 ### contains
 
