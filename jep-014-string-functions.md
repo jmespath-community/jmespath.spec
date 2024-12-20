@@ -61,7 +61,7 @@ Contrary to similar functions found in most popular programming languages, the `
 ```
 int find_last(string $subject, string $sub[, int $start[, int $end]])
 ```
-Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_last()` returns `null`.
+Given the `$subject` string, `find_last()` returns the zero-based index of the last occurrence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_last()` returns `null`.
 
 The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
 
@@ -175,7 +175,7 @@ The `replace()` function has no effect if `$count` is `0`.
 array[string] split(string $subject, string $search[, number $count])
 ```
 
-Given the `$subject` string, `split()` breaks on ocurrences of the string `$search` and returns an array.
+Given the `$subject` string, `split()` breaks on occurrences of the string `$search` and returns an array.
 
 The `split()` function returns an array containing each partial string between occurrences of `$search`. If  `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
 
@@ -188,7 +188,7 @@ If `$count` is equal to `0`, `split()` returns an array containing a single elem
 
 Otherwise, the `split()` function breaks on occurrences of the `$search` string up to `$count` times. The last string in the resulting array containing the remaining contents of `$subject` unmodified.
 
-**Note**: The `split()` function was [originally designed by Chris Armstrong](https://github.com/GorillaStack/jmespath.site/blob/master/docs/proposals/string-manipulation.rst). However, its behaviour has been slightly altered for consistency reasons.
+**Note**: The `split()` function was [originally designed by Chris Armstrong](https://github.com/GorillaStack/jmespath.site/blob/master/docs/proposals/string-manipulation.rst). However, its behavior has been slightly altered for consistency reasons.
 
 ### Examples
 
