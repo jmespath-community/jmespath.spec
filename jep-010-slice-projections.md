@@ -66,7 +66,7 @@ sub arrays are merged before passing the expression onto the right hand
 side.
 
 It’s a reasonable expectation that slices behave similar.  After all,
-slices take an array and produce a sub array.  It many ways, it’s very
+slices take an array and produce a sub array.  In many ways, it’s very
 similar to filter projections.  While filter projections only include
 elements that match a particular expression, slice projections
 only include elements from and to a specific index.  Given its semantics
@@ -75,7 +75,7 @@ to be consistent.
 
 ## Specification
 
-Whenver a slice is created, a projection will be created. This will be the
+Whenever a slice is created, a projection will be created. This will be the
 fourth type of array projection in JMESPath.  In addition to the existing array
 projections:
 
@@ -92,7 +92,7 @@ A new projection type, the slice projection will be added.  A slice projection
 is evaluated similar to the other array projections.  Given a slice projection
 which contains a left hand side containing the slice expression and a right
 hand side, the slice expression is evaluated to create a new sub array, and
-each expression on the right hand side is evaluted against each element from
+each expression on the right hand side is evaluated against each element from
 the array slice to create the final result.
 
 This JEP does not include any modifications to the JMESPath grammar.
