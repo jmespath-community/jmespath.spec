@@ -4,7 +4,7 @@ This project supports an ecosystem of high quality, fast paced implementations i
 
 # JMESPath Specification
 
-Any changes to the [JMESPath specification](https://jmespath.site/main/#specification) must have a JEP (JMESPath Enhancement Proposal) which is tracked in this repo. While there are implementations of JMESPath in over 9 different languages, we currently track implementations of 4 implementations of the JMESPath Community specification. We want to make sure that any modifications to the spec make sense for all JMESPath and JMESPath Community libraries.
+Any changes to the [JMESPath specification](https://jmespath.site/main/#specification) must have a JEP (JMESPath Enhancement Proposal) which is tracked in this repo. While there are implementations of JMESPath in more than 9 different languages, we currently track 4 implementations of the JMESPath Community specification. We want to make sure that any modifications to the spec make sense for all JMESPath and JMESPath Community libraries.
 
 A JEP helps to work through the design process for new additions and ensures that the JMESPath community has a chance to give feedback before it's officially part of the specification.
 
@@ -28,14 +28,13 @@ additional language specific APIs, extension points (e.g. adding custom function
 First, make sure that the feature has not been previously proposed. If it has, make sure to reference prior proposals and explain why this new
 proposal should be considered despite similar proposals not being accepted.
 
-Writing a JEP can be a lot of work, so it can help to get initial guidance before getting too far. You can chat on the JMESPath gitter channel
-(https://gitter.im/jmespath/chat) to get an initial pulse of a new feature.
+Writing a JEP can be a lot of work, so it can help to get initial guidance before getting too far. You can chat on the JMESPath [gitter channel](https://gitter.im/jmespath/chat) to get an initial pulse of a new feature.
 
 Then open a [discussion](https://github.com/jmespath-community/jmespath.spec/discussions) to discuss the feature, its merit, and any possible alternatives.
 Once the discussion has reached a mature level of feedback, it will be assigned a JEP number _N_.
 At that point it is safe to begin composing JEP-_N_ along with all the required changes and documentation.
 
-In rare circumstances, JEPs will be superceded by newer versions of a JEP. Those
+In rare circumstances, JEPs will be superseded by newer versions of a JEP. Those
 updated JEPs will have an amended letter sequence added as a suffix to the original JEP#.
 The sequence follows the 26 US-ASCII alphabetical order 'a', 'b', to 'z'. It then follows with
 'aa', 'ab', to 'az' and so on.
