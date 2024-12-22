@@ -20,7 +20,7 @@ String manipulation functions are a frequently requested feature to be added to 
 
 ## Slices
 
-_This section outline word changes to the _Slices_ documentation of the grammar **in bold**._
+_This section outlines word changes to the _Slices_ documentation of the grammar **in bold**._
 
 ```abnf
 slice-expression = [number] ":" [number] [ ":" [number] ]
@@ -44,7 +44,7 @@ Slice expressions adhere to the following rules:
 - If no `start` position is given, it is assumed to be `0` if the given `step` is greater than `0` or the end of the array **or string** if the given `step` is less than `0`.
 - If a negative `stop` position is given, it is calculated as the total length of the array **or string** plus the given `stop` position.
 - If no `stop` position is given, it is assumed to be the length of the array **or string** if the given `step` is greater than `0` or `0` if the given `step` is less than `0`.
-- If the given `step` is omitted, it it assumed to be `1`.
+- If the given `step` is omitted, it is assumed to be `1`.
 - If the given `step` is `0`, an error MUST be raised.
 - If the **object** being sliced is not an array **or string**, the result is `null`.
 - If the **object** being sliced is an array **or string** and yields no results, the result MUST be an empty array **or empty string**.

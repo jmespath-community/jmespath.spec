@@ -22,7 +22,7 @@ This JEP introduces built-in functions to extract a list of key/value pairs from
 array[array[any]] items(object $obj)
 ```
 
-Returns a an array of key value pairs for the provided object `$obj`. Each pair is a 2-item array with the first item being the key and the second item being the value. This function is the inverse of the `from_items()` function.
+Returns an array of key value pairs for the provided object `$obj`. Each pair is a 2-item array with the first item being the key and the second item being the value. This function is the inverse of the `from_items()` function.
 
 Note that because JSON hashes are inheritently unordered, the key value pairs of the provided object `$obj` are inheritently unordered.  Implementations are not required to return values in any specific order. 
 

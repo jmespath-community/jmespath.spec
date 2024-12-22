@@ -28,7 +28,7 @@ _Each function signature declares the types of its input parameters. If any type
 ```
 int find_first(string $subject, string $sub[, int $start[, int $end]])
 ```
-Given the `$subject` string, `find_first()` returns the zero-based index of the first occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` returns `null`.
+Given the `$subject` string, `find_first()` returns the zero-based index of the first occurrence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` returns `null`.
 
 The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
 
@@ -177,7 +177,7 @@ array[string] split(string $subject, string $search[, number $count])
 
 Given the `$subject` string, `split()` breaks on occurrences of the string `$search` and returns an array.
 
-The `split()` function returns an array containing each partial string between occurrences of `$search`. If  `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
+The `split()` function returns an array containing each partial string between occurrences of `$search`. If `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
 
 If the `$search` argument is an empty string, `split()` breaks on every character and returns an array containing each character from the `$subject` string. Thus, if `$subject` is _also_ an empty string, `split()` returns an empty array.
 

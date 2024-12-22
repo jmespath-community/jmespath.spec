@@ -13,7 +13,6 @@
 This JEP proposes the following modifications to JMESPath in order to improve
 the usability of the language and ease the implementation of parsers:
 
-
 * Addition of a **raw string literal** to JMESPath that will allow expressions
 to contain raw strings that are not mutated by JSON escape sequences (e.g.,
 “\\n”, “\\r”, “\\u005C”).
@@ -288,7 +287,7 @@ There are several alternative approaches that could be taken.
 ### Leave as-is
 
 This is a valid and reasonable suggestion. Leaving JMESPath as-is would avoid
-a breaking change to the grammar and users could continue to use multiple
+a breaking change to the grammar, and users could continue to use multiple
 escape characters to avoid delimiter collision.
 
 The goal of this proposal is not to add functionality to JMESPath, but rather
