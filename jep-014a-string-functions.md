@@ -2,12 +2,18 @@
 
 |||
 |---|---
-| **JEP**    |  14
+| **JEP**    | 14a
 | **Author** | Maxime Labelle, Chris Armstrong (GorillaStack), Richard Gibson
 | **SemVer** | MINOR
-| **Status**| accepted
+| **Status**| draft
 | **Created**| 13-October-2022
-| **Obsoleted by**| [JEP-14a](./jep-014a-string-functions.md)
+| **Obsoletes**| [JEP-14](./jep-014-string-functions.md)
+
+## Addendum
+
+|Date|Description
+|---|---|
+|15-March-2023|Clarified error type precedence.
 
 ## Abstract
 
@@ -22,14 +28,17 @@ _Functions can ~~either~~ have a specific arity, **a range of valid – minimum 
 Some functions accept number arguments which are further constrained to integers or even non-negative integers. This JEP specifies a new error
 type `invalid-value` by updating the paragraph on type constraints from the specification like so:
 
-_Each function signature declares the types of its input parameters. If any type constraints are not met, implementations must indicate that an `invalid-type` error occurred. **If a function parameter accepts values constrained to a specific subset of a type and those constraints are not met, implementations must report that an `invalid-value` error occurred. How and when those errors are raised is implementation specific.**_
+_Each function signature declares the types of its input parameters. If any type constraints are not met, implementations must indicate that an `invalid-type` error occurred. **If a function parameter accepts values constrained to a specific subset of a type and those constraints are not met, implementations must report that an `invalid-value` error occurred.**_
+
+_The [initial version of this JEP](./jep-014-string-functions.md) had a provision stating that_ “How and when those errors are raised is implementation specific”. _This provision has been removed. Implementation must perform type-checking for all function parameters_ before _attempting to evaluate the set of valid values for a given type._
+
 
 ### find_first
 
 ```
 int find_first(string $subject, string $sub[, int $start[, int $end]])
 ```
-Given the `$subject` string, `find_first()` returns the zero-based index of the first occurrence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` returns `null`.
+Given the `$subject` string, `find_first()` returns the zero-based index of the first occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_first()` returns `null`.
 
 The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
 
@@ -62,7 +71,7 @@ Contrary to similar functions found in most popular programming languages, the `
 ```
 int find_last(string $subject, string $sub[, int $start[, int $end]])
 ```
-Given the `$subject` string, `find_last()` returns the zero-based index of the last occurrence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_last()` returns `null`.
+Given the `$subject` string, `find_last()` returns the zero-based index of the last occurence where the `$sub` substring appears in `$subject` or `null` if it does not appear. If either the `$subject` or the `$sub` argument is an empty string, `find_last()` returns `null`.
 
 The `$start` and `$end` parameters are optional and allow restricting to the slice `[$start:$end]` the range within `$subject` in which `$sub` must be found.
 
@@ -81,7 +90,7 @@ Contrary to similar functions found in most popular programming languages, the `
 | `"subject string"` | `` find_last(@, 'string', `8`) `` |  `8`
 | `"subject string"` | `` find_last(@, 'string', `8`, `9`) `` |  `null`
 | `"subject string"` | `` find_last(@, 'string', `9`) `` |  `null`
-| `"subject string"` | `` find_last(@, 's') `` |  `8`
+| `"subject string"` | `` find_last(@, 's') `` |  `0`
 | `"subject string"` | `` find_last(@, 's', `1`) `` |  `8`
 | `"subject string"` | `` find_last(@, 's', `0`, `7`) `` |  `0`
 | `"subject string"` | `` find_last(@, '') `` |  `null`
@@ -176,9 +185,9 @@ The `replace()` function has no effect if `$count` is `0`.
 array[string] split(string $subject, string $search[, number $count])
 ```
 
-Given the `$subject` string, `split()` breaks on occurrences of the string `$search` and returns an array.
+Given the `$subject` string, `split()` breaks on ocurrences of the string `$search` and returns an array.
 
-The `split()` function returns an array containing each partial string between occurrences of `$search`. If `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
+The `split()` function returns an array containing each partial string between occurrences of `$search`. If  `$subject` contains no occurrences of the `$search` string, an array containing just the original `$subject` string will be returned.
 
 If the `$search` argument is an empty string, `split()` breaks on every character and returns an array containing each character from the `$subject` string. Thus, if `$subject` is _also_ an empty string, `split()` returns an empty array.
 
@@ -189,7 +198,7 @@ If `$count` is equal to `0`, `split()` returns an array containing a single elem
 
 Otherwise, the `split()` function breaks on occurrences of the `$search` string up to `$count` times. The last string in the resulting array containing the remaining contents of `$subject` unmodified.
 
-**Note**: The `split()` function was [originally designed by Chris Armstrong](https://github.com/GorillaStack/jmespath.site/blob/master/docs/proposals/string-manipulation.rst). However, its behavior has been slightly altered for consistency reasons.
+**Note**: The `split()` function was [originally designed by Chris Armstrong](https://github.com/GorillaStack/jmespath.site/blob/master/docs/proposals/string-manipulation.rst). However, its behaviour has been slightly altered for consistency reasons.
 
 ### Examples
 
