@@ -1,11 +1,10 @@
 # Nested Expressions
 
-|||
-|---|---
-| **JEP**    | 1
-| **Author** | Michael Dowling
-| **Status** | accepted
-| **Created**| 27-Nov-2013
+| **JEP**     | 1               |
+| ----------- | --------------- |
+| **Author**  | Michael Dowling |
+| **Status**  | accepted        |
+| **Created** | 27-Nov-2013     |
 
 ## Abstract
 
@@ -27,16 +26,13 @@ provide customers with a much more flexible expression DSL.
 
 Supporting arbitrarily nested expressions within other expressions requires:
 
+- Updating the grammar to remove `non-branched-expr`
 
-* Updating the grammar to remove `non-branched-expr`
+- Updating compliance tests to add various permutations of the grammar to
+  ensure implementations are compliant.
 
-
-* Updating compliance tests to add various permutations of the grammar to
-ensure implementations are compliant.
-
-
-* Updating the JMESPath documentation to reflect the ability to arbitrarily
-nest expressions.
+- Updating the JMESPath documentation to reflect the ability to arbitrarily
+  nest expressions.
 
 ## Nested Expression Examples
 
@@ -46,16 +42,17 @@ Given:
 
 ```json
 {
-    "foo": {
-        "baz": [
-            {
-                "bar": "abc"
-            }, {
-                "bar": "def"
-            }
-        ],
-        "qux": ["zero"]
-    }
+  "foo": {
+    "baz": [
+      {
+        "bar": "abc"
+      },
+      {
+        "bar": "def"
+      }
+    ],
+    "qux": ["zero"]
+  }
 }
 ```
 
@@ -64,13 +61,7 @@ With: `foo.[baz[*].bar, qux[0]]`
 Result:
 
 ```json
-[
-    [
-        "abc",
-        "def"
-    ],
-    "zero"
-]
+[["abc", "def"], "zero"]
 ```
 
 ### Nested branch expressions with nested mutli-select
@@ -79,20 +70,21 @@ Given:
 
 ```json
 {
-    "foo": {
-        "baz": [
-            {
-                "bar": "a",
-                "bam": "b",
-                "boo": "c"
-            }, {
-                "bar": "d",
-                "bam": "e",
-                "boo": "f"
-            }
-        ],
-        "qux": ["zero"]
-    }
+  "foo": {
+    "baz": [
+      {
+        "bar": "a",
+        "bam": "b",
+        "boo": "c"
+      },
+      {
+        "bar": "d",
+        "bam": "e",
+        "boo": "f"
+      }
+    ],
+    "qux": ["zero"]
+  }
 }
 ```
 
@@ -102,17 +94,11 @@ Result:
 
 ```json
 [
-    [
-        [
-            "a",
-            "c"
-        ],
-        [
-            "d",
-            "f"
-        ]
-    ],
-    "zero"
+  [
+    ["a", "c"],
+    ["d", "f"]
+  ],
+  "zero"
 ]
 ```
 
@@ -122,20 +108,21 @@ Given:
 
 ```json
 {
-    "foo": {
-        "baz": [
-            {
-                "bar": "a",
-                "bam": "b",
-                "boo": "c"
-            }, {
-                "bar": "d",
-                "bam": "e",
-                "boo": "f"
-            }
-        ],
-        "qux": ["zero"]
-    }
+  "foo": {
+    "baz": [
+      {
+        "bar": "a",
+        "bam": "b",
+        "boo": "c"
+      },
+      {
+        "bar": "d",
+        "bam": "e",
+        "boo": "f"
+      }
+    ],
+    "qux": ["zero"]
+  }
 }
 ```
 
@@ -144,13 +131,7 @@ With: `foo.[baz[*].not_there || baz[*].bar, qux[0]]`
 Result:
 
 ```json
-[
-    [
-        "a",
-        "d"
-    ],
-    "zero"
-]
+[["a", "d"], "zero"]
 ```
 
 ### No breaking changes
@@ -162,12 +143,12 @@ Given:
 
 ```json
 {
-    "foo": {
-        "baz": {
-            "abc": 123,
-            "bar": 456
-        }
+  "foo": {
+    "baz": {
+      "abc": 123,
+      "bar": 456
     }
+  }
 }
 ```
 
@@ -177,11 +158,11 @@ Result:
 
 ```json
 [
-    {
-        "abc": 123,
-        "bar": 456
-    },
-    456
+  {
+    "abc": 123,
+    "bar": 456
+  },
+  456
 ]
 ```
 
